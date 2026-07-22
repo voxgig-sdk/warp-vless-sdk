@@ -1,0 +1,78 @@
+# Entity: warp
+
+main: kit: entity: warp: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "amnezia_mode"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "config"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "content"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "device_type"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "error_code"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "message"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "selected_dn"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "selected_service"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "site_mode"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "warp"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          method: "POST"
+          orig: "/api/warp"
+          parts: [
+            "api"
+            "warp"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

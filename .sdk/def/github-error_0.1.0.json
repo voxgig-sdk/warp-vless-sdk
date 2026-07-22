@@ -1,0 +1,357 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "GitHub Error API",
+    "description": "This API provides details about errors encountered while accessing GitHub pages, including suggestions for resolving the issue. It also gives access to localized strings and error codes for better user understanding and navigation.",
+    "version": "1.0.0",
+    "contact": {
+      "url": "https://github.com/l0v3m0n3y/warpgen"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://warp-vless.vercel.app",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/api/warp": {
+      "post": {
+        "summary": "Generate WARP Config",
+        "description": "Generates a WARP configuration based on the provided parameters including site mode, device type, Amnezia mode, DNS settings, and selected services.",
+        "operationId": "generateWarpConfig",
+        "tags": [
+          "WARP Configuration"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "siteMode": {
+                    "type": "string",
+                    "description": "The site mode for the WARP configuration",
+                    "example": "awg2"
+                  },
+                  "deviceType": {
+                    "type": "string",
+                    "description": "The type of device requesting the configuration",
+                    "example": "desktop"
+                  },
+                  "amneziaMode": {
+                    "type": "string",
+                    "description": "Amnezia VPN mode configuration",
+                    "example": "warp_amnezia_awg2"
+                  },
+                  "selectedDns": {
+                    "type": "string",
+                    "description": "DNS provider selection",
+                    "enum": [
+                      "cloudflare",
+                      "google",
+                      "quad9"
+                    ],
+                    "example": "cloudflare"
+                  },
+                  "selectedServices": {
+                    "type": "array",
+                    "description": "List of selected services to include in the configuration",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": [
+                      "service1",
+                      "service2"
+                    ]
+                  }
+                }
+              },
+              "examples": {
+                "default": {
+                  "summary": "Default WARP configuration request",
+                  "value": {
+                    "siteMode": "awg2",
+                    "deviceType": "desktop",
+                    "amneziaMode": "warp_amnezia_awg2",
+                    "selectedDns": "cloudflare",
+                    "selectedServices": []
+                  }
+                },
+                "googleDns": {
+                  "summary": "WARP configuration with Google DNS",
+                  "value": {
+                    "siteMode": "awg2",
+                    "deviceType": "mobile",
+                    "amneziaMode": "warp_amnezia_awg2",
+                    "selectedDns": "google",
+                    "selectedServices": []
+                  }
+                }
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "siteMode": {
+                    "type": "string"
+                  },
+                  "deviceType": {
+                    "type": "string"
+                  },
+                  "amneziaMode": {
+                    "type": "string"
+                  },
+                  "selectedDns": {
+                    "type": "string"
+                  },
+                  "selectedServices": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully generated WARP configuration",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "string",
+                      "description": "Base64 encoded WARP configuration content",
+                      "example": "W0ludGVyZmFjZV0KUHJpdmF0ZUtleSA9IGFiY2RlZmdoaWprbG1ub3BxcnN0dXZ3eHl6MTIK"
+                    },
+                    "configs": {
+                      "type": "array",
+                      "description": "Array of configuration objects when multiple configs are returned",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "content": {
+                            "type": "string",
+                            "description": "Base64 encoded configuration content"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Configuration name or identifier"
+                          }
+                        }
+                      }
+                    },
+                    "errorCode": {
+                      "type": "string",
+                      "description": "Error code if an error occurred"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Human-readable message or error description"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Successful configuration generation",
+                    "value": {
+                      "content": "W0ludGVyZmFjZV0KUHJpdmF0ZUtleSA9IGFiY2RlZmdoaWprbG1ub3BxcnN0dXZ3eHl6MTIK",
+                      "message": "Configuration generated successfully"
+                    }
+                  },
+                  "multipleConfigs": {
+                    "summary": "Multiple configurations returned",
+                    "value": {
+                      "configs": [
+                        {
+                          "content": "W0ludGVyZmFjZV0KUHJpdmF0ZUtleSA9IGFiY2RlZmdoaWprbG1ub3BxcnN0dXZ3eHl6MTIK",
+                          "name": "config1"
+                        },
+                        {
+                          "content": "W0ludGVyZmFjZV0KUHJpdmF0ZUtleSA9IHp5eHd2dXRzcnFwb25tbGtqaWhnZmVkY2JhMTIK",
+                          "name": "config2"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid parameters provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errorCode": {
+                      "type": "string",
+                      "example": "INVALID_PARAMETERS"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid DNS provider specified"
+                    },
+                    "suggestions": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "example": [
+                        "Use 'cloudflare', 'google', or 'quad9' as DNS provider"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errorCode": {
+                      "type": "string",
+                      "example": "INTERNAL_ERROR"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Failed to generate configuration"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errorCode": {
+                      "type": "string",
+                      "example": "SERVICE_UNAVAILABLE"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "WARP generation service is currently unavailable"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "WarpConfigRequest": {
+        "type": "object",
+        "properties": {
+          "siteMode": {
+            "type": "string",
+            "description": "The site mode for the WARP configuration"
+          },
+          "deviceType": {
+            "type": "string",
+            "description": "The type of device requesting the configuration"
+          },
+          "amneziaMode": {
+            "type": "string",
+            "description": "Amnezia VPN mode configuration"
+          },
+          "selectedDns": {
+            "type": "string",
+            "description": "DNS provider selection",
+            "enum": [
+              "cloudflare",
+              "google",
+              "quad9"
+            ]
+          },
+          "selectedServices": {
+            "type": "array",
+            "description": "List of selected services to include in the configuration",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "WarpConfigResponse": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "description": "Base64 encoded WARP configuration content"
+          },
+          "configs": {
+            "type": "array",
+            "description": "Array of configuration objects when multiple configs are returned",
+            "items": {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "errorCode": {
+            "type": "string",
+            "description": "Error code if an error occurred"
+          },
+          "message": {
+            "type": "string",
+            "description": "Human-readable message or error description"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "type": "string",
+            "description": "Machine-readable error code"
+          },
+          "message": {
+            "type": "string",
+            "description": "Human-readable error message"
+          },
+          "suggestions": {
+            "type": "array",
+            "description": "Suggestions for resolving the error",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "errorCode",
+          "message"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "WARP Configuration",
+      "description": "Endpoints for generating WARP VPN configurations"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "existing": {
+    "warp": {
+      "WARP00": {
+        "amnezia_mode": "s5a",
+        "config": [],
+        "content": "s5c",
+        "device_type": "s5d",
+        "error_code": "s5e",
+        "message": "s5f",
+        "selected_dn": "s60",
+        "selected_service": [],
+        "site_mode": "s62",
+        "id": "WARP00"
+      },
+      "WARP01": {
+        "amnezia_mode": "sb4",
+        "config": [],
+        "content": "sb6",
+        "device_type": "sb7",
+        "error_code": "sb8",
+        "message": "sb9",
+        "selected_dn": "sba",
+        "selected_service": [],
+        "site_mode": "sbc",
+        "id": "WARP01"
+      },
+      "WARP02": {
+        "amnezia_mode": "s10e",
+        "config": [],
+        "content": "s110",
+        "device_type": "s111",
+        "error_code": "s112",
+        "message": "s113",
+        "selected_dn": "s114",
+        "selected_service": [],
+        "site_mode": "s116",
+        "id": "WARP02"
+      }
+    }
+  },
+  "new": {
+    "warp": {
+      "warp_ref01": {
+        "amnezia_mode": "s168",
+        "config": [],
+        "content": "s16a",
+        "device_type": "s16b",
+        "error_code": "s16c",
+        "message": "s16d",
+        "selected_dn": "s16e",
+        "selected_service": [],
+        "site_mode": "s170"
+      }
+    }
+  }
+}

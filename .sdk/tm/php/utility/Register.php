@@ -1,0 +1,67 @@
+<?php
+declare(strict_types=1);
+
+// GithubError SDK utility registration
+
+require_once __DIR__ . '/../core/UtilityType.php';
+require_once __DIR__ . '/Clean.php';
+require_once __DIR__ . '/Done.php';
+require_once __DIR__ . '/MakeError.php';
+require_once __DIR__ . '/FeatureAdd.php';
+require_once __DIR__ . '/FeatureHook.php';
+require_once __DIR__ . '/FeatureInit.php';
+require_once __DIR__ . '/Fetcher.php';
+require_once __DIR__ . '/MakeFetchDef.php';
+require_once __DIR__ . '/MakeContext.php';
+require_once __DIR__ . '/MakeOptions.php';
+require_once __DIR__ . '/MakeRequest.php';
+require_once __DIR__ . '/MakeResponse.php';
+require_once __DIR__ . '/MakeResult.php';
+require_once __DIR__ . '/MakePoint.php';
+require_once __DIR__ . '/MakeSpec.php';
+require_once __DIR__ . '/MakeUrl.php';
+require_once __DIR__ . '/Param.php';
+require_once __DIR__ . '/PrepareAuth.php';
+require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/PrepareHeaders.php';
+require_once __DIR__ . '/PrepareMethod.php';
+require_once __DIR__ . '/PrepareParams.php';
+require_once __DIR__ . '/PreparePath.php';
+require_once __DIR__ . '/PrepareQuery.php';
+require_once __DIR__ . '/ResultBasic.php';
+require_once __DIR__ . '/ResultBody.php';
+require_once __DIR__ . '/ResultHeaders.php';
+require_once __DIR__ . '/TransformRequest.php';
+require_once __DIR__ . '/TransformResponse.php';
+
+GithubErrorUtility::setRegistrar(function (GithubErrorUtility $u): void {
+    $u->clean = [GithubErrorClean::class, 'call'];
+    $u->done = [GithubErrorDone::class, 'call'];
+    $u->make_error = [GithubErrorMakeError::class, 'call'];
+    $u->feature_add = [GithubErrorFeatureAdd::class, 'call'];
+    $u->feature_hook = [GithubErrorFeatureHook::class, 'call'];
+    $u->feature_init = [GithubErrorFeatureInit::class, 'call'];
+    $u->fetcher = [GithubErrorFetcher::class, 'call'];
+    $u->make_fetch_def = [GithubErrorMakeFetchDef::class, 'call'];
+    $u->make_context = [GithubErrorMakeContext::class, 'call'];
+    $u->make_options = [GithubErrorMakeOptions::class, 'call'];
+    $u->make_request = [GithubErrorMakeRequest::class, 'call'];
+    $u->make_response = [GithubErrorMakeResponse::class, 'call'];
+    $u->make_result = [GithubErrorMakeResult::class, 'call'];
+    $u->make_point = [GithubErrorMakePoint::class, 'call'];
+    $u->make_spec = [GithubErrorMakeSpec::class, 'call'];
+    $u->make_url = [GithubErrorMakeUrl::class, 'call'];
+    $u->param = [GithubErrorParam::class, 'call'];
+    $u->prepare_auth = [GithubErrorPrepareAuth::class, 'call'];
+    $u->prepare_body = [GithubErrorPrepareBody::class, 'call'];
+    $u->prepare_headers = [GithubErrorPrepareHeaders::class, 'call'];
+    $u->prepare_method = [GithubErrorPrepareMethod::class, 'call'];
+    $u->prepare_params = [GithubErrorPrepareParams::class, 'call'];
+    $u->prepare_path = [GithubErrorPreparePath::class, 'call'];
+    $u->prepare_query = [GithubErrorPrepareQuery::class, 'call'];
+    $u->result_basic = [GithubErrorResultBasic::class, 'call'];
+    $u->result_body = [GithubErrorResultBody::class, 'call'];
+    $u->result_headers = [GithubErrorResultHeaders::class, 'call'];
+    $u->transform_request = [GithubErrorTransformRequest::class, 'call'];
+    $u->transform_response = [GithubErrorTransformResponse::class, 'call'];
+});

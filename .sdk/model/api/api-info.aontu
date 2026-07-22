@@ -1,0 +1,25 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      auth: false
+      contact: {
+        url: "https://github.com/l0v3m0n3y/warpgen"
+      }
+      description: "This API provides details about errors encountered while accessing GitHub pages, including suggestions for resolving the issue. It also gives access to localized strings and error codes for better user understanding and navigation."
+      servers: [
+        {
+          description: "Production server"
+          url: "https://warp-vless.vercel.app"
+        }
+      ]
+      summary: "This API provides details about errors encountered while accessing GitHub pages, including suggestions for resolving the issue."
+      title: "GitHub Error API"
+      version: "1.0.0"
+      website: "https://warp-vless.vercel.app"
+    }
+  }
+}
+
