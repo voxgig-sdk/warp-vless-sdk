@@ -37,7 +37,7 @@ local client = sdk.new()
 
 ```lua
 -- Create
-local created, err = client:Warp():create({ amnezia_mode = "example_amnezia_mode", config = {} })
+local created, err = client:Warp():create({ amneziaMode = "example_amneziaMode", configs = {} })
 if err then error(err) end
 
 ```
@@ -49,7 +49,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local warp, err = client:Warp():create({ amnezia_mode = "example", config = {}, content = "example" })
+local warp, err = client:Warp():create({ amneziaMode = "example", configs = {}, content = "example" })
 if err then error(err) end
 ```
 
@@ -107,7 +107,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Warp():create({ amnezia_mode = "example", config = {}, content = "example" })
+local result, err = client:Warp():create({ amneziaMode = "example", configs = {}, content = "example" })
 -- result is the returned data; err is set on failure
 ```
 
@@ -213,9 +213,9 @@ data **directly** — there is no wrapper:
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local warp, err = client:Warp():load()
+    local warp, err = client:Warp():list()
     if err then error(err) end
-    -- warp is the loaded record
+    -- warp is the record list
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -226,15 +226,15 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `amnezia_mode` |  |
-| `config` |  |
+| `amneziaMode` |  |
+| `configs` |  |
 | `content` |  |
-| `device_type` |  |
-| `error_code` |  |
+| `deviceType` |  |
+| `errorCode` |  |
 | `message` |  |
-| `selected_dn` |  |
-| `selected_service` |  |
-| `site_mode` |  |
+| `selectedDns` |  |
+| `selectedServices` |  |
+| `siteMode` |  |
 
 Operations: Create.
 
@@ -259,15 +259,15 @@ Create an instance: `local warp = client:Warp(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `amnezia_mode` | `string` |  |
-| `config` | `table` |  |
+| `amneziaMode` | `string` |  |
+| `configs` | `table` |  |
 | `content` | `string` |  |
-| `device_type` | `string` |  |
-| `error_code` | `string` |  |
+| `deviceType` | `string` |  |
+| `errorCode` | `string` |  |
 | `message` | `string` |  |
-| `selected_dn` | `string` |  |
-| `selected_service` | `table` |  |
-| `site_mode` | `string` |  |
+| `selectedDns` | `string` |  |
+| `selectedServices` | `table` |  |
+| `siteMode` | `string` |  |
 
 #### Example: Create
 
@@ -354,7 +354,7 @@ stores the returned data and match criteria internally.
 
 ```lua
 local warp = client:Warp()
-warp:create({ amnezia_mode = "example", config = {}, content = "example" })
+warp:create({ amneziaMode = "example", configs = {}, content = "example" })
 
 -- warp:data_get() now returns the warp data from the last create
 -- warp:match_get() returns the last match criteria

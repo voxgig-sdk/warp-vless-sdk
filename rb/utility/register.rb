@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ GithubErrorUtility.registrar = ->(u) {
   u.prepare_params = GithubErrorUtilities::PrepareParams
   u.prepare_path = GithubErrorUtilities::PreparePath
   u.prepare_query = GithubErrorUtilities::PrepareQuery
+  u.graphql_body = GithubErrorUtilities::GraphqlBody
+  u.graphql_errors = GithubErrorUtilities::GraphqlErrors
   u.result_basic = GithubErrorUtilities::ResultBasic
   u.result_body = GithubErrorUtilities::ResultBody
   u.result_headers = GithubErrorUtilities::ResultHeaders

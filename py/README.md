@@ -39,8 +39,8 @@ client = GithubErrorSDK()
 ### 4. Create, update, and remove
 
 ```python
-# Create — returns the bare created record (a dict)
-created = client.Warp().create({"amnezia_mode": "example_amnezia_mode", "config": []})
+# Create — returns the ENTITY (call data_get() for the record)
+created = client.Warp().create({"amneziaMode": "example_amneziaMode", "configs": []})
 
 ```
 
@@ -51,7 +51,7 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    warp = client.Warp().create({ "amnezia_mode": "example", "config": [], "content": "example" })
+    warp = client.Warp().create({ "amneziaMode": "example", "configs": [], "content": "example" })
     print(warp)
 except Exception as err:
     print(f"create failed: {err}")
@@ -118,8 +118,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = GithubErrorSDK.test()
 
-# Entity ops return the bare record and raise on error.
-warp = client.Warp().create({"amnezia_mode": "example", "config": [], "content": "example"})
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
+warp = client.Warp().create({"amneziaMode": "example", "configs": [], "content": "example"})
 # warp contains the mock response record
 ```
 
@@ -214,7 +215,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -236,15 +237,15 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `amnezia_mode` |  |
-| `config` |  |
+| `amneziaMode` |  |
+| `configs` |  |
 | `content` |  |
-| `device_type` |  |
-| `error_code` |  |
+| `deviceType` |  |
+| `errorCode` |  |
 | `message` |  |
-| `selected_dn` |  |
-| `selected_service` |  |
-| `site_mode` |  |
+| `selectedDns` |  |
+| `selectedServices` |  |
+| `siteMode` |  |
 
 Operations: Create.
 
@@ -269,15 +270,15 @@ Create an instance: `warp = client.Warp()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `amnezia_mode` | `str` |  |
-| `config` | `list` |  |
+| `amneziaMode` | `str` |  |
+| `configs` | `list` |  |
 | `content` | `str` |  |
-| `device_type` | `str` |  |
-| `error_code` | `str` |  |
+| `deviceType` | `str` |  |
+| `errorCode` | `str` |  |
 | `message` | `str` |  |
-| `selected_dn` | `str` |  |
-| `selected_service` | `list` |  |
-| `site_mode` | `str` |  |
+| `selectedDns` | `str` |  |
+| `selectedServices` | `list` |  |
+| `siteMode` | `str` |  |
 
 #### Example: Create
 
@@ -363,7 +364,7 @@ stores the returned data and match criteria internally.
 
 ```python
 warp = client.Warp()
-warp.create({ "amnezia_mode": "example", "config": [], "content": "example" })
+warp.create({ "amneziaMode": "example", "configs": [], "content": "example" })
 
 # warp.data_get() now returns the warp data from the last create
 # warp.match_get() returns the last match criteria

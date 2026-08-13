@@ -24,8 +24,8 @@ support (`create`):
 ```ts
 const client = new GithubErrorSDK()
 const warp = await client.Warp().create({
-  amnezia_mode: 'example',
-  config: [],
+  amneziaMode: 'example',
+  configs: [],
   content: 'example',
 })
 ```
@@ -42,9 +42,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = GithubErrorSDK.test()
-const warp = await client.Warp().create({ amnezia_mode: 'example_amnezia_mode', config: [], content: 'example_content' })
-// warp is a bare Warp populated with mock data
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = GithubErrorSDK.test({
+  entity: {
+    warp: {
+      test01: { id: 'test01' },
+    },
+  },
+})
+const warp = await client.Warp().create({ amneziaMode: 'example_amneziaMode', configs: [], content: 'example_content' })
+// warp is the Warp entity, populated with mock data
+// — call warp.data() for the record itself
 console.log(warp)
 ```
 
@@ -52,7 +61,7 @@ console.log(warp)
 
 ```python
 client = GithubErrorSDK.test()
-warp = client.Warp().create({"amnezia_mode": "example", "config": [], "content": "example"})
+warp = client.Warp().create({"amneziaMode": "example", "configs": [], "content": "example"})
 print(warp)
 ```
 
@@ -63,7 +72,7 @@ print(warp)
 $client = GithubErrorSDK::test([
     "entity" => ["warp" => ["test01" => []]],
 ]);
-$warp = $client->Warp()->create(["amnezia_mode" => "example", "config" => [], "content" => "example"]);
+$warp = $client->Warp()->create(["amneziaMode" => "example", "configs" => [], "content" => "example"]);
 ```
 
 ### Golang
@@ -71,7 +80,7 @@ $warp = $client->Warp()->create(["amnezia_mode" => "example", "config" => [], "c
 ```go
 client := sdk.Test()
 result, err := client.Warp(nil).Create(
-    map[string]any{"amnezia_mode": "example", "config": []any{}, "content": "example"}, nil,
+    map[string]any{"amneziaMode": "example", "configs": []any{}, "content": "example"}, nil,
 )
 ```
 
@@ -82,14 +91,14 @@ result, err := client.Warp(nil).Create(
 client = GithubErrorSDK.test({
   "entity" => { "warp" => { "test01" => {} } },
 })
-warp = client.Warp.create({ "amnezia_mode" => "example", "config" => [], "content" => "example" })
+warp = client.Warp.create({ "amneziaMode" => "example", "configs" => [], "content" => "example" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:Warp():create({ amnezia_mode = "example", config = {}, content = "example" })
+local result, err = client:Warp():create({ amneziaMode = "example", configs = {}, content = "example" })
 ```
 
 ## Packages
@@ -323,6 +332,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://github.com/l0v3m0n3y/warpgen](https://github.com/l0v3m0n3y/warpgen)
 

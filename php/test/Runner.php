@@ -43,8 +43,8 @@ class GithubErrorTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('GITHUBERROR_TEST_LIVE');
-        $override = self::getenv('GITHUBERROR_TEST_OVERRIDE');
+        $live = self::getenv('GITHUB_ERROR_TEST_LIVE');
+        $override = self::getenv('GITHUB_ERROR_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class GithubErrorTestRunner
             }
         }
 
-        $explain = self::getenv('GITHUBERROR_TEST_EXPLAIN');
+        $explain = self::getenv('GITHUB_ERROR_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['GITHUBERROR_TEST_EXPLAIN'] = $explain;
+            $m['GITHUB_ERROR_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;

@@ -26,14 +26,14 @@ local function make_config()
         ["fields"] = {
           {
             ["active"] = true,
-            ["name"] = "amnezia_mode",
+            ["name"] = "amneziaMode",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 0,
           },
           {
             ["active"] = true,
-            ["name"] = "config",
+            ["name"] = "configs",
             ["req"] = false,
             ["type"] = "`$ARRAY`",
             ["index$"] = 1,
@@ -47,14 +47,14 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "device_type",
+            ["name"] = "deviceType",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 3,
           },
           {
             ["active"] = true,
-            ["name"] = "error_code",
+            ["name"] = "errorCode",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 4,
@@ -68,21 +68,21 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "selected_dn",
+            ["name"] = "selectedDns",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 6,
           },
           {
             ["active"] = true,
-            ["name"] = "selected_service",
+            ["name"] = "selectedServices",
             ["req"] = false,
             ["type"] = "`$ARRAY`",
             ["index$"] = 7,
           },
           {
             ["active"] = true,
-            ["name"] = "site_mode",
+            ["name"] = "siteMode",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 8,
@@ -97,6 +97,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/api/warp",
                 ["parts"] = {

@@ -92,15 +92,15 @@ $warp = $client->Warp();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `amnezia_mode` | `string` | No |  |
-| `config` | `array` | No |  |
+| `amneziaMode` | `string` | No |  |
+| `configs` | `array` | No |  |
 | `content` | `string` | No |  |
-| `device_type` | `string` | No |  |
-| `error_code` | `string` | No |  |
+| `deviceType` | `string` | No |  |
+| `errorCode` | `string` | No |  |
 | `message` | `string` | No |  |
-| `selected_dn` | `string` | No |  |
-| `selected_service` | `array` | No |  |
-| `site_mode` | `string` | No |  |
+| `selectedDns` | `string` | No |  |
+| `selectedServices` | `array` | No |  |
+| `siteMode` | `string` | No |  |
 
 ### Operations
 

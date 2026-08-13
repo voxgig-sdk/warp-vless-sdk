@@ -6,12 +6,12 @@ main: kit: entity: warp: {
 
   fields: [
     {
-      name: "amnezia_mode"
+      name: "amneziaMode"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "config"
+      name: "configs"
       req: false
       type: "`$ARRAY`"
     }
@@ -21,12 +21,12 @@ main: kit: entity: warp: {
       type: "`$STRING`"
     }
     {
-      name: "device_type"
+      name: "deviceType"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "error_code"
+      name: "errorCode"
       req: false
       type: "`$STRING`"
     }
@@ -36,17 +36,17 @@ main: kit: entity: warp: {
       type: "`$STRING`"
     }
     {
-      name: "selected_dn"
+      name: "selectedDns"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "selected_service"
+      name: "selectedServices"
       req: false
       type: "`$ARRAY`"
     }
     {
-      name: "site_mode"
+      name: "siteMode"
       req: false
       type: "`$STRING`"
     }

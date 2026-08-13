@@ -93,15 +93,15 @@ warp = client.Warp
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `amnezia_mode` | `String` | No |  |
-| `config` | `Array` | No |  |
+| `amneziaMode` | `String` | No |  |
+| `configs` | `Array` | No |  |
 | `content` | `String` | No |  |
-| `device_type` | `String` | No |  |
-| `error_code` | `String` | No |  |
+| `deviceType` | `String` | No |  |
+| `errorCode` | `String` | No |  |
 | `message` | `String` | No |  |
-| `selected_dn` | `String` | No |  |
-| `selected_service` | `Array` | No |  |
-| `site_mode` | `String` | No |  |
+| `selectedDns` | `String` | No |  |
+| `selectedServices` | `Array` | No |  |
+| `siteMode` | `String` | No |  |
 
 ### Operations
 

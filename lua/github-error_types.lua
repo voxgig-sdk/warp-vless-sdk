@@ -7,26 +7,26 @@
 -- edit by hand.
 
 ---@class Warp
----@field amnezia_mode? string
----@field config? table
+---@field amneziaMode? string
+---@field configs? table
 ---@field content? string
----@field device_type? string
----@field error_code? string
+---@field deviceType? string
+---@field errorCode? string
 ---@field message? string
----@field selected_dn? string
----@field selected_service? table
----@field site_mode? string
+---@field selectedDns? string
+---@field selectedServices? table
+---@field siteMode? string
 
 ---@class WarpCreateData
----@field amnezia_mode? string
----@field config? table
+---@field amneziaMode? string
+---@field configs? table
 ---@field content? string
----@field device_type? string
----@field error_code? string
+---@field deviceType? string
+---@field errorCode? string
 ---@field message? string
----@field selected_dn? string
----@field selected_service? table
----@field site_mode? string
+---@field selectedDns? string
+---@field selectedServices? table
+---@field siteMode? string
 
 local M = {}
 

@@ -26,14 +26,14 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"active": true,
-						"name": "amnezia_mode",
+						"name": "amneziaMode",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 0,
 					},
 					map[string]any{
 						"active": true,
-						"name": "config",
+						"name": "configs",
 						"req": false,
 						"type": "`$ARRAY`",
 						"index$": 1,
@@ -47,14 +47,14 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "device_type",
+						"name": "deviceType",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 3,
 					},
 					map[string]any{
 						"active": true,
-						"name": "error_code",
+						"name": "errorCode",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 4,
@@ -68,21 +68,21 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "selected_dn",
+						"name": "selectedDns",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 6,
 					},
 					map[string]any{
 						"active": true,
-						"name": "selected_service",
+						"name": "selectedServices",
 						"req": false,
 						"type": "`$ARRAY`",
 						"index$": 7,
 					},
 					map[string]any{
 						"active": true,
-						"name": "site_mode",
+						"name": "siteMode",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 8,
@@ -97,6 +97,7 @@ func MakeConfig() map[string]any {
 							map[string]any{
 								"active": true,
 								"args": map[string]any{},
+								"kind": "http",
 								"method": "POST",
 								"orig": "/api/warp",
 								"parts": []any{
@@ -111,7 +112,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "create",
 					},
 				},
 				"relations": map[string]any{

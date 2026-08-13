@@ -51,7 +51,7 @@ func main() {
     client := sdk.New()
 
     // Create a warp.
-    created, err := client.Warp(nil).Create(map[string]any{"amnezia_mode": "example_amnezia_mode", "config": []any{}}, nil)
+    created, err := client.Warp(nil).Create(map[string]any{"amneziaMode": "example_amneziaMode", "configs": []any{}}, nil)
     if err != nil {
         panic(err)
     }
@@ -66,7 +66,7 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-warp, err := client.Warp(nil).Create(map[string]any{"amnezia_mode": "example", "config": []any{}, "content": "example"}, nil)
+warp, err := client.Warp(nil).Create(map[string]any{"amneziaMode": "example", "configs": []any{}, "content": "example"}, nil)
 if err != nil {
     // handle err
     return
@@ -136,7 +136,7 @@ Create a mock client for unit testing — no server required:
 client := sdk.Test()
 
 warp, err := client.Warp(nil).Create(
-    map[string]any{"amnezia_mode": "example", "config": []any{}, "content": "example"}, nil,
+    map[string]any{"amneziaMode": "example", "configs": []any{}, "content": "example"}, nil,
 )
 if err != nil {
     panic(err)
@@ -258,15 +258,15 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"amnezia_mode"` |  |
-| `"config"` |  |
+| `"amneziaMode"` |  |
+| `"configs"` |  |
 | `"content"` |  |
-| `"device_type"` |  |
-| `"error_code"` |  |
+| `"deviceType"` |  |
+| `"errorCode"` |  |
 | `"message"` |  |
-| `"selected_dn"` |  |
-| `"selected_service"` |  |
-| `"site_mode"` |  |
+| `"selectedDns"` |  |
+| `"selectedServices"` |  |
+| `"siteMode"` |  |
 
 Operations: Create.
 
@@ -291,15 +291,15 @@ Create an instance: `warp := client.Warp(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `amnezia_mode` | `string` |  |
-| `config` | `[]any` |  |
+| `amneziaMode` | `string` |  |
+| `configs` | `[]any` |  |
 | `content` | `string` |  |
-| `device_type` | `string` |  |
-| `error_code` | `string` |  |
+| `deviceType` | `string` |  |
+| `errorCode` | `string` |  |
 | `message` | `string` |  |
-| `selected_dn` | `string` |  |
-| `selected_service` | `[]any` |  |
-| `site_mode` | `string` |  |
+| `selectedDns` | `string` |  |
+| `selectedServices` | `[]any` |  |
+| `siteMode` | `string` |  |
 
 #### Example: Create
 
@@ -387,7 +387,7 @@ stores the returned data and match criteria internally.
 
 ```go
 warp := client.Warp(nil)
-warp.Create(map[string]any{"amnezia_mode": "example", "config": []any{}, "content": "example"}, nil)
+warp.Create(map[string]any{"amneziaMode": "example", "configs": []any{}, "content": "example"}, nil)
 
 // warp.Data() now returns the warp data from the last create
 // warp.Match() returns the last match criteria

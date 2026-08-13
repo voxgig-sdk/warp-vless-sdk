@@ -23,8 +23,8 @@ module GithubErrorTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("GITHUBERROR_TEST_LIVE")
-    override = getenv("GITHUBERROR_TEST_OVERRIDE")
+    live = getenv("GITHUB_ERROR_TEST_LIVE")
+    override = getenv("GITHUB_ERROR_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module GithubErrorTestRunner
       end
     end
 
-    explain = getenv("GITHUBERROR_TEST_EXPLAIN")
-    m["GITHUBERROR_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("GITHUB_ERROR_TEST_EXPLAIN")
+    m["GITHUB_ERROR_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

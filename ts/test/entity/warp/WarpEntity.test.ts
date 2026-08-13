@@ -26,8 +26,8 @@ import {
 describe('WarpEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when GITHUBERROR_TEST_LIVE=TRUE.
-  afterEach(liveDelay('GITHUBERROR_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when GITHUB_ERROR_TEST_LIVE=TRUE.
+  afterEach(liveDelay('GITHUB_ERROR_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = GithubErrorSDK.test()
@@ -62,7 +62,7 @@ describe('WarpEntity', async () => {
     const warp_ref01_ent = client.Warp()
     let warp_ref01_data = setup.data.new.warp['warp_ref01']
 
-    warp_ref01_data = await warp_ref01_ent.create(warp_ref01_data)
+    warp_ref01_data = (await warp_ref01_ent.create(warp_ref01_data)).data()
     assert(null != warp_ref01_data)
 
 

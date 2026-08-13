@@ -10,83 +10,83 @@
 
 # Warp entity data model.
 #
-# @!attribute [rw] amnezia_mode
+# @!attribute [rw] amneziaMode
 #   @return [String, nil]
 #
-# @!attribute [rw] config
+# @!attribute [rw] configs
 #   @return [Array, nil]
 #
 # @!attribute [rw] content
 #   @return [String, nil]
 #
-# @!attribute [rw] device_type
+# @!attribute [rw] deviceType
 #   @return [String, nil]
 #
-# @!attribute [rw] error_code
+# @!attribute [rw] errorCode
 #   @return [String, nil]
 #
 # @!attribute [rw] message
 #   @return [String, nil]
 #
-# @!attribute [rw] selected_dn
+# @!attribute [rw] selectedDns
 #   @return [String, nil]
 #
-# @!attribute [rw] selected_service
+# @!attribute [rw] selectedServices
 #   @return [Array, nil]
 #
-# @!attribute [rw] site_mode
+# @!attribute [rw] siteMode
 #   @return [String, nil]
 Warp = Struct.new(
-  :amnezia_mode,
-  :config,
+  :amneziaMode,
+  :configs,
   :content,
-  :device_type,
-  :error_code,
+  :deviceType,
+  :errorCode,
   :message,
-  :selected_dn,
-  :selected_service,
-  :site_mode,
+  :selectedDns,
+  :selectedServices,
+  :siteMode,
   keyword_init: true
 )
 
 # Request payload for Warp#create.
 #
-# @!attribute [rw] amnezia_mode
+# @!attribute [rw] amneziaMode
 #   @return [String, nil]
 #
-# @!attribute [rw] config
+# @!attribute [rw] configs
 #   @return [Array, nil]
 #
 # @!attribute [rw] content
 #   @return [String, nil]
 #
-# @!attribute [rw] device_type
+# @!attribute [rw] deviceType
 #   @return [String, nil]
 #
-# @!attribute [rw] error_code
+# @!attribute [rw] errorCode
 #   @return [String, nil]
 #
 # @!attribute [rw] message
 #   @return [String, nil]
 #
-# @!attribute [rw] selected_dn
+# @!attribute [rw] selectedDns
 #   @return [String, nil]
 #
-# @!attribute [rw] selected_service
+# @!attribute [rw] selectedServices
 #   @return [Array, nil]
 #
-# @!attribute [rw] site_mode
+# @!attribute [rw] siteMode
 #   @return [String, nil]
 WarpCreateData = Struct.new(
-  :amnezia_mode,
-  :config,
+  :amneziaMode,
+  :configs,
   :content,
-  :device_type,
-  :error_code,
+  :deviceType,
+  :errorCode,
   :message,
-  :selected_dn,
-  :selected_service,
-  :site_mode,
+  :selectedDns,
+  :selectedServices,
+  :siteMode,
   keyword_init: true
 )
 

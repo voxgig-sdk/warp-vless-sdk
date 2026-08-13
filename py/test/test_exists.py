@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# GithubError SDK exists test
 
 import pytest
 from githuberror_sdk import GithubErrorSDK

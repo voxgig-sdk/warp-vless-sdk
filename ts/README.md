@@ -36,10 +36,10 @@ const client = new GithubErrorSDK()
 ### 4. Create, update, and remove
 
 ```ts
-// Create — returns the created Warp
+// Create — returns the created Warp ENTITY (.data() for the record)
 const created = await client.Warp().create({
-  amnezia_mode: 'example_amnezia_mode',
-  config: [],
+  amneziaMode: 'example_amneziaMode',
+  configs: [],
 })
 
 ```
@@ -51,7 +51,7 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const warp = await client.Warp().create({ amnezia_mode: "example", config: [], content: "example" })
+  const warp = await client.Warp().create({ amneziaMode: "example", configs: [], content: "example" })
   console.log(warp)
 } catch (err) {
   console.error('create failed:', err)
@@ -118,8 +118,9 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = GithubErrorSDK.test()
 
-const warp = await client.Warp().create({ amnezia_mode: 'example_amnezia_mode', config: [], content: 'example_content' })
-// warp is a bare entity populated with mock response data
+const warp = await client.Warp().create({ amneziaMode: 'example_amneziaMode', configs: [], content: 'example_content' })
+// warp is the entity, populated with mock response data
+// — call warp.data() for the record itself
 console.log(warp)
 ```
 
@@ -138,7 +139,7 @@ Entity instances remember their last match and data:
 const entity = client.Warp()
 
 // First call runs the operation and stores its result
-await entity.create({ amnezia_mode: 'example_amnezia_mode', config: [], content: 'example_content' })
+await entity.create({ amneziaMode: 'example_amneziaMode', configs: [], content: 'example_content' })
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
@@ -282,15 +283,15 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `amnezia_mode` |  |
-| `config` |  |
+| `amneziaMode` |  |
+| `configs` |  |
 | `content` |  |
-| `device_type` |  |
-| `error_code` |  |
+| `deviceType` |  |
+| `errorCode` |  |
 | `message` |  |
-| `selected_dn` |  |
-| `selected_service` |  |
-| `site_mode` |  |
+| `selectedDns` |  |
+| `selectedServices` |  |
+| `siteMode` |  |
 
 Operations: create.
 
@@ -315,15 +316,15 @@ Create an instance: `const warp = client.Warp()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `amnezia_mode` | `string` |  |
-| `config` | `any[]` |  |
+| `amneziaMode` | `string` |  |
+| `configs` | `any[]` |  |
 | `content` | `string` |  |
-| `device_type` | `string` |  |
-| `error_code` | `string` |  |
+| `deviceType` | `string` |  |
+| `errorCode` | `string` |  |
 | `message` | `string` |  |
-| `selected_dn` | `string` |  |
-| `selected_service` | `any[]` |  |
-| `site_mode` | `string` |  |
+| `selectedDns` | `string` |  |
+| `selectedServices` | `any[]` |  |
+| `siteMode` | `string` |  |
 
 #### Example: Create
 
@@ -403,7 +404,7 @@ calls on the same instance can rely on this state.
 
 ```ts
 const warp = client.Warp()
-await warp.create({ amnezia_mode: "example", config: [], content: "example" })
+await warp.create({ amneziaMode: "example", configs: [], content: "example" })
 
 // warp.data() now returns the warp data from the last `create`
 // warp.match() returns the last match criteria

@@ -33,8 +33,8 @@ client = GithubErrorSDK.new
 ### 4. Create, update, and remove
 
 ```ruby
-# create returns the bare created Warp record.
-created = client.Warp.create({ "amnezia_mode" => "example_amnezia_mode", "config" => [] })
+# create returns the ENTITY — call data_get for the created Warp record.
+created = client.Warp.create({ "amneziaMode" => "example_amneziaMode", "configs" => [] })
 
 ```
 
@@ -45,7 +45,7 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  warp = client.Warp.create({ "amnezia_mode" => "example", "config" => [], "content" => "example" })
+  warp = client.Warp.create({ "amneziaMode" => "example", "configs" => [], "content" => "example" })
 rescue => err
   warn "create failed: #{err}"
 end
@@ -113,8 +113,9 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = GithubErrorSDK.test
 
-# Entity ops return the bare mock record (raises on error).
-warp = client.Warp.create({ "amnezia_mode" => "example", "config" => [], "content" => "example" })
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
+warp = client.Warp.create({ "amneziaMode" => "example", "configs" => [], "content" => "example" })
 puts warp
 ```
 
@@ -230,15 +231,15 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `amnezia_mode` |  |
-| `config` |  |
+| `amneziaMode` |  |
+| `configs` |  |
 | `content` |  |
-| `device_type` |  |
-| `error_code` |  |
+| `deviceType` |  |
+| `errorCode` |  |
 | `message` |  |
-| `selected_dn` |  |
-| `selected_service` |  |
-| `site_mode` |  |
+| `selectedDns` |  |
+| `selectedServices` |  |
+| `siteMode` |  |
 
 Operations: Create.
 
@@ -263,15 +264,15 @@ Create an instance: `warp = client.Warp`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `amnezia_mode` | `String` |  |
-| `config` | `Array` |  |
+| `amneziaMode` | `String` |  |
+| `configs` | `Array` |  |
 | `content` | `String` |  |
-| `device_type` | `String` |  |
-| `error_code` | `String` |  |
+| `deviceType` | `String` |  |
+| `errorCode` | `String` |  |
 | `message` | `String` |  |
-| `selected_dn` | `String` |  |
-| `selected_service` | `Array` |  |
-| `site_mode` | `String` |  |
+| `selectedDns` | `String` |  |
+| `selectedServices` | `Array` |  |
+| `siteMode` | `String` |  |
 
 #### Example: Create
 
@@ -358,7 +359,7 @@ stores the returned data and match criteria internally.
 
 ```ruby
 warp = client.Warp
-warp.create({ "amnezia_mode" => "example", "config" => [], "content" => "example" })
+warp.create({ "amneziaMode" => "example", "configs" => [], "content" => "example" })
 
 # warp.data_get now returns the warp data from the last create
 # warp.match_get returns the last match criteria

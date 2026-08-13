@@ -16,11 +16,11 @@
 import pytest
 
 from githuberror_sdk import GithubErrorSDK
-from core.error import GithubErrorError
-from core.result import GithubErrorResult
-from core.response import GithubErrorResponse
-from core.spec import GithubErrorSpec
-from feature.base_feature import GithubErrorBaseFeature
+from githuberror_sdk.core.error import GithubErrorError
+from githuberror_sdk.core.result import GithubErrorResult
+from githuberror_sdk.core.response import GithubErrorResponse
+from githuberror_sdk.core.spec import GithubErrorSpec
+from githuberror_sdk.feature.base_feature import GithubErrorBaseFeature
 
 
 def _client():

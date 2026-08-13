@@ -116,15 +116,15 @@ const warp = client.Warp()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `amnezia_mode` | `string` | No |  |
-| `config` | `any[]` | No |  |
+| `amneziaMode` | `string` | No |  |
+| `configs` | `any[]` | No |  |
 | `content` | `string` | No |  |
-| `device_type` | `string` | No |  |
-| `error_code` | `string` | No |  |
+| `deviceType` | `string` | No |  |
+| `errorCode` | `string` | No |  |
 | `message` | `string` | No |  |
-| `selected_dn` | `string` | No |  |
-| `selected_service` | `any[]` | No |  |
-| `site_mode` | `string` | No |  |
+| `selectedDns` | `string` | No |  |
+| `selectedServices` | `any[]` | No |  |
+| `siteMode` | `string` | No |  |
 
 ### Operations
 

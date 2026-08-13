@@ -15,28 +15,28 @@ declare(strict_types=1);
 /** Warp entity data model. */
 class Warp
 {
-    public ?string $amnezia_mode = null;
-    public ?array $config = null;
+    public ?string $amneziaMode = null;
+    public ?array $configs = null;
     public ?string $content = null;
-    public ?string $device_type = null;
-    public ?string $error_code = null;
+    public ?string $deviceType = null;
+    public ?string $errorCode = null;
     public ?string $message = null;
-    public ?string $selected_dn = null;
-    public ?array $selected_service = null;
-    public ?string $site_mode = null;
+    public ?string $selectedDns = null;
+    public ?array $selectedServices = null;
+    public ?string $siteMode = null;
 }
 
 /** Request payload for Warp#create. */
 class WarpCreateData
 {
-    public ?string $amnezia_mode = null;
-    public ?array $config = null;
+    public ?string $amneziaMode = null;
+    public ?array $configs = null;
     public ?string $content = null;
-    public ?string $device_type = null;
-    public ?string $error_code = null;
+    public ?string $deviceType = null;
+    public ?string $errorCode = null;
     public ?string $message = null;
-    public ?string $selected_dn = null;
-    public ?array $selected_service = null;
-    public ?string $site_mode = null;
+    public ?string $selectedDns = null;
+    public ?array $selectedServices = null;
+    public ?string $siteMode = null;
 }
 

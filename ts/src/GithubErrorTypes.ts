@@ -6,26 +6,26 @@
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 
 export interface Warp {
-  amnezia_mode?: string
-  config?: any[]
+  amneziaMode?: string
+  configs?: any[]
   content?: string
-  device_type?: string
-  error_code?: string
+  deviceType?: string
+  errorCode?: string
   message?: string
-  selected_dn?: string
-  selected_service?: any[]
-  site_mode?: string
+  selectedDns?: string
+  selectedServices?: any[]
+  siteMode?: string
 }
 
 export interface WarpCreateData {
-  amnezia_mode?: string
-  config?: any[]
+  amneziaMode?: string
+  configs?: any[]
   content?: string
-  device_type?: string
-  error_code?: string
+  deviceType?: string
+  errorCode?: string
   message?: string
-  selected_dn?: string
-  selected_service?: any[]
-  site_mode?: string
+  selectedDns?: string
+  selectedServices?: any[]
+  siteMode?: string
 }
 

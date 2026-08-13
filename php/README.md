@@ -34,8 +34,8 @@ $client = new GithubErrorSDK();
 ### 4. Create, update, and remove
 
 ```php
-// create() returns the bare created Warp record.
-$created = $client->Warp()->create(["amnezia_mode" => "example_amnezia_mode", "config" => []]);
+// create() returns the ENTITY — call data_get() for the created Warp record.
+$created = $client->Warp()->create(["amneziaMode" => "example_amneziaMode", "configs" => []]);
 
 ```
 
@@ -47,7 +47,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $warp = $client->Warp()->create(["amnezia_mode" => "example", "config" => [], "content" => "example"]);
+    $warp = $client->Warp()->create(["amneziaMode" => "example", "configs" => [], "content" => "example"]);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -119,8 +119,9 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = GithubErrorSDK::test();
 
-// Entity ops return the bare mock record (throws on error).
-$warp = $client->Warp()->create(["amnezia_mode" => "example", "config" => [], "content" => "example"]);
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
+$warp = $client->Warp()->create(["amneziaMode" => "example", "configs" => [], "content" => "example"]);
 print_r($warp);
 ```
 
@@ -218,7 +219,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -240,15 +241,15 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `amnezia_mode` |  |
-| `config` |  |
+| `amneziaMode` |  |
+| `configs` |  |
 | `content` |  |
-| `device_type` |  |
-| `error_code` |  |
+| `deviceType` |  |
+| `errorCode` |  |
 | `message` |  |
-| `selected_dn` |  |
-| `selected_service` |  |
-| `site_mode` |  |
+| `selectedDns` |  |
+| `selectedServices` |  |
+| `siteMode` |  |
 
 Operations: Create.
 
@@ -273,15 +274,15 @@ Create an instance: `$warp = $client->Warp();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `amnezia_mode` | `string` |  |
-| `config` | `array` |  |
+| `amneziaMode` | `string` |  |
+| `configs` | `array` |  |
 | `content` | `string` |  |
-| `device_type` | `string` |  |
-| `error_code` | `string` |  |
+| `deviceType` | `string` |  |
+| `errorCode` | `string` |  |
 | `message` | `string` |  |
-| `selected_dn` | `string` |  |
-| `selected_service` | `array` |  |
-| `site_mode` | `string` |  |
+| `selectedDns` | `string` |  |
+| `selectedServices` | `array` |  |
+| `siteMode` | `string` |  |
 
 #### Example: Create
 
@@ -368,7 +369,7 @@ stores the returned data and match criteria internally.
 
 ```php
 $warp = $client->Warp();
-$warp->create(["amnezia_mode" => "example", "config" => [], "content" => "example"]);
+$warp->create(["amneziaMode" => "example", "configs" => [], "content" => "example"]);
 
 // $warp->data_get() now returns the warp data from the last create
 // $warp->match_get() returns the last match criteria

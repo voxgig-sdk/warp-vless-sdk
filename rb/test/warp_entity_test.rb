@@ -26,7 +26,7 @@ class WarpEntityTest < Minitest::Test
     # The basic flow consumes synthetic IDs from the fixture. In live mode
     # without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup[:synthetic_only]
-      skip "live entity test uses synthetic IDs from fixture — set GITHUBERROR_TEST_WARP_ENTID JSON to run live"
+      skip "live entity test uses synthetic IDs from fixture — set GITHUB_ERROR_TEST_WARP_ENTID JSON to run live"
       return
     end
     client = setup[:client]
@@ -37,7 +37,7 @@ class WarpEntityTest < Minitest::Test
       Vs.getpath(setup[:data], "new.warp"), "warp_ref01"))
 
     warp_ref01_data_result = warp_ref01_ent.create(warp_ref01_data, nil)
-    warp_ref01_data = Helpers.to_map(warp_ref01_data_result)
+    warp_ref01_data = Helpers.to_map(warp_ref01_data_result.respond_to?(:data_get) ? warp_ref01_data_result.data_get : warp_ref01_data_result)
     assert !warp_ref01_data.nil?
 
   end
@@ -69,22 +69,22 @@ def warp_basic_setup(extra)
   # Detect ENTID env override before envOverride consumes it. When live
   # mode is on without a real override, the basic test runs against synthetic
   # IDs from the fixture and 4xx's. Surface this so the test can skip.
-  entid_env_raw = ENV["GITHUBERROR_TEST_WARP_ENTID"]
+  entid_env_raw = ENV["GITHUB_ERROR_TEST_WARP_ENTID"]
   idmap_overridden = !entid_env_raw.nil? && entid_env_raw.strip.start_with?("{")
 
   env = Runner.env_override({
-    "GITHUBERROR_TEST_WARP_ENTID" => idmap,
-    "GITHUBERROR_TEST_LIVE" => "FALSE",
-    "GITHUBERROR_TEST_EXPLAIN" => "FALSE",
+    "GITHUB_ERROR_TEST_WARP_ENTID" => idmap,
+    "GITHUB_ERROR_TEST_LIVE" => "FALSE",
+    "GITHUB_ERROR_TEST_EXPLAIN" => "FALSE",
   })
 
   idmap_resolved = Helpers.to_map(
-    env["GITHUBERROR_TEST_WARP_ENTID"])
+    env["GITHUB_ERROR_TEST_WARP_ENTID"])
   if idmap_resolved.nil?
     idmap_resolved = Helpers.to_map(idmap)
   end
 
-  if env["GITHUBERROR_TEST_LIVE"] == "TRUE"
+  if env["GITHUB_ERROR_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
       },
@@ -93,13 +93,13 @@ def warp_basic_setup(extra)
     client = GithubErrorSDK.new(Helpers.to_map(merged_opts))
   end
 
-  live = env["GITHUBERROR_TEST_LIVE"] == "TRUE"
+  live = env["GITHUB_ERROR_TEST_LIVE"] == "TRUE"
   {
     client: client,
     data: entity_data,
     idmap: idmap_resolved,
     env: env,
-    explain: env["GITHUBERROR_TEST_EXPLAIN"] == "TRUE",
+    explain: env["GITHUB_ERROR_TEST_EXPLAIN"] == "TRUE",
     live: live,
     synthetic_only: live && !idmap_overridden,
     now: (Time.now.to_f * 1000).to_i,
