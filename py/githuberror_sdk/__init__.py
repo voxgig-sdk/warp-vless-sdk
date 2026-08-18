@@ -23,8 +23,8 @@ class GithubErrorSDK:
         utility = GithubErrorUtility()
         self._utility = utility
 
-        from githuberror_sdk.config import make_config
-        config = make_config()
+        from githuberror_sdk.config import shared_config
+        config = shared_config()
 
         self._rootctx = utility.make_context({
             "client": self,

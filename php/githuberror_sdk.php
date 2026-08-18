@@ -40,7 +40,7 @@ class GithubErrorSDK
         $utility = new GithubErrorUtility();
         $this->_utility = $utility;
 
-        $config = GithubErrorConfig::make_config();
+        $config = GithubErrorConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

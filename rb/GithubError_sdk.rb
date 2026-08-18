@@ -28,7 +28,7 @@ class GithubErrorSDK
     utility = GithubErrorUtility.new
     @_utility = utility
 
-    config = GithubErrorConfig.make_config
+    config = GithubErrorConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

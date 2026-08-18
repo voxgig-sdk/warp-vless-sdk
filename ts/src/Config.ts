@@ -36,7 +36,7 @@ class Config {
 
 
   options = {
-    base: 'https://warp-vless.vercel.app',
+    base: "https://warp-vless.vercel.app",
 
     headers: {
       "content-type": "application/json"
@@ -55,67 +55,40 @@ class Config {
     "warp": {
       "fields": [
         {
-          "active": true,
           "name": "amneziaMode",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 0
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "configs",
-          "req": false,
-          "type": "`$ARRAY`",
-          "index$": 1
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "content",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "deviceType",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 3
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "errorCode",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 4
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "message",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 5
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "selectedDns",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 6
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "selectedServices",
-          "req": false,
-          "type": "`$ARRAY`",
-          "index$": 7
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "siteMode",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 8
+          "type": "`$STRING`"
         }
       ],
       "name": "warp",
@@ -125,7 +98,6 @@ class Config {
           "name": "create",
           "points": [
             {
-              "active": true,
               "args": {},
               "kind": "http",
               "method": "POST",
@@ -138,11 +110,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "create"
+          ]
         }
       },
       "relations": {
