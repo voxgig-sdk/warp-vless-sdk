@@ -92,15 +92,15 @@ $warp = $client->Warp();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `amneziaMode` | `string` | No |  |
-| `configs` | `array` | No |  |
-| `content` | `string` | No |  |
-| `deviceType` | `string` | No |  |
-| `errorCode` | `string` | No |  |
-| `message` | `string` | No |  |
-| `selectedDns` | `string` | No |  |
-| `selectedServices` | `array` | No |  |
-| `siteMode` | `string` | No |  |
+| `amneziaMode` | `string` | No | Amnezia VPN mode configuration |
+| `configs` | `array` | No | Array of configuration objects when multiple configs are returned |
+| `content` | `string` | No | Base64 encoded WARP configuration content |
+| `deviceType` | `string` | No | The type of device requesting the configuration |
+| `errorCode` | `string` | No | Error code if an error occurred |
+| `message` | `string` | No | Human-readable message or error description |
+| `selectedDns` | `string` | No | DNS provider selection |
+| `selectedServices` | `array` | No | List of selected services to include in the configuration |
+| `siteMode` | `string` | No | The site mode for the WARP configuration |
 
 ### Operations
 

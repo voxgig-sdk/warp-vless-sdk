@@ -93,15 +93,15 @@ warp = client.Warp
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `amneziaMode` | `String` | No |  |
-| `configs` | `Array` | No |  |
-| `content` | `String` | No |  |
-| `deviceType` | `String` | No |  |
-| `errorCode` | `String` | No |  |
-| `message` | `String` | No |  |
-| `selectedDns` | `String` | No |  |
-| `selectedServices` | `Array` | No |  |
-| `siteMode` | `String` | No |  |
+| `amneziaMode` | `String` | No | Amnezia VPN mode configuration |
+| `configs` | `Array` | No | Array of configuration objects when multiple configs are returned |
+| `content` | `String` | No | Base64 encoded WARP configuration content |
+| `deviceType` | `String` | No | The type of device requesting the configuration |
+| `errorCode` | `String` | No | Error code if an error occurred |
+| `message` | `String` | No | Human-readable message or error description |
+| `selectedDns` | `String` | No | DNS provider selection |
+| `selectedServices` | `Array` | No | List of selected services to include in the configuration |
+| `siteMode` | `String` | No | The site mode for the WARP configuration |
 
 ### Operations
 

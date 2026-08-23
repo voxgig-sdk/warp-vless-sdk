@@ -33,6 +33,9 @@ class GithubErrorConfig
         return [
             "main" => [
                 "name" => "GithubError",
+                "slug" => "github-error",
+                "version" => "0.0.1",
+                "target" => "php",
             ],
             "feature" => [
                 "test" => [
@@ -55,38 +58,47 @@ class GithubErrorConfig
           'fields' => [
             [
               'name' => 'amneziaMode',
+              'short' => 'Amnezia VPN mode configuration',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'configs',
+              'short' => 'Array of configuration objects when multiple configs are returned',
               'type' => '`$ARRAY`',
             ],
             [
               'name' => 'content',
+              'short' => 'Base64 encoded WARP configuration content',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'deviceType',
+              'short' => 'The type of device requesting the configuration',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'errorCode',
+              'short' => 'Error code if an error occurred',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'message',
+              'short' => 'Human-readable message or error description',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'selectedDns',
+              'short' => 'DNS provider selection',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'selectedServices',
+              'short' => 'List of selected services to include in the configuration',
               'type' => '`$ARRAY`',
             ],
             [
               'name' => 'siteMode',
+              'short' => 'The site mode for the WARP configuration',
               'type' => '`$STRING`',
             ],
           ],

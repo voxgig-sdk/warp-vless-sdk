@@ -9,7 +9,7 @@ The API is exposed as capitalised, semantic **Entities** — e.g.
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go`, `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb` — see
 > the [top-level README](../README.md).
 
 
@@ -283,15 +283,15 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `amneziaMode` |  |
-| `configs` |  |
-| `content` |  |
-| `deviceType` |  |
-| `errorCode` |  |
-| `message` |  |
-| `selectedDns` |  |
-| `selectedServices` |  |
-| `siteMode` |  |
+| `amneziaMode` | Amnezia VPN mode configuration |
+| `configs` | Array of configuration objects when multiple configs are returned |
+| `content` | Base64 encoded WARP configuration content |
+| `deviceType` | The type of device requesting the configuration |
+| `errorCode` | Error code if an error occurred |
+| `message` | Human-readable message or error description |
+| `selectedDns` | DNS provider selection |
+| `selectedServices` | List of selected services to include in the configuration |
+| `siteMode` | The site mode for the WARP configuration |
 
 Operations: create.
 
@@ -316,15 +316,15 @@ Create an instance: `const warp = client.Warp()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `amneziaMode` | `string` |  |
-| `configs` | `any[]` |  |
-| `content` | `string` |  |
-| `deviceType` | `string` |  |
-| `errorCode` | `string` |  |
-| `message` | `string` |  |
-| `selectedDns` | `string` |  |
-| `selectedServices` | `any[]` |  |
-| `siteMode` | `string` |  |
+| `amneziaMode` | `string` | Amnezia VPN mode configuration |
+| `configs` | `any[]` | Array of configuration objects when multiple configs are returned |
+| `content` | `string` | Base64 encoded WARP configuration content |
+| `deviceType` | `string` | The type of device requesting the configuration |
+| `errorCode` | `string` | Error code if an error occurred |
+| `message` | `string` | Human-readable message or error description |
+| `selectedDns` | `string` | DNS provider selection |
+| `selectedServices` | `any[]` | List of selected services to include in the configuration |
+| `siteMode` | `string` | The site mode for the WARP configuration |
 
 #### Example: Create
 

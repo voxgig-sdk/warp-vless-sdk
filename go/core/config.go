@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "GithubError",
+			"slug": "github-error",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -33,38 +36,47 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "amneziaMode",
+						"short": "Amnezia VPN mode configuration",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "configs",
+						"short": "Array of configuration objects when multiple configs are returned",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "content",
+						"short": "Base64 encoded WARP configuration content",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "deviceType",
+						"short": "The type of device requesting the configuration",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "errorCode",
+						"short": "Error code if an error occurred",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "message",
+						"short": "Human-readable message or error description",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "selectedDns",
+						"short": "DNS provider selection",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "selectedServices",
+						"short": "List of selected services to include in the configuration",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "siteMode",
+						"short": "The site mode for the WARP configuration",
 						"type": "`$STRING`",
 					},
 				},

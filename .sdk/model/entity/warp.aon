@@ -8,46 +8,55 @@ main: kit: entity: warp: {
     {
       name: "amneziaMode"
       req: false
+      short: "Amnezia VPN mode configuration"
       type: "`$STRING`"
     }
     {
       name: "configs"
       req: false
+      short: "Array of configuration objects when multiple configs are returned"
       type: "`$ARRAY`"
     }
     {
       name: "content"
       req: false
+      short: "Base64 encoded WARP configuration content"
       type: "`$STRING`"
     }
     {
       name: "deviceType"
       req: false
+      short: "The type of device requesting the configuration"
       type: "`$STRING`"
     }
     {
       name: "errorCode"
       req: false
+      short: "Error code if an error occurred"
       type: "`$STRING`"
     }
     {
       name: "message"
       req: false
+      short: "Human-readable message or error description"
       type: "`$STRING`"
     }
     {
       name: "selectedDns"
       req: false
+      short: "DNS provider selection"
       type: "`$STRING`"
     }
     {
       name: "selectedServices"
       req: false
+      short: "List of selected services to include in the configuration"
       type: "`$ARRAY`"
     }
     {
       name: "siteMode"
       req: false
+      short: "The site mode for the WARP configuration"
       type: "`$STRING`"
     }
   ]

@@ -237,15 +237,15 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `amneziaMode` |  |
-| `configs` |  |
-| `content` |  |
-| `deviceType` |  |
-| `errorCode` |  |
-| `message` |  |
-| `selectedDns` |  |
-| `selectedServices` |  |
-| `siteMode` |  |
+| `amneziaMode` | Amnezia VPN mode configuration |
+| `configs` | Array of configuration objects when multiple configs are returned |
+| `content` | Base64 encoded WARP configuration content |
+| `deviceType` | The type of device requesting the configuration |
+| `errorCode` | Error code if an error occurred |
+| `message` | Human-readable message or error description |
+| `selectedDns` | DNS provider selection |
+| `selectedServices` | List of selected services to include in the configuration |
+| `siteMode` | The site mode for the WARP configuration |
 
 Operations: Create.
 
@@ -270,15 +270,15 @@ Create an instance: `warp = client.Warp()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `amneziaMode` | `str` |  |
-| `configs` | `list` |  |
-| `content` | `str` |  |
-| `deviceType` | `str` |  |
-| `errorCode` | `str` |  |
-| `message` | `str` |  |
-| `selectedDns` | `str` |  |
-| `selectedServices` | `list` |  |
-| `siteMode` | `str` |  |
+| `amneziaMode` | `str` | Amnezia VPN mode configuration |
+| `configs` | `list` | Array of configuration objects when multiple configs are returned |
+| `content` | `str` | Base64 encoded WARP configuration content |
+| `deviceType` | `str` | The type of device requesting the configuration |
+| `errorCode` | `str` | Error code if an error occurred |
+| `message` | `str` | Human-readable message or error description |
+| `selectedDns` | `str` | DNS provider selection |
+| `selectedServices` | `list` | List of selected services to include in the configuration |
+| `siteMode` | `str` | The site mode for the WARP configuration |
 
 #### Example: Create
 

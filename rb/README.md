@@ -231,15 +231,15 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `amneziaMode` |  |
-| `configs` |  |
-| `content` |  |
-| `deviceType` |  |
-| `errorCode` |  |
-| `message` |  |
-| `selectedDns` |  |
-| `selectedServices` |  |
-| `siteMode` |  |
+| `amneziaMode` | Amnezia VPN mode configuration |
+| `configs` | Array of configuration objects when multiple configs are returned |
+| `content` | Base64 encoded WARP configuration content |
+| `deviceType` | The type of device requesting the configuration |
+| `errorCode` | Error code if an error occurred |
+| `message` | Human-readable message or error description |
+| `selectedDns` | DNS provider selection |
+| `selectedServices` | List of selected services to include in the configuration |
+| `siteMode` | The site mode for the WARP configuration |
 
 Operations: Create.
 
@@ -264,15 +264,15 @@ Create an instance: `warp = client.Warp`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `amneziaMode` | `String` |  |
-| `configs` | `Array` |  |
-| `content` | `String` |  |
-| `deviceType` | `String` |  |
-| `errorCode` | `String` |  |
-| `message` | `String` |  |
-| `selectedDns` | `String` |  |
-| `selectedServices` | `Array` |  |
-| `siteMode` | `String` |  |
+| `amneziaMode` | `String` | Amnezia VPN mode configuration |
+| `configs` | `Array` | Array of configuration objects when multiple configs are returned |
+| `content` | `String` | Base64 encoded WARP configuration content |
+| `deviceType` | `String` | The type of device requesting the configuration |
+| `errorCode` | `String` | Error code if an error occurred |
+| `message` | `String` | Human-readable message or error description |
+| `selectedDns` | `String` | DNS provider selection |
+| `selectedServices` | `Array` | List of selected services to include in the configuration |
+| `siteMode` | `String` | The site mode for the WARP configuration |
 
 #### Example: Create
 

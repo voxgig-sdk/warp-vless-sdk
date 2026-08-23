@@ -226,15 +226,15 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `amneziaMode` |  |
-| `configs` |  |
-| `content` |  |
-| `deviceType` |  |
-| `errorCode` |  |
-| `message` |  |
-| `selectedDns` |  |
-| `selectedServices` |  |
-| `siteMode` |  |
+| `amneziaMode` | Amnezia VPN mode configuration |
+| `configs` | Array of configuration objects when multiple configs are returned |
+| `content` | Base64 encoded WARP configuration content |
+| `deviceType` | The type of device requesting the configuration |
+| `errorCode` | Error code if an error occurred |
+| `message` | Human-readable message or error description |
+| `selectedDns` | DNS provider selection |
+| `selectedServices` | List of selected services to include in the configuration |
+| `siteMode` | The site mode for the WARP configuration |
 
 Operations: Create.
 
@@ -259,15 +259,15 @@ Create an instance: `local warp = client:Warp(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `amneziaMode` | `string` |  |
-| `configs` | `table` |  |
-| `content` | `string` |  |
-| `deviceType` | `string` |  |
-| `errorCode` | `string` |  |
-| `message` | `string` |  |
-| `selectedDns` | `string` |  |
-| `selectedServices` | `table` |  |
-| `siteMode` | `string` |  |
+| `amneziaMode` | `string` | Amnezia VPN mode configuration |
+| `configs` | `table` | Array of configuration objects when multiple configs are returned |
+| `content` | `string` | Base64 encoded WARP configuration content |
+| `deviceType` | `string` | The type of device requesting the configuration |
+| `errorCode` | `string` | Error code if an error occurred |
+| `message` | `string` | Human-readable message or error description |
+| `selectedDns` | `string` | DNS provider selection |
+| `selectedServices` | `table` | List of selected services to include in the configuration |
+| `siteMode` | `string` | The site mode for the WARP configuration |
 
 #### Example: Create
 

@@ -36,54 +36,63 @@
               "active": true,
               "name": "amneziaMode",
               "req": false,
+              "short": "Amnezia VPN mode configuration",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "configs",
               "req": false,
+              "short": "Array of configuration objects when multiple configs are returned",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "content",
               "req": false,
+              "short": "Base64 encoded WARP configuration content",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "deviceType",
               "req": false,
+              "short": "The type of device requesting the configuration",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "errorCode",
               "req": false,
+              "short": "Error code if an error occurred",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "message",
               "req": false,
+              "short": "Human-readable message or error description",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "selectedDns",
               "req": false,
+              "short": "DNS provider selection",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "selectedServices",
               "req": false,
+              "short": "List of selected services to include in the configuration",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "siteMode",
               "req": false,
+              "short": "The site mode for the WARP configuration",
               "type": "`$STRING`"
             }
           ],
