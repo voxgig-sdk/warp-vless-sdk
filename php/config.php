@@ -42,6 +42,7 @@ class GithubErrorConfig
           'options' => [
             'active' => false,
           ],
+          'transport' => 'base',
         ],
             ],
             "options" => [
