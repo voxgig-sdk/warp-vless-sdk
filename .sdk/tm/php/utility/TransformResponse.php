@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK utility: transform_response
+// WarpVless SDK utility: transform_response
 
 require_once __DIR__ . '/../core/Helpers.php';
 
-class GithubErrorTransformResponse
+class WarpVlessTransformResponse
 {
-    public static function call(GithubErrorContext $ctx): mixed
+    public static function call(WarpVlessContext $ctx): mixed
     {
         $spec = $ctx->spec;
         $result = $ctx->result;
@@ -18,7 +18,7 @@ class GithubErrorTransformResponse
         if ($result === null || !$result->ok) {
             return null;
         }
-        $transform = GithubErrorHelpers::to_map(\Voxgig\Struct\Struct::getprop($point, 'transform'));
+        $transform = WarpVlessHelpers::to_map(\Voxgig\Struct\Struct::getprop($point, 'transform'));
         if (!$transform) {
             return null;
         }

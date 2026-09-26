@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK utility: result_headers
+// WarpVless SDK utility: result_headers
 
-class GithubErrorResultHeaders
+class WarpVlessResultHeaders
 {
-    public static function call(GithubErrorContext $ctx): ?GithubErrorResult
+    public static function call(WarpVlessContext $ctx): ?WarpVlessResult
     {
         $response = $ctx->response;
         $result = $ctx->result;

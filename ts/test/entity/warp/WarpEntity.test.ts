@@ -1,19 +1,21 @@
 
-const envlocal = __dirname + '/../../../.env.local'
-require('dotenv').config({ quiet: true, path: [envlocal] })
 
 import Path from 'node:path'
 import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
-import { GithubErrorSDK, BaseFeature, stdutil } from '../../..'
+import { WarpVlessSDK, BaseFeature, stdutil } from '../../..'
 
 import {
   envOverride,
+  liveClientOptions,
   liveDelay,
+  loadEnvLocal,
   makeCtrl,
   makeMatch,
   makeReqdata,
@@ -23,14 +25,17 @@ import {
 } from '../../utility'
 
 
+loadEnvLocal(__dirname + '/../../../.env.local')
+
+
 describe('WarpEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when GITHUB_ERROR_TEST_LIVE=TRUE.
-  afterEach(liveDelay('GITHUB_ERROR_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when WARP_VLESS_TEST_LIVE=TRUE.
+  afterEach(liveDelay('WARP_VLESS_TEST_LIVE'))
 
   test('instance', async () => {
-    const testsdk = GithubErrorSDK.test()
+    const testsdk = WarpVlessSDK.test()
     const ent = testsdk.Warp()
     assert(null != ent)
   })
@@ -38,18 +43,15 @@ describe('WarpEntity', async () => {
 
   test('basic', async (t) => {
 
-    const live = 'TRUE' === process.env.GITHUB_ERROR_TEST_LIVE
+    const live = 'TRUE' === process.env.WARP_VLESS_TEST_LIVE
     for (const op of ['create']) {
-      if (maybeSkipControl(t, 'entityOp', 'warp.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'warp.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set GITHUB_ERROR_TEST_WARP_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"amneziaMode":{"a":true,"h":"Amnezia Mode","n":"amneziaMode","r":false,"sh":"Amnezia VPN mode configuration","t":"`$STRING`","key$":"amneziaMode","index$":0},"configs":{"a":true,"h":"Configs","n":"configs","r":false,"sh":"Array of configuration objects when multiple configs are returned","t":"`$ARRAY`","key$":"configs","index$":1},"content":{"a":true,"h":"Content","n":"content","r":false,"sh":"Base64 encoded WARP configuration content","t":"`$STRING`","key$":"content","index$":2},"deviceType":{"a":true,"h":"Device Type","n":"deviceType","r":false,"sh":"The type of device requesting the configuration","t":"`$STRING`","key$":"deviceType","index$":3},"errorCode":{"a":true,"h":"Error Code","n":"errorCode","r":false,"sh":"Error code if an error occurred","t":"`$STRING`","key$":"errorCode","index$":4},"message":{"a":true,"h":"Message","n":"message","r":false,"sh":"Human-readable message or error description","t":"`$STRING`","key$":"message","index$":5},"selectedDns":{"a":true,"h":"Selected Dns","n":"selectedDns","r":false,"sh":"DNS provider selection","t":"`$STRING`","key$":"selectedDns","index$":6},"selectedServices":{"a":true,"h":"Selected Services","n":"selectedServices","r":false,"sh":"List of selected services to include in the configuration","t":"`$ARRAY`","key$":"selectedServices","index$":7},"siteMode":{"a":true,"h":"Site Mode","n":"siteMode","r":false,"sh":"The site mode for the WARP configuration","t":"`$STRING`","key$":"siteMode","index$":8}},"name":"warp","op":{"create":{"input":"data","name":"create","points":[{"a":true,"co":{"id":"POST /api/warp","source":"openapi3","version":2},"g":{},"k":"http","m":"POST","o":"/api/warp","q":{},"r":{},"s":[{"lit":"api"},{"lit":"warp"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"create"}},"relations":{"ancestors":[]},"key$":"warp","name__orig":"warp","Name":"Warp","name_":"warp","name-":"warp","NAME":"WARP","index$":0}, {"active":true,"entity":"warp","key$":"BasicWarpFlow","kind":"basic","name":"BasicWarpFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"warp_ref01"},"m":{},"o":"create","s":[],"v":[],"index$":0}]}, 'Warp', {"POST /api/warp":{"protocol":"http","operationId":"generateWarpConfig","requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"siteMode":{"type":"string","description":"The site mode for the WARP configuration","example":"awg2","key$":"siteMode"},"deviceType":{"type":"string","description":"The type of device requesting the configuration","example":"desktop","key$":"deviceType"},"amneziaMode":{"type":"string","description":"Amnezia VPN mode configuration","example":"warp_amnezia_awg2","key$":"amneziaMode"},"selectedDns":{"type":"string","description":"DNS provider selection","enum":["cloudflare","google","quad9"],"example":"cloudflare","key$":"selectedDns"},"selectedServices":{"type":"array","description":"List of selected services to include in the configuration","items":{"type":"string"},"example":["service1","service2"],"key$":"selectedServices"}},"index$":1},"examples":{"default":{"summary":"Default WARP configuration request","value":{"siteMode":"awg2","deviceType":"desktop","amneziaMode":"warp_amnezia_awg2","selectedDns":"cloudflare","selectedServices":[]}},"googleDns":{"summary":"WARP configuration with Google DNS","value":{"siteMode":"awg2","deviceType":"mobile","amneziaMode":"warp_amnezia_awg2","selectedDns":"google","selectedServices":[]}}}},"application/x-www-form-urlencoded":{"schema":{"type":"object","properties":{"siteMode":{"type":"string"},"deviceType":{"type":"string"},"amneziaMode":{"type":"string"},"selectedDns":{"type":"string"},"selectedServices":{"type":"string"}}}}}},"responses":{"200":{"description":"Successfully generated WARP configuration","content":{"application/json":{"schema":{"type":"object","properties":{"content":{"type":"string","description":"Base64 encoded WARP configuration content","example":"W0ludGVyZmFjZV0KUHJpdmF0ZUtleSA9IGFiY2RlZmdoaWprbG1ub3BxcnN0dXZ3eHl6MTIK","key$":"content"},"configs":{"type":"array","description":"Array of configuration objects when multiple configs are returned","items":{"type":"object","properties":{"content":{"type":"string","description":"Base64 encoded configuration content"},"name":{"type":"string","description":"Configuration name or identifier"}}},"key$":"configs"},"errorCode":{"type":"string","description":"Error code if an error occurred","key$":"errorCode"},"message":{"type":"string","description":"Human-readable message or error description","key$":"message"}},"index$":0},"examples":{"success":{"summary":"Successful configuration generation","value":{"content":"W0ludGVyZmFjZV0KUHJpdmF0ZUtleSA9IGFiY2RlZmdoaWprbG1ub3BxcnN0dXZ3eHl6MTIK","message":"Configuration generated successfully"}},"multipleConfigs":{"summary":"Multiple configurations returned","value":{"configs":[{"content":"W0ludGVyZmFjZV0KUHJpdmF0ZUtleSA9IGFiY2RlZmdoaWprbG1ub3BxcnN0dXZ3eHl6MTIK","name":"config1"},{"content":"W0ludGVyZmFjZV0KUHJpdmF0ZUtleSA9IHp5eHd2dXRzcnFwb25tbGtqaWhnZmVkY2JhMTIK","name":"config2"}]}}}}}},"400":{"description":"Bad request - Invalid parameters provided","content":{"application/json":{"schema":{"type":"object","properties":{"errorCode":{"type":"string","example":"INVALID_PARAMETERS"},"message":{"type":"string","example":"Invalid DNS provider specified"},"suggestions":{"type":"array","items":{"type":"string"},"example":["Use 'cloudflare', 'google', or 'quad9' as DNS provider"]}}}}}},"500":{"description":"Internal server error","content":{"application/json":{"schema":{"type":"object","properties":{"errorCode":{"type":"string","example":"INTERNAL_ERROR"},"message":{"type":"string","example":"Failed to generate configuration"}}}}}},"503":{"description":"Service unavailable","content":{"application/json":{"schema":{"type":"object","properties":{"errorCode":{"type":"string","example":"SERVICE_UNAVAILABLE"},"message":{"type":"string","example":"WARP generation service is currently unavailable"}}}}}}},"parameters":[],"securitySource":"unspecified"}})
     }
     const client = setup.client
     const struct = setup.struct
@@ -88,7 +90,7 @@ function basicSetup(extra?: any) {
 
   options.entity = entityData.existing
 
-  let client = GithubErrorSDK.test(options, extra)
+  let client = WarpVlessSDK.test(options, extra)
   const struct = client.utility().struct
   const merge = struct.merge
   const transform = struct.transform
@@ -102,28 +104,36 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['GITHUB_ERROR_TEST_WARP_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
-    'GITHUB_ERROR_TEST_WARP_ENTID': idmap,
-    'GITHUB_ERROR_TEST_LIVE': 'FALSE',
-    'GITHUB_ERROR_TEST_EXPLAIN': 'FALSE',
+    'WARP_VLESS_TEST_WARP_ENTID': idmap,
+    'WARP_VLESS_TEST_LIVE': 'FALSE',
+    'WARP_VLESS_TEST_EXPLAIN': 'FALSE',
   })
 
-  idmap = env['GITHUB_ERROR_TEST_WARP_ENTID']
+  idmap = env['WARP_VLESS_TEST_WARP_ENTID']
 
-  const live = 'TRUE' === env.GITHUB_ERROR_TEST_LIVE
+  const live = 'TRUE' === env.WARP_VLESS_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
-    client = new GithubErrorSDK(merge([
+    const rawIds = process.env['WARP_VLESS_TEST_WARP_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
+    client = new WarpVlessSDK(merge([
+      // FIRST, so the generated fields below win: sdk-test-control.json's
+      // test.client.options adds to the live client, it does not redirect it.
+      liveClientOptions(),
       {
       },
-      extra
+      // 'extra || {}', not a bare 'extra': struct.merge returns UNDEFINED when the
+      // last entry is undefined, and basicSetup is normally called with no
+      // argument at all - so a bare 'extra' silently discarded the apikey
+      // and server values above and handed the SDK undefined. Harmless
+      // while there was nothing in that object; not harmless now.
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -134,9 +144,9 @@ function basicSetup(extra?: any) {
     client,
     struct,
     data: entityData,
-    explain: 'TRUE' === env.GITHUB_ERROR_TEST_EXPLAIN,
+    explain: 'TRUE' === env.WARP_VLESS_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 

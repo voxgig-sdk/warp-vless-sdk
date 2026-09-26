@@ -1,7 +1,7 @@
 package core
 
 import (
-	vs "github.com/voxgig-sdk/github-error-sdk/go/utility/struct"
+	vs "github.com/voxgig-sdk/warp-vless-sdk/go/utility/struct"
 )
 
 type Result struct {

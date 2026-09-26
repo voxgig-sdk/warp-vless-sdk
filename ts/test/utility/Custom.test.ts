@@ -2,13 +2,13 @@
 import { test, describe } from 'node:test'
 import { equal } from 'node:assert'
 
-import { GithubErrorSDK } from '../..'
+import { WarpVlessSDK } from '../..'
 
 
 describe('Custom', () => {
 
   test('basic', async () => {
-    const client = GithubErrorSDK.test({}, {
+    const client = WarpVlessSDK.test({}, {
       apikey: 'APIKEY01',
 
       // NOTE: original utility.options must remain in place.

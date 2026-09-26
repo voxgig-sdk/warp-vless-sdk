@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK utility: feature_init
+// WarpVless SDK utility: feature_init
 
-class GithubErrorFeatureInit
+class WarpVlessFeatureInit
 {
-    public static function call(GithubErrorContext $ctx, mixed $f): void
+    public static function call(WarpVlessContext $ctx, mixed $f): void
     {
         $fname = $f->get_name();
         $fopts = [];

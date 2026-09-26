@@ -1,25 +1,25 @@
-# GithubError SDK utility: make_error
+# WarpVless SDK utility: make_error
 require_relative '../core/operation'
 require_relative '../core/result'
 require_relative '../core/error'
-module GithubErrorUtilities
+module WarpVlessUtilities
   MakeError = ->(ctx, err) {
     if ctx.nil?
       require_relative '../core/context'
-      ctx = GithubErrorContext.new({}, nil)
+      ctx = WarpVlessContext.new({}, nil)
     end
-    op = ctx.op || GithubErrorOperation.new({})
+    op = ctx.op || WarpVlessOperation.new({})
     opname = op.name
     opname = "unknown operation" if opname.empty? || opname == "_"
 
-    result = ctx.result || GithubErrorResult.new({})
+    result = ctx.result || WarpVlessResult.new({})
     result.ok = false
 
     err = result.err if err.nil?
     err = ctx.make_error("unknown", "unknown error") if err.nil?
 
-    errmsg = err.is_a?(GithubErrorError) ? err.msg : err.to_s
-    msg = "GithubErrorSDK: #{opname}: #{errmsg}"
+    errmsg = err.is_a?(WarpVlessError) ? err.msg : err.to_s
+    msg = "WarpVlessSDK: #{opname}: #{errmsg}"
     msg = ctx.utility.clean.call(ctx, msg)
 
     result.err = nil
@@ -29,14 +29,14 @@ module GithubErrorUtilities
       ctx.ctrl.explain["err"] = { "message" => msg }
     end
 
-    sdk_err = GithubErrorError.new("", msg, ctx)
+    sdk_err = WarpVlessError.new("", msg, ctx)
     sdk_err.result = ctx.utility.clean.call(ctx, result)
     sdk_err.spec = ctx.utility.clean.call(ctx, spec)
 
     # Promote the HTTP status to the top level, so a consumer can branch on
     # `err.status` / `err.not_found?` instead of reaching into `err.result`.
     sdk_err.status = result.status.nil? ? -1 : result.status
-    sdk_err.code = err.code if err.is_a?(GithubErrorError)
+    sdk_err.code = err.code if err.is_a?(WarpVlessError)
 
     ctx.ctrl.err = sdk_err
 

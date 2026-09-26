@@ -1,13 +1,13 @@
--- GithubError SDK error
+-- WarpVless SDK error
 
-local GithubErrorError = {}
-GithubErrorError.__index = GithubErrorError
+local WarpVlessError = {}
+WarpVlessError.__index = WarpVlessError
 
 
-function GithubErrorError.new(code, msg, ctx)
-  local self = setmetatable({}, GithubErrorError)
+function WarpVlessError.new(code, msg, ctx)
+  local self = setmetatable({}, WarpVlessError)
   self.is_sdk_error = true
-  self.sdk = "GithubError"
+  self.sdk = "WarpVless"
   self.code = code or ""
   self.msg = msg or ""
   self.ctx = ctx
@@ -17,14 +17,14 @@ function GithubErrorError.new(code, msg, ctx)
 end
 
 
-function GithubErrorError:error()
+function WarpVlessError:error()
   return self.msg
 end
 
 
-function GithubErrorError:__tostring()
+function WarpVlessError:__tostring()
   return self.msg
 end
 
 
-return GithubErrorError
+return WarpVlessError

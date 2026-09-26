@@ -1,13 +1,13 @@
-# GithubError SDK error
+# WarpVless SDK error
 
 from __future__ import annotations
 
 
-class GithubErrorError(Exception):
+class WarpVlessError(Exception):
     def __init__(self, code="", msg="", ctx=None):
         super().__init__(msg)
         self.is_sdk_error = True
-        self.sdk = "GithubError"
+        self.sdk = "WarpVless"
         self.code = code
         self.msg = msg
         self.ctx = ctx

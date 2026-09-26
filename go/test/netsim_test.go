@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/github-error-sdk/go"
+	sdk "github.com/voxgig-sdk/warp-vless-sdk/go"
 )
 
 func TestNetsim(t *testing.T) {

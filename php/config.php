@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK configuration
+// WarpVless SDK configuration
 
-class GithubErrorConfig
+class WarpVlessConfig
 {
     /** @var array<string,mixed>|null */
     private static ?array $shared_config = null;
@@ -32,17 +32,71 @@ class GithubErrorConfig
     {
         return [
             "main" => [
-                "name" => "GithubError",
-                "slug" => "github-error",
+                "name" => "WarpVless",
+                "slug" => "warp-vless",
                 "version" => "0.0.1",
                 "target" => "php",
             ],
             "feature" => [
+                "ratelimit" => [
+          'options' => [
+            'active' => false,
+            'burst' => 5,
+            'rate' => 5,
+          ],
+          'optspec' => [
+            'now' => '`$FUNCTION`',
+            'sleep' => '`$FUNCTION`',
+          ],
+          'strict' => false,
+          'transport' => 'wrap',
+        ],
+                "retry" => [
+          'options' => [
+            'active' => false,
+            'factor' => 2,
+            'maxDelay' => 2000,
+            'minDelay' => 50,
+            'retries' => 2,
+            'statuses' => [
+              408,
+              425,
+              429,
+              500,
+              502,
+              503,
+              504,
+            ],
+          ],
+          'optspec' => [
+            'jitter' => '`$BOOLEAN`',
+            'sleep' => '`$FUNCTION`',
+          ],
+          'strict' => false,
+          'transport' => 'wrap',
+        ],
                 "test" => [
           'options' => [
             'active' => false,
           ],
+          'optspec' => [
+            'entity' => '`$MAP`',
+            'net' => '`$MAP`',
+          ],
+          'strict' => false,
           'transport' => 'base',
+        ],
+                "timeout" => [
+          'options' => [
+            'active' => false,
+            'ms' => 30000,
+          ],
+          'optspec' => [
+            'clearTimer' => '`$FUNCTION`',
+            'setTimer' => '`$FUNCTION`',
+          ],
+          'strict' => false,
+          'transport' => 'wrap',
         ],
             ],
             "options" => [
@@ -59,48 +113,57 @@ class GithubErrorConfig
           'fields' => [
             [
               'name' => 'amneziaMode',
-              'short' => 'Amnezia VPN mode configuration',
+              'title' => 'Amnezia Mode',
               'type' => '`$STRING`',
+              'short' => 'Amnezia VPN mode configuration',
             ],
             [
               'name' => 'configs',
-              'short' => 'Array of configuration objects when multiple configs are returned',
+              'title' => 'Configs',
               'type' => '`$ARRAY`',
+              'short' => 'Array of configuration objects when multiple configs are returned',
             ],
             [
               'name' => 'content',
-              'short' => 'Base64 encoded WARP configuration content',
+              'title' => 'Content',
               'type' => '`$STRING`',
+              'short' => 'Base64 encoded WARP configuration content',
             ],
             [
               'name' => 'deviceType',
-              'short' => 'The type of device requesting the configuration',
+              'title' => 'Device Type',
               'type' => '`$STRING`',
+              'short' => 'The type of device requesting the configuration',
             ],
             [
               'name' => 'errorCode',
-              'short' => 'Error code if an error occurred',
+              'title' => 'Error Code',
               'type' => '`$STRING`',
+              'short' => 'Error code if an error occurred',
             ],
             [
               'name' => 'message',
-              'short' => 'Human-readable message or error description',
+              'title' => 'Message',
               'type' => '`$STRING`',
+              'short' => 'Human-readable message or error description',
             ],
             [
               'name' => 'selectedDns',
-              'short' => 'DNS provider selection',
+              'title' => 'Selected Dns',
               'type' => '`$STRING`',
+              'short' => 'DNS provider selection',
             ],
             [
               'name' => 'selectedServices',
-              'short' => 'List of selected services to include in the configuration',
+              'title' => 'Selected Services',
               'type' => '`$ARRAY`',
+              'short' => 'List of selected services to include in the configuration',
             ],
             [
               'name' => 'siteMode',
-              'short' => 'The site mode for the WARP configuration',
+              'title' => 'Site Mode',
               'type' => '`$STRING`',
+              'short' => 'The site mode for the WARP configuration',
             ],
           ],
           'name' => 'warp',
@@ -110,19 +173,28 @@ class GithubErrorConfig
               'name' => 'create',
               'points' => [
                 [
-                  'args' => [],
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/api/warp',
+                  'segments' => [
+                    [
+                      'lit' => 'api',
+                    ],
+                    [
+                      'lit' => 'warp',
+                    ],
+                  ],
                   'parts' => [
                     'api',
                     'warp',
                   ],
-                  'select' => [],
+                  'rename' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
+                  'args' => [],
+                  'select' => [],
                 ],
               ],
             ],
@@ -139,6 +211,6 @@ class GithubErrorConfig
     public static function make_feature(string $name)
     {
         require_once __DIR__ . '/features.php';
-        return GithubErrorFeatures::make_feature($name);
+        return WarpVlessFeatures::make_feature($name);
     }
 }

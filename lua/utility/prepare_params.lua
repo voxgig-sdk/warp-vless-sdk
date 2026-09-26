@@ -1,4 +1,4 @@
--- GithubError SDK utility: prepare_params
+-- WarpVless SDK utility: prepare_params
 
 local vs = require("utility.struct.struct")
 

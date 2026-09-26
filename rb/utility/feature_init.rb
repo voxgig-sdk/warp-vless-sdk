@@ -1,6 +1,6 @@
-# GithubError SDK utility: feature_init
+# WarpVless SDK utility: feature_init
 require_relative 'struct/voxgig_struct'
-module GithubErrorUtilities
+module WarpVlessUtilities
   FeatureInit = ->(ctx, f) {
     fname = f.get_name
     fopts = {}

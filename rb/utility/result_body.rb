@@ -1,5 +1,5 @@
-# GithubError SDK utility: result_body
-module GithubErrorUtilities
+# WarpVless SDK utility: result_body
+module WarpVlessUtilities
   ResultBody = ->(ctx) {
     response = ctx.response
     result = ctx.result

@@ -1,4 +1,4 @@
-# GithubError SDK — documentation python-examples COMPLETENESS gate.
+# WarpVless SDK — documentation python-examples COMPLETENESS gate.
 #
 # GUARANTEE: every python example in the docs is unit-tested. This module is a
 # completeness gate over every python fenced code block in three documents:
@@ -17,10 +17,10 @@
 #
 #   2. EXECUTE (the primary safety net): every RUNNABLE block is run offline in
 #      a seeded TEST-mode subprocess. A block is RUNNABLE when it constructs the
-#      SDK (mentions GithubErrorSDK) OR drives a client/sdk variable the narrative
+#      SDK (mentions WarpVlessSDK) OR drives a client/sdk variable the narrative
 #      built earlier ("client." / "sdk."). A constructing block is rewritten so
-#      both GithubErrorSDK(...) and GithubErrorSDK.test(...) become
-#      GithubErrorSDK.test({"entity": {...}}) seeding one mock record (id "test01")
+#      both WarpVlessSDK(...) and WarpVlessSDK.test(...) become
+#      WarpVlessSDK.test({"entity": {...}}) seeding one mock record (id "test01")
 #      per referenced entity; a client-driving block gets that seeded test
 #      client injected first, then runs verbatim. Any PROGRAMMING error
 #      (NameError / AttributeError / TypeError / KeyError / IndexError /
@@ -65,8 +65,8 @@ _FENCE = chr(96) * 3   # the triple-backtick markdown code fence
 _NL = chr(10)          # newline
 _WS = (chr(32), chr(9), chr(13), chr(10))   # space, tab, CR, LF
 
-_SDK_MODULE = "githuberror_sdk"
-_SDK_CLASS = "GithubErrorSDK"
+_SDK_MODULE = "warpvless_sdk"
+_SDK_CLASS = "WarpVlessSDK"
 
 # The variable names the generated narrative examples bind the client to. A doc
 # reads as a sequence: an early snippet builds the client, later snippets drive

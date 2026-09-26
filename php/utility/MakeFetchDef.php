@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK utility: make_fetch_def
+// WarpVless SDK utility: make_fetch_def
 
 require_once __DIR__ . '/../core/Result.php';
 
-class GithubErrorMakeFetchDef
+class WarpVlessMakeFetchDef
 {
-    public static function call(GithubErrorContext $ctx): array
+    public static function call(WarpVlessContext $ctx): array
     {
         $spec = $ctx->spec;
         if (!$spec) {
@@ -15,7 +15,7 @@ class GithubErrorMakeFetchDef
         }
 
         if (!$ctx->result) {
-            $ctx->result = new GithubErrorResult([]);
+            $ctx->result = new WarpVlessResult([]);
         }
         $spec->step = 'prepare';
 

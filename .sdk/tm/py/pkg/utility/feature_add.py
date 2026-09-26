@@ -1,4 +1,4 @@
-# GithubError SDK utility: feature_add
+# WarpVless SDK utility: feature_add
 
 
 def feature_add_util(ctx, f):

@@ -1,4 +1,4 @@
-# GithubError SDK utility: clean
-module GithubErrorUtilities
+# WarpVless SDK utility: clean
+module WarpVlessUtilities
   Clean = ->(ctx, val) { val }
 end

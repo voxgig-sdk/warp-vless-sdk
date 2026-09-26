@@ -1,4 +1,4 @@
--- GithubError SDK utility type
+-- WarpVless SDK utility type
 
 local Utility = {}
 Utility.__index = Utility

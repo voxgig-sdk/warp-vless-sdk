@@ -1,5 +1,5 @@
-# GithubError SDK utility: result_headers
-module GithubErrorUtilities
+# WarpVless SDK utility: result_headers
+module WarpVlessUtilities
   ResultHeaders = ->(ctx) {
     response = ctx.response
     result = ctx.result

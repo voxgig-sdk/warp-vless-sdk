@@ -1,14 +1,14 @@
-# GithubError SDK utility: make_request
+# WarpVless SDK utility: make_request
 require_relative '../core/response'
 require_relative '../core/result'
-module GithubErrorUtilities
+module WarpVlessUtilities
   MakeRequest = ->(ctx) {
     return ctx.out["request"], nil if ctx.out["request"]
 
     spec = ctx.spec
     utility = ctx.utility
-    response = GithubErrorResponse.new({})
-    result = GithubErrorResult.new({})
+    response = WarpVlessResponse.new({})
+    result = WarpVlessResult.new({})
     ctx.result = result
 
     return nil, ctx.make_error("request_no_spec", "Expected context spec property to be defined.") unless spec
@@ -30,9 +30,9 @@ module GithubErrorUtilities
     if fetch_err
       response.err = fetch_err
     elsif fetched.nil?
-      response = GithubErrorResponse.new({ "err" => ctx.make_error("request_no_response", "response: undefined") })
+      response = WarpVlessResponse.new({ "err" => ctx.make_error("request_no_response", "response: undefined") })
     elsif fetched.is_a?(Hash)
-      response = GithubErrorResponse.new(fetched)
+      response = WarpVlessResponse.new(fetched)
     else
       response.err = ctx.make_error("request_invalid_response", "response: invalid type")
     end

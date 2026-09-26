@@ -1,7 +1,7 @@
-// Typed models for the GithubError SDK.
+// Typed models for the WarpVless SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -9,20 +9,11 @@ package entity
 import (
 	"encoding/json"
 
-	"github.com/voxgig-sdk/github-error-sdk/go/core"
+	"github.com/voxgig-sdk/warp-vless-sdk/go/core"
 )
 
 // Warp is the typed data model for the warp entity.
 type Warp struct {
-	AmneziaMode *string `json:"amneziaMode,omitempty"`
-	Configs *[]any `json:"configs,omitempty"`
-	Content *string `json:"content,omitempty"`
-	DeviceType *string `json:"deviceType,omitempty"`
-	ErrorCode *string `json:"errorCode,omitempty"`
-	Message *string `json:"message,omitempty"`
-	SelectedDns *string `json:"selectedDns,omitempty"`
-	SelectedServices *[]any `json:"selectedServices,omitempty"`
-	SiteMode *string `json:"siteMode,omitempty"`
 }
 
 // WarpCreateData is the typed request payload for Warp.CreateTyped.

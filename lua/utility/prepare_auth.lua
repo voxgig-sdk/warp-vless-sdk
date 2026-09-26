@@ -1,4 +1,4 @@
--- GithubError SDK utility: prepare_auth
+-- WarpVless SDK utility: prepare_auth
 
 local vs = require("utility.struct.struct")
 

@@ -1,4 +1,4 @@
-# GithubError SDK utility: clean
+# WarpVless SDK utility: clean
 
 
 def clean_util(ctx, val):

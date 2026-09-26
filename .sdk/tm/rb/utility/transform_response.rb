@@ -1,14 +1,14 @@
-# GithubError SDK utility: transform_response
+# WarpVless SDK utility: transform_response
 require_relative 'struct/voxgig_struct'
 require_relative '../core/helpers'
-module GithubErrorUtilities
+module WarpVlessUtilities
   TransformResponse = ->(ctx) {
     spec = ctx.spec
     result = ctx.result
     point = ctx.point
     spec.step = "resform" if spec
     return nil if result.nil? || !result.ok
-    transform = GithubErrorHelpers.to_map(VoxgigStruct.getprop(point, "transform"))
+    transform = WarpVlessHelpers.to_map(VoxgigStruct.getprop(point, "transform"))
     return nil unless transform
     resform = VoxgigStruct.getprop(transform, "res")
     return nil unless resform

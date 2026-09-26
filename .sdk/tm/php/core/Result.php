@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK result
+// WarpVless SDK result
 
-class GithubErrorResult
+class WarpVlessResult
 {
     public bool $ok;
     public int $status;

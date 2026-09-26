@@ -1,4 +1,4 @@
-# GithubError SDK utility: make_response
+# WarpVless SDK utility: make_response
 
 
 def make_response_util(ctx):

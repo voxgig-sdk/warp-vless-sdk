@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK utility: prepare_path
+// WarpVless SDK utility: prepare_path
 
-class GithubErrorPreparePath
+class WarpVlessPreparePath
 {
-    public static function call(GithubErrorContext $ctx): string
+    public static function call(WarpVlessContext $ctx): string
     {
         $point = $ctx->point;
         $parts = [];

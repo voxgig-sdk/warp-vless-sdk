@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK response
+// WarpVless SDK response
 
-class GithubErrorResponse
+class WarpVlessResponse
 {
     public int $status;
     public string $status_text;

@@ -3,7 +3,7 @@ package utility
 import (
 	"reflect"
 
-	"github.com/voxgig-sdk/github-error-sdk/go/core"
+	"github.com/voxgig-sdk/warp-vless-sdk/go/core"
 )
 
 func featureHookUtil(ctx *core.Context, name string) {

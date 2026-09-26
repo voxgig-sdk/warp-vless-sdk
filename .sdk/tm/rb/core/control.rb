@@ -1,6 +1,6 @@
-# GithubError SDK control
+# WarpVless SDK control
 
-class GithubErrorControl
+class WarpVlessControl
   attr_accessor :throw_err, :err, :explain, :actor, :paging
 
   def initialize(opts = {})

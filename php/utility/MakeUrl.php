@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK utility: make_url
+// WarpVless SDK utility: make_url
 
-class GithubErrorMakeUrl
+class WarpVlessMakeUrl
 {
-    public static function call(GithubErrorContext $ctx): array
+    public static function call(WarpVlessContext $ctx): array
     {
         $spec = $ctx->spec;
         $result = $ctx->result;

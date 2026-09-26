@@ -1,7 +1,7 @@
 package core
 
-type GithubErrorError struct {
-	IsGithubErrorError bool
+type WarpVlessError struct {
+	IsWarpVlessError bool
 	Sdk              string
 	Code             string
 	Msg              string
@@ -10,16 +10,16 @@ type GithubErrorError struct {
 	Spec             any
 }
 
-func NewGithubErrorError(code string, msg string, ctx *Context) *GithubErrorError {
-	return &GithubErrorError{
-		IsGithubErrorError: true,
-		Sdk:              "GithubError",
+func NewWarpVlessError(code string, msg string, ctx *Context) *WarpVlessError {
+	return &WarpVlessError{
+		IsWarpVlessError: true,
+		Sdk:              "WarpVless",
 		Code:             code,
 		Msg:              msg,
 		Ctx:              ctx,
 	}
 }
 
-func (e *GithubErrorError) Error() string {
+func (e *WarpVlessError) Error() string {
 	return e.Msg
 }

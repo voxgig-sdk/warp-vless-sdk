@@ -1,4 +1,4 @@
--- GithubError SDK utility: make_context
+-- WarpVless SDK utility: make_context
 
 local Context = require("core.context")
 

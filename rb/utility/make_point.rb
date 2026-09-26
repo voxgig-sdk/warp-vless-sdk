@@ -1,15 +1,15 @@
-# GithubError SDK utility: make_point
+# WarpVless SDK utility: make_point
 require_relative 'struct/voxgig_struct'
 require_relative '../core/helpers'
 require_relative '../core/error'
-module GithubErrorUtilities
+module WarpVlessUtilities
   MakePoint = ->(ctx) {
     if ctx.out["point"]
       preset = ctx.out["point"]
       # A feature may short-circuit endpoint resolution by placing an error
       # in ctx.out["point"] (e.g. an rbac denial): surface it as the error
       # tuple slot so the operation fails before any network use.
-      return nil, preset if preset.is_a?(GithubErrorError)
+      return nil, preset if preset.is_a?(WarpVlessError)
       ctx.point = preset
       return ctx.point, nil
     end
@@ -37,7 +37,7 @@ module GithubErrorUtilities
       point = nil
       matched = false
       op.points.each do |p|
-        select_def = GithubErrorHelpers.to_map(VoxgigStruct.getprop(p, "select"))
+        select_def = WarpVlessHelpers.to_map(VoxgigStruct.getprop(p, "select"))
         found = true
 
         if selector && select_def
@@ -106,7 +106,7 @@ module GithubErrorUtilities
       if reqselector
         req_action = VoxgigStruct.getprop(reqselector, "$action")
         if req_action && point
-          point_select = GithubErrorHelpers.to_map(VoxgigStruct.getprop(point, "select"))
+          point_select = WarpVlessHelpers.to_map(VoxgigStruct.getprop(point, "select"))
           point_action = VoxgigStruct.getprop(point_select, "$action")
           if req_action != point_action
             return nil, ctx.make_error("point_action_invalid",

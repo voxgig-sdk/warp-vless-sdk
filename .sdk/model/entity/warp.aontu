@@ -1,0 +1,105 @@
+# Entity: warp
+
+main: kit: entity: warp: {
+
+  alias: field: {}
+
+  fields: {
+    amneziaMode: {
+      h: "Amnezia Mode"
+      n: "amneziaMode"
+      r: false
+      sh: "Amnezia VPN mode configuration"
+      t: "`$STRING`"
+    }
+    configs: {
+      h: "Configs"
+      n: "configs"
+      r: false
+      sh: "Array of configuration objects when multiple configs are returned"
+      t: "`$ARRAY`"
+    }
+    content: {
+      h: "Content"
+      n: "content"
+      r: false
+      sh: "Base64 encoded WARP configuration content"
+      t: "`$STRING`"
+    }
+    deviceType: {
+      h: "Device Type"
+      n: "deviceType"
+      r: false
+      sh: "The type of device requesting the configuration"
+      t: "`$STRING`"
+    }
+    errorCode: {
+      h: "Error Code"
+      n: "errorCode"
+      r: false
+      sh: "Error code if an error occurred"
+      t: "`$STRING`"
+    }
+    message: {
+      h: "Message"
+      n: "message"
+      r: false
+      sh: "Human-readable message or error description"
+      t: "`$STRING`"
+    }
+    selectedDns: {
+      h: "Selected Dns"
+      n: "selectedDns"
+      r: false
+      sh: "DNS provider selection"
+      t: "`$STRING`"
+    }
+    selectedServices: {
+      h: "Selected Services"
+      n: "selectedServices"
+      r: false
+      sh: "List of selected services to include in the configuration"
+      t: "`$ARRAY`"
+    }
+    siteMode: {
+      h: "Site Mode"
+      n: "siteMode"
+      r: false
+      sh: "The site mode for the WARP configuration"
+      t: "`$STRING`"
+    }
+  }
+
+  name: "warp"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /api/warp"
+            source: "openapi3"
+            version: 2
+          }
+          m: "POST"
+          o: "/api/warp"
+          s: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "warp"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

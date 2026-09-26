@@ -1,12 +1,23 @@
 
 import { BaseFeature } from './feature/base/BaseFeature'
+import { RatelimitFeature } from './feature/ratelimit/RatelimitFeature'
+import { RetryFeature } from './feature/retry/RetryFeature'
 import { TestFeature } from './feature/test/TestFeature'
+import { TimeoutFeature } from './feature/timeout/TimeoutFeature'
 
 
 
 const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
-   test: TestFeature,
+   ratelimit: RatelimitFeature,
+ retry: RetryFeature,
+ test: TestFeature,
+ timeout: TimeoutFeature,
 
+}
+
+
+const FEATURE_PLUGINS: Record<string, any[]> = {
+  
 }
 
 
@@ -15,7 +26,6 @@ class Config {
   makeFeature(this: any, fn: string) {
     const fc = FEATURE_CLASS[fn]
     const fi = new fc()
-    // TODO: errors etc
     return fi
   }
 
@@ -28,8 +38,8 @@ class Config {
 
 
   main = {
-    name: 'GithubError',
-        slug: "github-error",
+    name: 'WarpVless',
+        slug: "warp-vless",
     version: "0.0.1",
     target: "ts",
 
@@ -37,11 +47,65 @@ class Config {
 
 
   feature = {
-     test:     {
+     ratelimit:     {
+      "options": {
+        "active": false,
+        "burst": 5,
+        "rate": 5
+      },
+      "optspec": {
+        "now": "`$FUNCTION`",
+        "sleep": "`$FUNCTION`"
+      },
+      "strict": false,
+      "transport": "wrap"
+    },
+ retry:     {
+      "options": {
+        "active": false,
+        "factor": 2,
+        "maxDelay": 2000,
+        "minDelay": 50,
+        "retries": 2,
+        "statuses": [
+          408,
+          425,
+          429,
+          500,
+          502,
+          503,
+          504
+        ]
+      },
+      "optspec": {
+        "jitter": "`$BOOLEAN`",
+        "sleep": "`$FUNCTION`"
+      },
+      "strict": false,
+      "transport": "wrap"
+    },
+ test:     {
       "options": {
         "active": false
       },
+      "optspec": {
+        "entity": "`$MAP`",
+        "net": "`$MAP`"
+      },
+      "strict": false,
       "transport": "base"
+    },
+ timeout:     {
+      "options": {
+        "active": false,
+        "ms": 30000
+      },
+      "optspec": {
+        "clearTimer": "`$FUNCTION`",
+        "setTimer": "`$FUNCTION`"
+      },
+      "strict": false,
+      "transport": "wrap"
     },
 
   }
@@ -56,9 +120,9 @@ class Config {
 
     entity: {
       
-      warp: {
-      },
-
+        warp: {
+        },
+  
     }
   }
 
@@ -68,48 +132,57 @@ class Config {
       "fields": [
         {
           "name": "amneziaMode",
-          "short": "Amnezia VPN mode configuration",
-          "type": "`$STRING`"
+          "title": "Amnezia Mode",
+          "type": "`$STRING`",
+          "short": "Amnezia VPN mode configuration"
         },
         {
           "name": "configs",
-          "short": "Array of configuration objects when multiple configs are returned",
-          "type": "`$ARRAY`"
+          "title": "Configs",
+          "type": "`$ARRAY`",
+          "short": "Array of configuration objects when multiple configs are returned"
         },
         {
           "name": "content",
-          "short": "Base64 encoded WARP configuration content",
-          "type": "`$STRING`"
+          "title": "Content",
+          "type": "`$STRING`",
+          "short": "Base64 encoded WARP configuration content"
         },
         {
           "name": "deviceType",
-          "short": "The type of device requesting the configuration",
-          "type": "`$STRING`"
+          "title": "Device Type",
+          "type": "`$STRING`",
+          "short": "The type of device requesting the configuration"
         },
         {
           "name": "errorCode",
-          "short": "Error code if an error occurred",
-          "type": "`$STRING`"
+          "title": "Error Code",
+          "type": "`$STRING`",
+          "short": "Error code if an error occurred"
         },
         {
           "name": "message",
-          "short": "Human-readable message or error description",
-          "type": "`$STRING`"
+          "title": "Message",
+          "type": "`$STRING`",
+          "short": "Human-readable message or error description"
         },
         {
           "name": "selectedDns",
-          "short": "DNS provider selection",
-          "type": "`$STRING`"
+          "title": "Selected Dns",
+          "type": "`$STRING`",
+          "short": "DNS provider selection"
         },
         {
           "name": "selectedServices",
-          "short": "List of selected services to include in the configuration",
-          "type": "`$ARRAY`"
+          "title": "Selected Services",
+          "type": "`$ARRAY`",
+          "short": "List of selected services to include in the configuration"
         },
         {
           "name": "siteMode",
-          "short": "The site mode for the WARP configuration",
-          "type": "`$STRING`"
+          "title": "Site Mode",
+          "type": "`$STRING`",
+          "short": "The site mode for the WARP configuration"
         }
       ],
       "name": "warp",
@@ -119,19 +192,28 @@ class Config {
           "name": "create",
           "points": [
             {
-              "args": {},
               "kind": "http",
               "method": "POST",
               "orig": "/api/warp",
+              "segments": [
+                {
+                  "lit": "api"
+                },
+                {
+                  "lit": "warp"
+                }
+              ],
               "parts": [
                 "api",
                 "warp"
               ],
-              "select": {},
+              "rename": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "args": {},
+              "select": {}
             }
           ]
         }
@@ -147,6 +229,7 @@ class Config {
 const config = new Config()
 
 export {
-  config
+  config,
+  FEATURE_PLUGINS,
 }
 

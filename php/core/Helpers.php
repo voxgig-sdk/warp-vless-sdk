@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK helpers
+// WarpVless SDK helpers
 
-class GithubErrorHelpers
+class WarpVlessHelpers
 {
     public static function to_map(mixed $v): ?array
     {

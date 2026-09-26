@@ -1,8 +1,8 @@
-# GithubError SDK response
+# WarpVless SDK response
 
 require_relative '../utility/struct/voxgig_struct'
 
-class GithubErrorResponse
+class WarpVlessResponse
   attr_accessor :status, :status_text, :headers, :json_func, :body, :err
 
   def initialize(resmap = {})

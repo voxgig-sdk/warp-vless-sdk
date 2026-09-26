@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK utility: result_basic
+// WarpVless SDK utility: result_basic
 
-class GithubErrorResultBasic
+class WarpVlessResultBasic
 {
-    public static function call(GithubErrorContext $ctx): ?GithubErrorResult
+    public static function call(WarpVlessContext $ctx): ?WarpVlessResult
     {
         $response = $ctx->response;
         $result = $ctx->result;
@@ -15,7 +15,7 @@ class GithubErrorResultBasic
             if ($result->status >= 400) {
                 $msg = "request: {$result->status}: {$result->status_text}";
                 if ($result->err) {
-                    $prev = ($result->err instanceof GithubErrorError) ? $result->err->msg : (string)$result->err;
+                    $prev = ($result->err instanceof WarpVlessError) ? $result->err->msg : (string)$result->err;
                     $result->err = $ctx->make_error('request_status', "{$prev}: {$msg}");
                 } else {
                     $result->err = $ctx->make_error('request_status', $msg);

@@ -1,4 +1,4 @@
-# GithubError SDK utility registration
+# WarpVless SDK utility registration
 require_relative '../core/utility_type'
 require_relative 'clean'
 require_relative 'done'
@@ -31,36 +31,36 @@ require_relative 'result_headers'
 require_relative 'transform_request'
 require_relative 'transform_response'
 
-GithubErrorUtility.registrar = ->(u) {
-  u.clean = GithubErrorUtilities::Clean
-  u.done = GithubErrorUtilities::Done
-  u.make_error = GithubErrorUtilities::MakeError
-  u.feature_add = GithubErrorUtilities::FeatureAdd
-  u.feature_hook = GithubErrorUtilities::FeatureHook
-  u.feature_init = GithubErrorUtilities::FeatureInit
-  u.fetcher = GithubErrorUtilities::Fetcher
-  u.make_fetch_def = GithubErrorUtilities::MakeFetchDef
-  u.make_context = GithubErrorUtilities::MakeContext
-  u.make_options = GithubErrorUtilities::MakeOptions
-  u.make_request = GithubErrorUtilities::MakeRequest
-  u.make_response = GithubErrorUtilities::MakeResponse
-  u.make_result = GithubErrorUtilities::MakeResult
-  u.make_point = GithubErrorUtilities::MakePoint
-  u.make_spec = GithubErrorUtilities::MakeSpec
-  u.make_url = GithubErrorUtilities::MakeUrl
-  u.param = GithubErrorUtilities::Param
-  u.prepare_auth = GithubErrorUtilities::PrepareAuth
-  u.prepare_body = GithubErrorUtilities::PrepareBody
-  u.prepare_headers = GithubErrorUtilities::PrepareHeaders
-  u.prepare_method = GithubErrorUtilities::PrepareMethod
-  u.prepare_params = GithubErrorUtilities::PrepareParams
-  u.prepare_path = GithubErrorUtilities::PreparePath
-  u.prepare_query = GithubErrorUtilities::PrepareQuery
-  u.graphql_body = GithubErrorUtilities::GraphqlBody
-  u.graphql_errors = GithubErrorUtilities::GraphqlErrors
-  u.result_basic = GithubErrorUtilities::ResultBasic
-  u.result_body = GithubErrorUtilities::ResultBody
-  u.result_headers = GithubErrorUtilities::ResultHeaders
-  u.transform_request = GithubErrorUtilities::TransformRequest
-  u.transform_response = GithubErrorUtilities::TransformResponse
+WarpVlessUtility.registrar = ->(u) {
+  u.clean = WarpVlessUtilities::Clean
+  u.done = WarpVlessUtilities::Done
+  u.make_error = WarpVlessUtilities::MakeError
+  u.feature_add = WarpVlessUtilities::FeatureAdd
+  u.feature_hook = WarpVlessUtilities::FeatureHook
+  u.feature_init = WarpVlessUtilities::FeatureInit
+  u.fetcher = WarpVlessUtilities::Fetcher
+  u.make_fetch_def = WarpVlessUtilities::MakeFetchDef
+  u.make_context = WarpVlessUtilities::MakeContext
+  u.make_options = WarpVlessUtilities::MakeOptions
+  u.make_request = WarpVlessUtilities::MakeRequest
+  u.make_response = WarpVlessUtilities::MakeResponse
+  u.make_result = WarpVlessUtilities::MakeResult
+  u.make_point = WarpVlessUtilities::MakePoint
+  u.make_spec = WarpVlessUtilities::MakeSpec
+  u.make_url = WarpVlessUtilities::MakeUrl
+  u.param = WarpVlessUtilities::Param
+  u.prepare_auth = WarpVlessUtilities::PrepareAuth
+  u.prepare_body = WarpVlessUtilities::PrepareBody
+  u.prepare_headers = WarpVlessUtilities::PrepareHeaders
+  u.prepare_method = WarpVlessUtilities::PrepareMethod
+  u.prepare_params = WarpVlessUtilities::PrepareParams
+  u.prepare_path = WarpVlessUtilities::PreparePath
+  u.prepare_query = WarpVlessUtilities::PrepareQuery
+  u.graphql_body = WarpVlessUtilities::GraphqlBody
+  u.graphql_errors = WarpVlessUtilities::GraphqlErrors
+  u.result_basic = WarpVlessUtilities::ResultBasic
+  u.result_body = WarpVlessUtilities::ResultBody
+  u.result_headers = WarpVlessUtilities::ResultHeaders
+  u.transform_request = WarpVlessUtilities::TransformRequest
+  u.transform_response = WarpVlessUtilities::TransformResponse
 }

@@ -1,7 +1,7 @@
-# GithubError SDK utility: param
+# WarpVless SDK utility: param
 require_relative 'struct/voxgig_struct'
 require_relative '../core/helpers'
-module GithubErrorUtilities
+module WarpVlessUtilities
   Param = ->(ctx, paramdef) {
     point = ctx.point
     spec = ctx.spec
@@ -20,7 +20,7 @@ module GithubErrorUtilities
 
     akey = ""
     if point
-      alias_map = GithubErrorHelpers.to_map(VoxgigStruct.getprop(point, "alias"))
+      alias_map = WarpVlessHelpers.to_map(VoxgigStruct.getprop(point, "alias"))
       if alias_map
         ak = VoxgigStruct.getprop(alias_map, key)
         akey = ak if ak.is_a?(String)

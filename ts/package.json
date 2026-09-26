@@ -1,5 +1,5 @@
 {
-  "name": "@voxgig-sdk/github-error",
+  "name": "@voxgig-sdk/warp-vless-sdk",
   "version": "0.0.1",
   "description": "Unofficial generated TypeScript SDK for the GitHub Error public API. Not affiliated with or endorsed by the upstream API provider.",
   "keywords": [
@@ -8,22 +8,23 @@
     "generated-sdk",
     "openapi",
     "api-client",
-    "github-error"
+    "warp-vless"
   ],
-  "homepage": "https://github.com/voxgig-sdk/github-error-sdk#readme",
+  "homepage": "https://github.com/voxgig-sdk/warp-vless-sdk#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/voxgig-sdk/github-error-sdk.git"
+    "url": "git+https://github.com/voxgig-sdk/warp-vless-sdk.git"
   },
   "bugs": {
-    "url": "https://github.com/voxgig-sdk/github-error-sdk/issues"
+    "url": "https://github.com/voxgig-sdk/warp-vless-sdk/issues"
   },
-  "main": "dist/GithubErrorSDK.js",
+  "main": "dist/WarpVlessSDK.js",
   "type": "commonjs",
-  "types": "dist/GithubErrorSDK.d.ts",
+  "types": "dist/WarpVlessSDK.d.ts",
   "files": [
     "dist",
-    "src"
+    "src",
+    "README.md"
   ],
   "scripts": {
     "pretest": "npm run build",
@@ -46,7 +47,6 @@
   "peerDependencies": {},
   "devDependencies": {
     "@types/node": "^25.6.0",
-    "dotenv": "^17.4.2",
     "typescript": "^5.9.3"
   }
 }

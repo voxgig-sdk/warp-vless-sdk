@@ -1,8 +1,8 @@
-# GithubError SDK utility: make_spec
+# WarpVless SDK utility: make_spec
 
 from __future__ import annotations
 from projectname_sdk.utility.voxgig_struct import voxgig_struct as vs
-from projectname_sdk.core.spec import GithubErrorSpec
+from projectname_sdk.core.spec import WarpVlessSpec
 from projectname_sdk.utility.graphql import GRAPHQL_CONTENT_TYPE
 
 
@@ -40,7 +40,7 @@ def make_spec_util(ctx):
         if isinstance(pt, list):
             parts = pt
 
-    ctx.spec = GithubErrorSpec({
+    ctx.spec = WarpVlessSpec({
         "base": base,
         "prefix": prefix,
         "parts": parts,

@@ -1,5 +1,5 @@
-# GithubError SDK utility: feature_hook
-module GithubErrorUtilities
+# WarpVless SDK utility: feature_hook
+module WarpVlessUtilities
   FeatureHook = ->(ctx, name) {
     return unless ctx.client
     features = ctx.client.features

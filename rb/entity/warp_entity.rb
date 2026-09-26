@@ -1,4 +1,4 @@
-# GithubError SDK Warp entity
+# WarpVless SDK Warp entity
 
 require_relative '../utility/struct/voxgig_struct'
 require_relative '../core/helpers'
@@ -53,7 +53,7 @@ class WarpEntity
 
   def data_set(args)
     if args
-      @_data = GithubErrorHelpers.to_map(VoxgigStruct.clone(args)) || {}
+      @_data = WarpVlessHelpers.to_map(VoxgigStruct.clone(args)) || {}
       @_utility.feature_hook.call(@_entctx, "SetData")
     end
   end
@@ -66,7 +66,7 @@ class WarpEntity
 
   def match_set(args)
     if args
-      @_match = GithubErrorHelpers.to_map(VoxgigStruct.clone(args)) || {}
+      @_match = WarpVlessHelpers.to_map(VoxgigStruct.clone(args)) || {}
       @_utility.feature_hook.call(@_entctx, "SetMatch")
     end
   end
@@ -179,7 +179,7 @@ class WarpEntity
   #
   # @param reqdata [WarpCreateData, Hash, nil] body data
   # @param ctrl [Object, nil] optional per-call control
-  # @return [Warp, Hash] the created Warp; raises GithubErrorError on failure
+  # @return [Warp, Hash] the created Warp; raises WarpVlessError on failure
   def create(reqdata, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -193,7 +193,7 @@ class WarpEntity
     _run_op(ctx) do
       if ctx.result
         if ctx.result.resdata
-          @_data = GithubErrorHelpers.to_map(VoxgigStruct.clone(ctx.result.resdata)) || {}
+          @_data = WarpVlessHelpers.to_map(VoxgigStruct.clone(ctx.result.resdata)) || {}
         end
       end
     end

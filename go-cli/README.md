@@ -1,6 +1,6 @@
-# github-error-cli
+# warp-vless-cli
 
-boru-driven command-line client **and** interactive REPL for the GithubError
+boru-driven command-line client **and** interactive REPL for the WarpVless
 SDK. Each command line is parsed as a single [boru](https://github.com/boru-lang/boru)
 expression and evaluated against the live API; run it with no arguments to drop
 into a REPL. Built on `github.com/boru-lang/boru/eng/go` and the sibling Go SDK
@@ -9,24 +9,24 @@ at `../go`.
 ## Examples
 
 ```sh
-# 1. Build a native binary (-> dist/<os>-<arch>/github-error-cli)
+# 1. Build a native binary (-> dist/<os>-<arch>/warp-vless-cli)
 make build
 
 # 2. See usage (words, entities, env vars)
-./github-error-cli --help
+./warp-vless-cli --help
 
 # 3. Provide credentials once, via the environment
-export GITHUB_ERROR_APIKEY=sk_live_xxx
+export WARP_VLESS_APIKEY=sk_live_xxx
 
 # 4. Each command line is ONE boru expression, run against the API:
 
 # 5. Override the API base URL for a single call
-GITHUB_ERROR_BASE=https://api.example.com ./github-error-cli --help
+WARP_VLESS_BASE=https://api.example.com ./warp-vless-cli --help
 
 # 6. No arguments -> interactive REPL
-./github-error-cli
-github-error> /help
-github-error> /quit
+./warp-vless-cli
+warp-vless> /help
+warp-vless> /quit
 ```
 
 > The rest of this guide follows the [Diátaxis](https://diataxis.fr) framework:
@@ -38,20 +38,20 @@ github-error> /quit
 1. **Build the binary.** From this `go-cli/` directory:
 
    ```sh
-   make build          # -> dist/<os>-<arch>/github-error-cli
+   make build          # -> dist/<os>-<arch>/warp-vless-cli
    ```
 
 2. **Set your API key** (read from the environment):
 
    ```sh
-   export GITHUB_ERROR_APIKEY=sk_live_xxx
+   export WARP_VLESS_APIKEY=sk_live_xxx
    ```
 
 3. **Run a query.** Evaluate an boru expression against the API (or run with no
    arguments to open the REPL):
 
    ```sh
-   ./dist/*/github-error-cli --help
+   ./dist/*/warp-vless-cli --help
    ```
 
 4. **Go interactive.** Run the binary with no arguments to open the REPL, then
@@ -66,22 +66,22 @@ That is the whole loop: *build → set key → evaluate boru expressions*.
 Configuration is read from the environment — nothing is written to disk:
 
 ```sh
-export GITHUB_ERROR_APIKEY=sk_live_xxx            # API key
-export GITHUB_ERROR_BASE=https://api.example.com  # optional: override the API base URL
-./github-error-cli --help
+export WARP_VLESS_APIKEY=sk_live_xxx            # API key
+export WARP_VLESS_BASE=https://api.example.com  # optional: override the API base URL
+./warp-vless-cli --help
 ```
 
 Both are injectable by a secrets vault, so the key never has to be typed inline.
 
 ### Explore interactively with the REPL
 
-Run with no arguments to open a REPL (prompt `github-error>`). Each line is
+Run with no arguments to open a REPL (prompt `warp-vless>`). Each line is
 evaluated as its own boru expression:
 
 ```text
-$ ./github-error-cli
-github-error> /help
-github-error> /quit
+$ ./warp-vless-cli
+warp-vless> /help
+warp-vless> /quit
 ```
 
 ### Cross-compile release binaries
@@ -114,8 +114,8 @@ The CLI registers these boru words, each bound to the SDK:
 
 | Variable | Purpose |
 |----------|---------|
-| `GITHUB_ERROR_APIKEY` | API key sent with every request. |
-| `GITHUB_ERROR_BASE` | Optional override of the API base URL. |
+| `WARP_VLESS_APIKEY` | API key sent with every request. |
+| `WARP_VLESS_BASE` | Optional override of the API base URL. |
 
 Unset variables fall back to the SDK's built-in defaults.
 
@@ -141,7 +141,7 @@ Meta-commands use the `/` prefix (everything else on a line is evaluated as boru
 
 | Target | Result |
 |--------|--------|
-| `make build` | Native binary at `dist/<os>-<arch>/github-error-cli`. |
+| `make build` | Native binary at `dist/<os>-<arch>/warp-vless-cli`. |
 | `make build-all` | linux/darwin/windows x amd64/arm64, each under its own `dist/<os>-<arch>/`. |
 | `make clean` | Remove `dist/` and any stray binaries. |
 
@@ -157,7 +157,7 @@ warp
 
 The whole command line is one [boru](https://github.com/boru-lang/boru) expression,
 not a fixed `verb --flag` grammar. That means the same binary works one-shot
-(`./github-error-cli <expr>`) and interactively (the REPL), and expressions compose the
+(`./warp-vless-cli <expr>`) and interactively (the REPL), and expressions compose the
 same way in both. `list` / `load` / `update` are ordinary boru *words* bound to
 the SDK — adding SDK operations is adding words, not re-parsing flags.
 

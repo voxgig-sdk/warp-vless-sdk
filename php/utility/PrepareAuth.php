@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK utility: prepare_auth
+// WarpVless SDK utility: prepare_auth
 
-class GithubErrorPrepareAuth
+class WarpVlessPrepareAuth
 {
     private const HEADER_AUTH = 'authorization';
     private const OPTION_APIKEY = 'apikey';
     private const NOT_FOUND = '__NOTFOUND__';
 
-    public static function call(GithubErrorContext $ctx): array
+    public static function call(WarpVlessContext $ctx): array
     {
         $spec = $ctx->spec;
         if (!$spec) {

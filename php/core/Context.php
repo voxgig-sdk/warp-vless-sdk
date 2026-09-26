@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK context
+// WarpVless SDK context
 
 require_once __DIR__ . '/Control.php';
 require_once __DIR__ . '/Operation.php';
@@ -11,13 +11,13 @@ require_once __DIR__ . '/Response.php';
 require_once __DIR__ . '/Error.php';
 require_once __DIR__ . '/Helpers.php';
 
-class GithubErrorContext
+class WarpVlessContext
 {
     public string $id;
     public array $out;
     public mixed $client;
-    public ?GithubErrorUtility $utility;
-    public GithubErrorControl $ctrl;
+    public ?WarpVlessUtility $utility;
+    public WarpVlessControl $ctrl;
     public array $meta;
     public ?array $config;
     public ?array $entopts;
@@ -30,21 +30,21 @@ class GithubErrorContext
     public array $match;
     public array $reqmatch;
     public ?array $point;
-    public ?GithubErrorSpec $spec;
-    public ?GithubErrorResult $result;
-    public ?GithubErrorResponse $response;
-    public GithubErrorOperation $op;
+    public ?WarpVlessSpec $spec;
+    public ?WarpVlessResult $result;
+    public ?WarpVlessResponse $response;
+    public WarpVlessOperation $op;
 
     public function __construct(array $ctxmap = [], ?self $basectx = null)
     {
         $this->id = 'C' . random_int(10000000, 99999999);
         $this->out = [];
 
-        $this->client = GithubErrorHelpers::get_ctx_prop($ctxmap, 'client') ?? ($basectx ? $basectx->client : null);
-        $this->utility = GithubErrorHelpers::get_ctx_prop($ctxmap, 'utility') ?? ($basectx ? $basectx->utility : null);
+        $this->client = WarpVlessHelpers::get_ctx_prop($ctxmap, 'client') ?? ($basectx ? $basectx->client : null);
+        $this->utility = WarpVlessHelpers::get_ctx_prop($ctxmap, 'utility') ?? ($basectx ? $basectx->utility : null);
 
-        $this->ctrl = new GithubErrorControl();
-        $ctrl_raw = GithubErrorHelpers::get_ctx_prop($ctxmap, 'ctrl');
+        $this->ctrl = new WarpVlessControl();
+        $ctrl_raw = WarpVlessHelpers::get_ctx_prop($ctxmap, 'ctrl');
         if (is_array($ctrl_raw)) {
             if (array_key_exists('throw', $ctrl_raw)) {
                 $this->ctrl->throw_err = $ctrl_raw['throw'];
@@ -55,53 +55,57 @@ class GithubErrorContext
             if (array_key_exists('actor', $ctrl_raw)) {
                 $this->ctrl->actor = $ctrl_raw['actor'];
             }
-        } elseif ($basectx !== null && $basectx->ctrl !== null) {
+            if (isset($ctrl_raw['paging']) && is_array($ctrl_raw['paging'])) {
+                $this->ctrl->paging = $ctrl_raw['paging'];
+            }
+        } elseif ($basectx !== null && $basectx->ctrl !== null
+            && WarpVlessHelpers::get_ctx_prop($ctxmap, "opname") === null) {
             $this->ctrl = $basectx->ctrl;
         }
 
-        $m = GithubErrorHelpers::get_ctx_prop($ctxmap, 'meta');
+        $m = WarpVlessHelpers::get_ctx_prop($ctxmap, 'meta');
         $this->meta = is_array($m) ? $m : ($basectx ? $basectx->meta ?? [] : []);
 
-        $cfg = GithubErrorHelpers::get_ctx_prop($ctxmap, 'config');
+        $cfg = WarpVlessHelpers::get_ctx_prop($ctxmap, 'config');
         $this->config = is_array($cfg) ? $cfg : ($basectx ? $basectx->config : null);
 
-        $eo = GithubErrorHelpers::get_ctx_prop($ctxmap, 'entopts');
+        $eo = WarpVlessHelpers::get_ctx_prop($ctxmap, 'entopts');
         $this->entopts = is_array($eo) ? $eo : ($basectx ? $basectx->entopts : null);
 
-        $o = GithubErrorHelpers::get_ctx_prop($ctxmap, 'options');
+        $o = WarpVlessHelpers::get_ctx_prop($ctxmap, 'options');
         $this->options = is_array($o) ? $o : ($basectx ? $basectx->options : null);
 
-        $e = GithubErrorHelpers::get_ctx_prop($ctxmap, 'entity');
+        $e = WarpVlessHelpers::get_ctx_prop($ctxmap, 'entity');
         $this->entity = $e ?? ($basectx ? $basectx->entity : null);
 
-        $s = GithubErrorHelpers::get_ctx_prop($ctxmap, 'shared');
+        $s = WarpVlessHelpers::get_ctx_prop($ctxmap, 'shared');
         $this->shared = is_array($s) ? $s : ($basectx ? $basectx->shared : null);
 
-        $om = GithubErrorHelpers::get_ctx_prop($ctxmap, 'opmap');
+        $om = WarpVlessHelpers::get_ctx_prop($ctxmap, 'opmap');
         $this->opmap = is_array($om) ? $om : ($basectx ? $basectx->opmap ?? [] : []);
 
-        $this->data = GithubErrorHelpers::to_map(GithubErrorHelpers::get_ctx_prop($ctxmap, 'data')) ?? [];
-        $this->reqdata = GithubErrorHelpers::to_map(GithubErrorHelpers::get_ctx_prop($ctxmap, 'reqdata')) ?? [];
-        $this->match = GithubErrorHelpers::to_map(GithubErrorHelpers::get_ctx_prop($ctxmap, 'match')) ?? [];
-        $this->reqmatch = GithubErrorHelpers::to_map(GithubErrorHelpers::get_ctx_prop($ctxmap, 'reqmatch')) ?? [];
+        $this->data = WarpVlessHelpers::to_map(WarpVlessHelpers::get_ctx_prop($ctxmap, 'data')) ?? [];
+        $this->reqdata = WarpVlessHelpers::to_map(WarpVlessHelpers::get_ctx_prop($ctxmap, 'reqdata')) ?? [];
+        $this->match = WarpVlessHelpers::to_map(WarpVlessHelpers::get_ctx_prop($ctxmap, 'match')) ?? [];
+        $this->reqmatch = WarpVlessHelpers::to_map(WarpVlessHelpers::get_ctx_prop($ctxmap, 'reqmatch')) ?? [];
 
-        $pt = GithubErrorHelpers::get_ctx_prop($ctxmap, 'point');
+        $pt = WarpVlessHelpers::get_ctx_prop($ctxmap, 'point');
         $this->point = is_array($pt) ? $pt : ($basectx ? $basectx->point : null);
 
-        $sp = GithubErrorHelpers::get_ctx_prop($ctxmap, 'spec');
-        $this->spec = ($sp instanceof GithubErrorSpec) ? $sp : ($basectx ? $basectx->spec : null);
+        $sp = WarpVlessHelpers::get_ctx_prop($ctxmap, 'spec');
+        $this->spec = ($sp instanceof WarpVlessSpec) ? $sp : ($basectx ? $basectx->spec : null);
 
-        $r = GithubErrorHelpers::get_ctx_prop($ctxmap, 'result');
-        $this->result = ($r instanceof GithubErrorResult) ? $r : ($basectx ? $basectx->result : null);
+        $r = WarpVlessHelpers::get_ctx_prop($ctxmap, 'result');
+        $this->result = ($r instanceof WarpVlessResult) ? $r : ($basectx ? $basectx->result : null);
 
-        $rp = GithubErrorHelpers::get_ctx_prop($ctxmap, 'response');
-        $this->response = ($rp instanceof GithubErrorResponse) ? $rp : ($basectx ? $basectx->response : null);
+        $rp = WarpVlessHelpers::get_ctx_prop($ctxmap, 'response');
+        $this->response = ($rp instanceof WarpVlessResponse) ? $rp : ($basectx ? $basectx->response : null);
 
-        $opname = GithubErrorHelpers::get_ctx_prop($ctxmap, 'opname') ?? '';
+        $opname = WarpVlessHelpers::get_ctx_prop($ctxmap, 'opname') ?? '';
         $this->op = $this->resolve_op($opname);
     }
 
-    public function resolve_op(string $opname): GithubErrorOperation
+    public function resolve_op(string $opname): WarpVlessOperation
     {
         // Cache key is `<entity>:<opname>` so two entities with the same op
         // (e.g. both have a "list") get distinct cached Operations. Keying
@@ -116,7 +120,7 @@ class GithubErrorContext
             return $this->opmap[$cacheKey];
         }
         if ($opname === '') {
-            return new GithubErrorOperation([]);
+            return new WarpVlessOperation([]);
         }
 
         $opcfg = \Voxgig\Struct\Struct::getpath($this->config, "entity.{$entname}.op.{$opname}");
@@ -131,7 +135,7 @@ class GithubErrorContext
             }
         }
 
-        $op = new GithubErrorOperation([
+        $op = new WarpVlessOperation([
             'entity' => $entname,
             'name' => $opname,
             'input' => $input,
@@ -141,8 +145,8 @@ class GithubErrorContext
         return $op;
     }
 
-    public function make_error(string $code, string $msg): GithubErrorError
+    public function make_error(string $code, string $msg): WarpVlessError
     {
-        return new GithubErrorError($code, $msg, $this);
+        return new WarpVlessError($code, $msg, $this);
     }
 }

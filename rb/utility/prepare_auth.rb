@@ -1,6 +1,6 @@
-# GithubError SDK utility: prepare_auth
+# WarpVless SDK utility: prepare_auth
 require_relative 'struct/voxgig_struct'
-module GithubErrorUtilities
+module WarpVlessUtilities
   HEADER_AUTH = "authorization"
   OPTION_APIKEY = "apikey"
   NOT_FOUND = "__NOTFOUND__"

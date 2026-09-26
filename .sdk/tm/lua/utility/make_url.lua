@@ -1,4 +1,4 @@
--- GithubError SDK utility: make_url
+-- WarpVless SDK utility: make_url
 
 local vs = require("utility.struct.struct")
 

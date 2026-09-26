@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK utility type
+// WarpVless SDK utility type
 
-class GithubErrorUtility
+class WarpVlessUtility
 {
     public mixed $clean = null;
     public mixed $done = null;
@@ -53,9 +53,9 @@ class GithubErrorUtility
         }
     }
 
-    public static function copy(GithubErrorUtility $src): GithubErrorUtility
+    public static function copy(WarpVlessUtility $src): WarpVlessUtility
     {
-        $u = new GithubErrorUtility();
+        $u = new WarpVlessUtility();
         $u->clean = $src->clean;
         $u->done = $src->done;
         $u->make_error = $src->make_error;

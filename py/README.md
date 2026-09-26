@@ -1,8 +1,8 @@
-# GithubError Python SDK
+# WarpVless Python SDK
 
 
 
-The Python SDK for the GithubError API — an entity-oriented client following Pythonic conventions.
+The Python SDK for the WarpVless API — an entity-oriented client following Pythonic conventions.
 
 The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Warp()` — each
 carrying a small, uniform set of operations (`create`) instead of raw URL
@@ -15,7 +15,7 @@ keeps the cognitive load low.
 
 ## Install
 This package is not yet published to PyPI. Install it from the GitHub
-release tag (`py/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/github-error-sdk/releases)) or
+release tag (`py/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/warp-vless-sdk/releases)) or
 from a source checkout:
 
 ```bash
@@ -31,9 +31,9 @@ loading a specific record.
 ### 1. Create a client
 
 ```python
-from githuberror_sdk import GithubErrorSDK
+from warpvless_sdk import WarpVlessSDK
 
-client = GithubErrorSDK()
+client = WarpVlessSDK()
 ```
 
 ### 4. Create, update, and remove
@@ -116,7 +116,7 @@ print(fetchdef["headers"])
 Create a mock client for unit testing — no server required:
 
 ```python
-client = GithubErrorSDK.test()
+client = WarpVlessSDK.test()
 
 # Entity ops return the ENTITY and raises on error;
 # call data_get() for the record.
@@ -137,7 +137,7 @@ def mock_fetch(url, init):
         "json": lambda: {"id": "mock01"},
     }, None
 
-client = GithubErrorSDK({
+client = WarpVlessSDK({
     "base": "http://localhost:8080",
     "system": {
         "fetch": mock_fetch,
@@ -150,7 +150,7 @@ client = GithubErrorSDK({
 Create a `.env.local` file at the project root:
 
 ```
-GITHUB_ERROR_TEST_LIVE=TRUE
+WARP_VLESS_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -162,12 +162,12 @@ cd py && pytest test/
 
 ## Reference
 
-### GithubErrorSDK
+### WarpVlessSDK
 
 ```python
-from githuberror_sdk import GithubErrorSDK
+from warpvless_sdk import WarpVlessSDK
 
-client = GithubErrorSDK(options)
+client = WarpVlessSDK(options)
 ```
 
 Creates a new SDK client.
@@ -184,12 +184,12 @@ Creates a new SDK client.
 ### test
 
 ```python
-client = GithubErrorSDK.test(testopts, sdkopts)
+client = WarpVlessSDK.test(testopts, sdkopts)
 ```
 
 Creates a test-mode client with mock transport. Both arguments may be `None`.
 
-### GithubErrorSDK methods
+### WarpVlessSDK methods
 
 | Method | Signature | Description |
 | --- | --- | --- |
@@ -289,7 +289,7 @@ warp = client.Warp().create({
 
 ## Features
 
-This SDK ships 1 optional features. Each is **inactive until you
+This SDK ships 4 optional features. Each is **inactive until you
 switch it on**, so an SDK you have not configured behaves exactly as if none of
 them existed — no retries, no cache, no logging, no measurable overhead.
 
@@ -298,17 +298,75 @@ above:
 
 | Feature | What it does |
 |---|---|
-| [`test`](#test) | In-memory mock transport for testing without a live server |
+| [`ratelimit`](#ratelimit) | Rate limiting |
+| [`retry`](#retry) | Retry |
+| [`test`](#test) | Test transport |
+| [`timeout`](#timeout) | Timeout |
+
+> **Order matters for `ratelimit`, `retry`, `timeout`.** These wrap the
+> transport, so each one wraps whatever is already installed: the order you
+> activate them in IS the nesting order. Activating them as an ordered list
+> rather than a map is what fixes that order.
+
+### ratelimit
+
+Rate limiting.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `burst` | `5` |
+| `rate` | `5` |
+
+Set `feature.ratelimit.active` to enable it, then override any of the options above.
+
+`ratelimit` wraps the transport, so its position among the other
+transport features decides what it sees. A feature activated later wraps one
+activated earlier.
+
+### retry
+
+Retry.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `factor` | `2` |
+| `maxDelay` | `2000` |
+| `minDelay` | `50` |
+| `retries` | `2` |
+| `statuses` | `[408, 425, 429, 500, 502, 503, 504]` |
+
+Set `feature.retry.active` to enable it, then override any of the options above.
+
+`retry` wraps the transport, so its position among the other
+transport features decides what it sees. A feature activated later wraps one
+activated earlier.
 
 ### test
 
-In-memory mock transport for testing without a live server.
+Test transport.
 
 | Option | Default |
 |---|---|
 | `active` | `false` |
 
 Set `feature.test.active` to enable it, then override any of the options above.
+
+### timeout
+
+Timeout.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `ms` | `30000` |
+
+Set `feature.timeout.active` to enable it, then override any of the options above.
+
+`timeout` wraps the transport, so its position among the other
+transport features decides what it sees. A feature activated later wraps one
+activated earlier.
 
 
 ## Advanced
@@ -349,7 +407,10 @@ with hook methods named after pipeline stages (e.g. `PrePoint`,
 
 The SDK ships with built-in features:
 
-- **TestFeature**: In-memory mock transport for testing without a live server
+- **RatelimitFeature**: Rate limiting
+- **RetryFeature**: Retry
+- **TestFeature**: Test transport
+- **TimeoutFeature**: Timeout
 
 Features are initialized in order. Hooks fire in the order features
 were added, so later features can override earlier ones.
@@ -367,8 +428,9 @@ Use `helpers.to_map()` to safely validate that a value is a dict.
 
 ```
 py/
-├── githuberror_sdk.py         -- Main SDK module
+├── warpvless_sdk.py         -- Main SDK module
 ├── config.py                    -- Configuration
+├── schema.py                    -- Generated option + entity specs
 ├── features.py                  -- Feature factory
 ├── core/                        -- Core types and context
 ├── entity/                      -- Entity implementations
@@ -377,7 +439,7 @@ py/
 └── test/                        -- Test suites
 ```
 
-The main module (`githuberror_sdk`) exports the SDK class.
+The main module (`warpvless_sdk`) exports the SDK class.
 Import entity or utility modules directly only when needed.
 
 ### Entity state

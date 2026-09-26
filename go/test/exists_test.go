@@ -3,7 +3,7 @@ package sdktest
 import (
 	"testing"
 
-	sdk "github.com/voxgig-sdk/github-error-sdk/go"
+	sdk "github.com/voxgig-sdk/warp-vless-sdk/go"
 )
 
 func TestExists(t *testing.T) {

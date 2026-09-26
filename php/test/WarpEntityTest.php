@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 // Warp entity test
 
-require_once __DIR__ . '/../githuberror_sdk.php';
+require_once __DIR__ . '/../warpvless_sdk.php';
 require_once __DIR__ . '/Runner.php';
 
 use PHPUnit\Framework\TestCase;
@@ -13,7 +13,7 @@ class WarpEntityTest extends TestCase
 {
     public function test_create_instance(): void
     {
-        $testsdk = GithubErrorSDK::test(null, null);
+        $testsdk = WarpVlessSDK::test(null, null);
         $ent = $testsdk->Warp(null);
         $this->assertNotNull($ent);
     }
@@ -33,7 +33,7 @@ class WarpEntityTest extends TestCase
         // The basic flow consumes synthetic IDs from the fixture. In live mode
         // without an *_ENTID env override, those IDs hit the live API and 4xx.
         if (!empty($setup["synthetic_only"])) {
-            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set GITHUB_ERROR_TEST_WARP_ENTID JSON to run live");
+            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set WARP_VLESS_TEST_WARP_ENTID JSON to run live");
             return;
         }
         $client = $setup["client"];
@@ -61,7 +61,7 @@ function warp_basic_setup($extra)
     $options = [];
     $options["entity"] = $entity_data["existing"];
 
-    $client = GithubErrorSDK::test($options, $extra);
+    $client = WarpVlessSDK::test($options, $extra);
 
     // Generate idmap.
     $idmap = [];
@@ -72,37 +72,52 @@ function warp_basic_setup($extra)
     // Detect ENTID env override before envOverride consumes it. When live
     // mode is on without a real override, the basic test runs against synthetic
     // IDs from the fixture and 4xx's. Surface this so the test can skip.
-    $entid_env_raw = getenv("GITHUB_ERROR_TEST_WARP_ENTID");
+    $entid_env_raw = getenv("WARP_VLESS_TEST_WARP_ENTID");
     $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
 
     $env = Runner::env_override([
-        "GITHUB_ERROR_TEST_WARP_ENTID" => $idmap,
-        "GITHUB_ERROR_TEST_LIVE" => "FALSE",
-        "GITHUB_ERROR_TEST_EXPLAIN" => "FALSE",
+        "WARP_VLESS_TEST_WARP_ENTID" => $idmap,
+        "WARP_VLESS_TEST_LIVE" => "FALSE",
+        "WARP_VLESS_TEST_EXPLAIN" => "FALSE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
-        $env["GITHUB_ERROR_TEST_WARP_ENTID"]);
+        $env["WARP_VLESS_TEST_WARP_ENTID"]);
     if ($idmap_resolved === null) {
         $idmap_resolved = Helpers::to_map($idmap);
     }
 
-    if ($env["GITHUB_ERROR_TEST_LIVE"] === "TRUE") {
+    if ($env["WARP_VLESS_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
+            // FIRST, so the generated fields below win: sdk-test-control.json's
+            // test.client.options adds to the live client, it does not redirect it.
+            Runner::live_client_options(),
             [
             ],
-            $extra ?? [],
+            // ismap, not a plain "?? []" default: an empty PHP array is a
+            // LIST, and a non-map later entry REPLACES the accumulated map in
+            // merge - so the no-extras call discarded live_client_options()
+            // and the apikey/server map above it.
+            Vs::ismap($extra) ? $extra : new \stdClass(),
         ]);
-        $client = new GithubErrorSDK(Helpers::to_map($merged_opts));
+        // "?? []" because merge legitimately answers with a stdClass when every
+        // contributing entry is an EMPTY map - an SDK with no apikey and no
+        // server variables generates an empty middle entry, so that is the
+        // common case, not the edge one. to_map returns null for a non-array by
+        // design, and the constructor takes a non-nullable array, so without the
+        // fallback every such SDK died on "must be of type array, null given"
+        // the moment live mode was switched on. Offline mode never reaches this
+        // branch, which is why the offline suite stayed green.
+        $client = new WarpVlessSDK(Helpers::to_map($merged_opts) ?? []);
     }
 
-    $live = $env["GITHUB_ERROR_TEST_LIVE"] === "TRUE";
+    $live = $env["WARP_VLESS_TEST_LIVE"] === "TRUE";
     return [
         "client" => $client,
         "data" => $entity_data,
         "idmap" => $idmap_resolved,
         "env" => $env,
-        "explain" => $env["GITHUB_ERROR_TEST_EXPLAIN"] === "TRUE",
+        "explain" => $env["WARP_VLESS_TEST_EXPLAIN"] === "TRUE",
         "live" => $live,
         "synthetic_only" => $live && !$idmap_overridden,
         "now" => (int)(microtime(true) * 1000),

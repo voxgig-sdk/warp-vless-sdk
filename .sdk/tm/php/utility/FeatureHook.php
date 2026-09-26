@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK utility: feature_hook
+// WarpVless SDK utility: feature_hook
 
-class GithubErrorFeatureHook
+class WarpVlessFeatureHook
 {
-    public static function call(GithubErrorContext $ctx, string $name): void
+    public static function call(WarpVlessContext $ctx, string $name): void
     {
         if (!$ctx->client) {
             return;

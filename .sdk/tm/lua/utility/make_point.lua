@@ -1,4 +1,4 @@
--- GithubError SDK utility: make_point
+-- WarpVless SDK utility: make_point
 
 local vs = require("utility.struct.struct")
 local helpers = require("core.helpers")

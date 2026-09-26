@@ -1,4 +1,4 @@
-# GithubError SDK utility: result_body
+# WarpVless SDK utility: result_body
 
 
 def result_body_util(ctx):

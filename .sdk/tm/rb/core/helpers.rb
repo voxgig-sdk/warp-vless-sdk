@@ -1,6 +1,6 @@
-# GithubError SDK helpers
+# WarpVless SDK helpers
 
-module GithubErrorHelpers
+module WarpVlessHelpers
   def self.to_map(v)
     v.is_a?(Hash) ? v : nil
   end

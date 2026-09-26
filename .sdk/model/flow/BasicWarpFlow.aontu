@@ -1,0 +1,18 @@
+# BasicWarpFlow
+
+main: kit: flow: BasicWarpFlow:
+{
+  entity: "warp",
+  kind: "basic",
+  name: "BasicWarpFlow",
+  step: [
+    {
+      i: {
+        ref: "warp_ref01"
+      }
+
+      o: "create"
+    }
+  ],
+  "key$": "BasicWarpFlow"
+}

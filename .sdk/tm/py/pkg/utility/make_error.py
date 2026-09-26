@@ -1,27 +1,27 @@
-# GithubError SDK utility: make_error
+# WarpVless SDK utility: make_error
 
 from __future__ import annotations
-from projectname_sdk.core.operation import GithubErrorOperation
-from projectname_sdk.core.result import GithubErrorResult
-from projectname_sdk.core.control import GithubErrorControl
-from projectname_sdk.core.error import GithubErrorError
+from projectname_sdk.core.operation import WarpVlessOperation
+from projectname_sdk.core.result import WarpVlessResult
+from projectname_sdk.core.control import WarpVlessControl
+from projectname_sdk.core.error import WarpVlessError
 
 
 def make_error_util(ctx, err):
     if ctx is None:
-        from projectname_sdk.core.context import GithubErrorContext
-        ctx = GithubErrorContext({}, None)
+        from projectname_sdk.core.context import WarpVlessContext
+        ctx = WarpVlessContext({}, None)
 
     op = ctx.op
     if op is None:
-        op = GithubErrorOperation({})
+        op = WarpVlessOperation({})
     opname = op.name
     if opname == "" or opname == "_":
         opname = "unknown operation"
 
     result = ctx.result
     if result is None:
-        result = GithubErrorResult({})
+        result = WarpVlessResult({})
     result.ok = False
 
     if err is None:
@@ -30,7 +30,7 @@ def make_error_util(ctx, err):
         err = ctx.make_error("unknown", "unknown error")
 
     errmsg = ""
-    if isinstance(err, GithubErrorError):
+    if isinstance(err, WarpVlessError):
         errmsg = err.msg
     elif hasattr(err, "msg") and err.msg is not None:
         errmsg = err.msg
@@ -39,7 +39,7 @@ def make_error_util(ctx, err):
     else:
         errmsg = str(err)
 
-    msg = "GithubErrorSDK: " + opname + ": " + errmsg
+    msg = "WarpVlessSDK: " + opname + ": " + errmsg
     msg = ctx.utility.clean(ctx, msg)
 
     result.err = None
@@ -49,7 +49,7 @@ def make_error_util(ctx, err):
     if ctx.ctrl.explain is not None:
         ctx.ctrl.explain["err"] = {"message": msg}
 
-    sdk_err = GithubErrorError("", msg, ctx)
+    sdk_err = WarpVlessError("", msg, ctx)
     sdk_err.result = ctx.utility.clean(ctx, result)
     sdk_err.spec = ctx.utility.clean(ctx, spec)
 
@@ -57,7 +57,7 @@ def make_error_util(ctx, err):
     # `err.status` / `err.not_found` instead of reaching into `err.result`.
     sdk_err.status = -1 if result.status is None else result.status
 
-    if isinstance(err, GithubErrorError):
+    if isinstance(err, WarpVlessError):
         sdk_err.code = err.code
 
     ctx.ctrl.err = sdk_err

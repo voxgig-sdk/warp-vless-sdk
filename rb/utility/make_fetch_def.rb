@@ -1,12 +1,12 @@
-# GithubError SDK utility: make_fetch_def
+# WarpVless SDK utility: make_fetch_def
 require_relative 'struct/voxgig_struct'
 require_relative '../core/result'
-module GithubErrorUtilities
+module WarpVlessUtilities
   MakeFetchDef = ->(ctx) {
     spec = ctx.spec
     return nil, ctx.make_error("fetchdef_no_spec", "Expected context spec property to be defined.") unless spec
 
-    ctx.result = GithubErrorResult.new({}) unless ctx.result
+    ctx.result = WarpVlessResult.new({}) unless ctx.result
     spec.step = "prepare"
 
     url, err = ctx.utility.make_url.call(ctx)

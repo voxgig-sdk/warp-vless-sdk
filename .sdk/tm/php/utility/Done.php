@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK utility: done
+// WarpVless SDK utility: done
 
-class GithubErrorDone
+class WarpVlessDone
 {
-    public static function call(GithubErrorContext $ctx): mixed
+    public static function call(WarpVlessContext $ctx): mixed
     {
         if ($ctx->ctrl->explain) {
             $ctx->ctrl->explain = ($ctx->utility->clean)($ctx, $ctx->ctrl->explain);

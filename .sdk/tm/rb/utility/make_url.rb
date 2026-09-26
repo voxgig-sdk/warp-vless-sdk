@@ -1,6 +1,6 @@
-# GithubError SDK utility: make_url
+# WarpVless SDK utility: make_url
 require_relative 'struct/voxgig_struct'
-module GithubErrorUtilities
+module WarpVlessUtilities
   MakeUrl = ->(ctx) {
     spec = ctx.spec
     result = ctx.result

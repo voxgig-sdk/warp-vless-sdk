@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK operation
+// WarpVless SDK operation
 
-class GithubErrorOperation
+class WarpVlessOperation
 {
     public string $entity;
     public string $name;

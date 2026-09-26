@@ -53,5 +53,12 @@
         "siteMode": "s170"
       }
     }
+  },
+  "requests": {
+    "POST /api/warp": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
   }
 }

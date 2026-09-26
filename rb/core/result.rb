@@ -1,8 +1,8 @@
-# GithubError SDK result
+# WarpVless SDK result
 
 require_relative '../utility/struct/voxgig_struct'
 
-class GithubErrorResult
+class WarpVlessResult
   attr_accessor :ok, :status, :status_text, :headers, :body, :err, :resdata, :resmatch,
                 :paging, :streaming, :stream
 

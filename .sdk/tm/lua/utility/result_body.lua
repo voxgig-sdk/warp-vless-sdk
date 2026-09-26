@@ -1,4 +1,4 @@
--- GithubError SDK utility: result_body
+-- WarpVless SDK utility: result_body
 
 local function result_body_util(ctx)
   local response = ctx.response

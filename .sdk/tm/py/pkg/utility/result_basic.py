@@ -1,4 +1,4 @@
-# GithubError SDK utility: result_basic
+# WarpVless SDK utility: result_basic
 
 
 def result_basic_util(ctx):

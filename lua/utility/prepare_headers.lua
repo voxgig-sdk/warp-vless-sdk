@@ -1,4 +1,4 @@
--- GithubError SDK utility: prepare_headers
+-- WarpVless SDK utility: prepare_headers
 
 local vs = require("utility.struct.struct")
 

@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK utility: make_request
+// WarpVless SDK utility: make_request
 
 require_once __DIR__ . '/../core/Response.php';
 require_once __DIR__ . '/../core/Result.php';
 
-class GithubErrorMakeRequest
+class WarpVlessMakeRequest
 {
-    public static function call(GithubErrorContext $ctx): array
+    public static function call(WarpVlessContext $ctx): array
     {
         if (isset($ctx->out['request'])) {
             return [$ctx->out['request'], null];
@@ -16,8 +16,8 @@ class GithubErrorMakeRequest
 
         $spec = $ctx->spec;
         $utility = $ctx->utility;
-        $response = new GithubErrorResponse([]);
-        $result = new GithubErrorResult([]);
+        $response = new WarpVlessResponse([]);
+        $result = new WarpVlessResult([]);
         $ctx->result = $result;
 
         if (!$spec) {
@@ -43,9 +43,9 @@ class GithubErrorMakeRequest
         if ($fetch_err) {
             $response->err = $fetch_err;
         } elseif ($fetched === null) {
-            $response = new GithubErrorResponse(['err' => $ctx->make_error('request_no_response', 'response: undefined')]);
+            $response = new WarpVlessResponse(['err' => $ctx->make_error('request_no_response', 'response: undefined')]);
         } elseif (is_array($fetched)) {
-            $response = new GithubErrorResponse($fetched);
+            $response = new WarpVlessResponse($fetched);
         } else {
             $response->err = $ctx->make_error('request_invalid_response', 'response: invalid type');
         }

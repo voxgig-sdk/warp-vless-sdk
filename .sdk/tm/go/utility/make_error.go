@@ -33,7 +33,7 @@ func makeErrorUtil(ctx *core.Context, err error) (any, error) {
 	}
 
 	errmsg := err.Error()
-	msg := "GithubErrorSDK: " + opname + ": " + errmsg
+	msg := "WarpVlessSDK: " + opname + ": " + errmsg
 	msg = cleanUtil(ctx, msg).(string)
 
 	result.Err = nil
@@ -46,16 +46,16 @@ func makeErrorUtil(ctx *core.Context, err error) (any, error) {
 		}
 	}
 
-	sdkErr := &core.GithubErrorError{
-		IsGithubErrorError: true,
-		Sdk:              "GithubError",
+	sdkErr := &core.WarpVlessError{
+		IsWarpVlessError: true,
+		Sdk:              "WarpVless",
 		Code:             "",
 		Msg:              msg,
 		Ctx:              ctx,
 		Result:           cleanUtil(ctx, result),
 		Spec:             cleanUtil(ctx, spec),
 	}
-	if se, ok := err.(*core.GithubErrorError); ok {
+	if se, ok := err.(*core.WarpVlessError); ok {
 		sdkErr.Code = se.Code
 	}
 

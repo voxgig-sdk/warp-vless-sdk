@@ -1,4 +1,4 @@
-# GithubError SDK helpers
+# WarpVless SDK helpers
 
 
 def to_map(v):

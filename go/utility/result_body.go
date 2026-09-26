@@ -1,6 +1,6 @@
 package utility
 
-import "github.com/voxgig-sdk/github-error-sdk/go/core"
+import "github.com/voxgig-sdk/warp-vless-sdk/go/core"
 
 func resultBodyUtil(ctx *core.Context) *core.Result {
 	response := ctx.Response

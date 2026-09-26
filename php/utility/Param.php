@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK utility: param
+// WarpVless SDK utility: param
 
 require_once __DIR__ . '/../core/Helpers.php';
 
-class GithubErrorParam
+class WarpVlessParam
 {
-    public static function call(GithubErrorContext $ctx, mixed $paramdef): mixed
+    public static function call(WarpVlessContext $ctx, mixed $paramdef): mixed
     {
         $point = $ctx->point;
         $spec = $ctx->spec;
@@ -26,7 +26,7 @@ class GithubErrorParam
 
         $akey = '';
         if ($point) {
-            $alias_map = GithubErrorHelpers::to_map(\Voxgig\Struct\Struct::getprop($point, 'alias'));
+            $alias_map = WarpVlessHelpers::to_map(\Voxgig\Struct\Struct::getprop($point, 'alias'));
             if ($alias_map) {
                 $ak = \Voxgig\Struct\Struct::getprop($alias_map, $key);
                 if (is_string($ak)) {

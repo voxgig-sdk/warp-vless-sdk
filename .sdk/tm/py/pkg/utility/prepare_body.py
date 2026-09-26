@@ -1,4 +1,4 @@
-# GithubError SDK utility: prepare_body
+# WarpVless SDK utility: prepare_body
 
 
 def prepare_body_util(ctx):

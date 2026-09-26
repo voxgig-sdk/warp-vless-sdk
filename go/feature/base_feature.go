@@ -1,7 +1,7 @@
 package feature
 
 import (
-	"github.com/voxgig-sdk/github-error-sdk/go/core"
+	"github.com/voxgig-sdk/warp-vless-sdk/go/core"
 )
 
 type BaseFeature struct {

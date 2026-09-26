@@ -1,5 +1,5 @@
 
-import { GithubErrorEntityBase } from './GithubErrorEntityBase'
+import { WarpVlessEntityBase } from './WarpVlessEntityBase'
 
 import { Point } from './Point'
 import { Context } from './Context'
@@ -47,7 +47,7 @@ export {
   Response,
   Result,
   Spec,
-  GithubErrorEntityBase,
+  WarpVlessEntityBase,
 }
 
 

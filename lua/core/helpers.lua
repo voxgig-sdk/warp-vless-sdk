@@ -1,4 +1,4 @@
--- GithubError SDK helpers
+-- WarpVless SDK helpers
 
 local helpers = {}
 

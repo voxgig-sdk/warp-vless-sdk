@@ -1,8 +1,8 @@
-# GithubError SDK operation
+# WarpVless SDK operation
 
 require_relative '../utility/struct/voxgig_struct'
 
-class GithubErrorOperation
+class WarpVlessOperation
   attr_accessor :entity, :name, :input, :points, :alias_map
 
   def initialize(opmap = {})

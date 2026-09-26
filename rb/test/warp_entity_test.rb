@@ -2,12 +2,12 @@
 
 require "minitest/autorun"
 require "json"
-require_relative "../GithubError_sdk"
+require_relative "../WarpVless_sdk"
 require_relative "runner"
 
 class WarpEntityTest < Minitest::Test
   def test_create_instance
-    testsdk = GithubErrorSDK.test(nil, nil)
+    testsdk = WarpVlessSDK.test(nil, nil)
     ent = testsdk.Warp(nil)
     assert !ent.nil?
   end
@@ -26,7 +26,7 @@ class WarpEntityTest < Minitest::Test
     # The basic flow consumes synthetic IDs from the fixture. In live mode
     # without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup[:synthetic_only]
-      skip "live entity test uses synthetic IDs from fixture — set GITHUB_ERROR_TEST_WARP_ENTID JSON to run live"
+      skip "live entity test uses synthetic IDs from fixture — set WARP_VLESS_TEST_WARP_ENTID JSON to run live"
       return
     end
     client = setup[:client]
@@ -53,7 +53,7 @@ def warp_basic_setup(extra)
   options = {}
   options["entity"] = entity_data["existing"]
 
-  client = GithubErrorSDK.test(options, extra)
+  client = WarpVlessSDK.test(options, extra)
 
   # Generate idmap via transform.
   idmap = Vs.transform(
@@ -69,37 +69,40 @@ def warp_basic_setup(extra)
   # Detect ENTID env override before envOverride consumes it. When live
   # mode is on without a real override, the basic test runs against synthetic
   # IDs from the fixture and 4xx's. Surface this so the test can skip.
-  entid_env_raw = ENV["GITHUB_ERROR_TEST_WARP_ENTID"]
+  entid_env_raw = ENV["WARP_VLESS_TEST_WARP_ENTID"]
   idmap_overridden = !entid_env_raw.nil? && entid_env_raw.strip.start_with?("{")
 
   env = Runner.env_override({
-    "GITHUB_ERROR_TEST_WARP_ENTID" => idmap,
-    "GITHUB_ERROR_TEST_LIVE" => "FALSE",
-    "GITHUB_ERROR_TEST_EXPLAIN" => "FALSE",
+    "WARP_VLESS_TEST_WARP_ENTID" => idmap,
+    "WARP_VLESS_TEST_LIVE" => "FALSE",
+    "WARP_VLESS_TEST_EXPLAIN" => "FALSE",
   })
 
   idmap_resolved = Helpers.to_map(
-    env["GITHUB_ERROR_TEST_WARP_ENTID"])
+    env["WARP_VLESS_TEST_WARP_ENTID"])
   if idmap_resolved.nil?
     idmap_resolved = Helpers.to_map(idmap)
   end
 
-  if env["GITHUB_ERROR_TEST_LIVE"] == "TRUE"
+  if env["WARP_VLESS_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
+      # FIRST, so the generated fields below win: sdk-test-control.json's
+      # test.client.options adds to the live client, it does not redirect it.
+      Runner.live_client_options,
       {
       },
       extra || {},
     ])
-    client = GithubErrorSDK.new(Helpers.to_map(merged_opts))
+    client = WarpVlessSDK.new(Helpers.to_map(merged_opts))
   end
 
-  live = env["GITHUB_ERROR_TEST_LIVE"] == "TRUE"
+  live = env["WARP_VLESS_TEST_LIVE"] == "TRUE"
   {
     client: client,
     data: entity_data,
     idmap: idmap_resolved,
     env: env,
-    explain: env["GITHUB_ERROR_TEST_EXPLAIN"] == "TRUE",
+    explain: env["WARP_VLESS_TEST_EXPLAIN"] == "TRUE",
     live: live,
     synthetic_only: live && !idmap_overridden,
     now: (Time.now.to_f * 1000).to_i,

@@ -1,5 +1,5 @@
 
-import { GithubErrorSDK } from '../GithubErrorSDK'
+import { WarpVlessSDK } from '../WarpVlessSDK'
 
 import { Utility } from './Utility'
 

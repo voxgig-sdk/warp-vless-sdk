@@ -1,8 +1,8 @@
-# GithubError SDK utility: make_spec
+# WarpVless SDK utility: make_spec
 require_relative 'struct/voxgig_struct'
 require_relative 'graphql'
 require_relative '../core/spec'
-module GithubErrorUtilities
+module WarpVlessUtilities
   MakeSpec = ->(ctx) {
     if ctx.out["spec"]
       ctx.spec = ctx.out["spec"]
@@ -21,7 +21,7 @@ module GithubErrorUtilities
     parts = VoxgigStruct.getprop(point, "parts") if point
     parts = [] unless parts.is_a?(Array)
 
-    ctx.spec = GithubErrorSpec.new({
+    ctx.spec = WarpVlessSpec.new({
       "base" => base, "prefix" => prefix, "parts" => parts,
       "suffix" => suffix, "step" => "start",
     })

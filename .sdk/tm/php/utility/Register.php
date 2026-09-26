@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK utility registration
+// WarpVless SDK utility registration
 
 require_once __DIR__ . '/../core/UtilityType.php';
 require_once __DIR__ . '/Clean.php';
@@ -35,36 +35,36 @@ require_once __DIR__ . '/ResultHeaders.php';
 require_once __DIR__ . '/TransformRequest.php';
 require_once __DIR__ . '/TransformResponse.php';
 
-GithubErrorUtility::setRegistrar(function (GithubErrorUtility $u): void {
-    $u->clean = [GithubErrorClean::class, 'call'];
-    $u->done = [GithubErrorDone::class, 'call'];
-    $u->make_error = [GithubErrorMakeError::class, 'call'];
-    $u->feature_add = [GithubErrorFeatureAdd::class, 'call'];
-    $u->feature_hook = [GithubErrorFeatureHook::class, 'call'];
-    $u->feature_init = [GithubErrorFeatureInit::class, 'call'];
-    $u->fetcher = [GithubErrorFetcher::class, 'call'];
-    $u->make_fetch_def = [GithubErrorMakeFetchDef::class, 'call'];
-    $u->make_context = [GithubErrorMakeContext::class, 'call'];
-    $u->make_options = [GithubErrorMakeOptions::class, 'call'];
-    $u->make_request = [GithubErrorMakeRequest::class, 'call'];
-    $u->make_response = [GithubErrorMakeResponse::class, 'call'];
-    $u->make_result = [GithubErrorMakeResult::class, 'call'];
-    $u->make_point = [GithubErrorMakePoint::class, 'call'];
-    $u->make_spec = [GithubErrorMakeSpec::class, 'call'];
-    $u->make_url = [GithubErrorMakeUrl::class, 'call'];
-    $u->param = [GithubErrorParam::class, 'call'];
-    $u->prepare_auth = [GithubErrorPrepareAuth::class, 'call'];
-    $u->prepare_body = [GithubErrorPrepareBody::class, 'call'];
-    $u->prepare_headers = [GithubErrorPrepareHeaders::class, 'call'];
-    $u->prepare_method = [GithubErrorPrepareMethod::class, 'call'];
-    $u->prepare_params = [GithubErrorPrepareParams::class, 'call'];
-    $u->prepare_path = [GithubErrorPreparePath::class, 'call'];
-    $u->prepare_query = [GithubErrorPrepareQuery::class, 'call'];
-    $u->graphql_body = [GithubErrorGraphql::class, 'body'];
-    $u->graphql_errors = [GithubErrorGraphql::class, 'errors'];
-    $u->result_basic = [GithubErrorResultBasic::class, 'call'];
-    $u->result_body = [GithubErrorResultBody::class, 'call'];
-    $u->result_headers = [GithubErrorResultHeaders::class, 'call'];
-    $u->transform_request = [GithubErrorTransformRequest::class, 'call'];
-    $u->transform_response = [GithubErrorTransformResponse::class, 'call'];
+WarpVlessUtility::setRegistrar(function (WarpVlessUtility $u): void {
+    $u->clean = [WarpVlessClean::class, 'call'];
+    $u->done = [WarpVlessDone::class, 'call'];
+    $u->make_error = [WarpVlessMakeError::class, 'call'];
+    $u->feature_add = [WarpVlessFeatureAdd::class, 'call'];
+    $u->feature_hook = [WarpVlessFeatureHook::class, 'call'];
+    $u->feature_init = [WarpVlessFeatureInit::class, 'call'];
+    $u->fetcher = [WarpVlessFetcher::class, 'call'];
+    $u->make_fetch_def = [WarpVlessMakeFetchDef::class, 'call'];
+    $u->make_context = [WarpVlessMakeContext::class, 'call'];
+    $u->make_options = [WarpVlessMakeOptions::class, 'call'];
+    $u->make_request = [WarpVlessMakeRequest::class, 'call'];
+    $u->make_response = [WarpVlessMakeResponse::class, 'call'];
+    $u->make_result = [WarpVlessMakeResult::class, 'call'];
+    $u->make_point = [WarpVlessMakePoint::class, 'call'];
+    $u->make_spec = [WarpVlessMakeSpec::class, 'call'];
+    $u->make_url = [WarpVlessMakeUrl::class, 'call'];
+    $u->param = [WarpVlessParam::class, 'call'];
+    $u->prepare_auth = [WarpVlessPrepareAuth::class, 'call'];
+    $u->prepare_body = [WarpVlessPrepareBody::class, 'call'];
+    $u->prepare_headers = [WarpVlessPrepareHeaders::class, 'call'];
+    $u->prepare_method = [WarpVlessPrepareMethod::class, 'call'];
+    $u->prepare_params = [WarpVlessPrepareParams::class, 'call'];
+    $u->prepare_path = [WarpVlessPreparePath::class, 'call'];
+    $u->prepare_query = [WarpVlessPrepareQuery::class, 'call'];
+    $u->graphql_body = [WarpVlessGraphql::class, 'body'];
+    $u->graphql_errors = [WarpVlessGraphql::class, 'errors'];
+    $u->result_basic = [WarpVlessResultBasic::class, 'call'];
+    $u->result_body = [WarpVlessResultBody::class, 'call'];
+    $u->result_headers = [WarpVlessResultHeaders::class, 'call'];
+    $u->transform_request = [WarpVlessTransformRequest::class, 'call'];
+    $u->transform_response = [WarpVlessTransformResponse::class, 'call'];
 });

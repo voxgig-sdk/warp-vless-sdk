@@ -1,10 +1,10 @@
-# GithubError SDK response
+# WarpVless SDK response
 
 from __future__ import annotations
 from projectname_sdk.utility.voxgig_struct import voxgig_struct as vs
 
 
-class GithubErrorResponse:
+class WarpVlessResponse:
     def __init__(self, resmap=None):
         if resmap is None:
             resmap = {}

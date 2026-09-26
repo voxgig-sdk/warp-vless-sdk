@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the generated GithubError SDK are documented here.
+All notable changes to the generated WarpVless SDK are documented here.
 This project follows [Keep a Changelog](https://keepachangelog.com) and
 [Semantic Versioning](https://semver.org).
 
@@ -8,6 +8,6 @@ This project follows [Keep a Changelog](https://keepachangelog.com) and
 
 ## [0.0.1]
 
-- Initial generated release of the GithubError SDK (TypeScript, Python, PHP, Go,
+- Initial generated release of the WarpVless SDK (TypeScript, Python, PHP, Go,
   Ruby, and Lua, plus CLI and MCP surfaces), generated from the upstream
   OpenAPI specification by @voxgig/sdkgen.

@@ -1,7 +1,7 @@
-# GithubError SDK utility: make_context
+# WarpVless SDK utility: make_context
 require_relative '../core/context'
-module GithubErrorUtilities
+module WarpVlessUtilities
   MakeContext = ->(ctxmap, basectx) {
-    GithubErrorContext.new(ctxmap, basectx)
+    WarpVlessContext.new(ctxmap, basectx)
   }
 end

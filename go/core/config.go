@@ -10,17 +10,71 @@ import (
 func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
-			"name": "GithubError",
-			"slug": "github-error",
+			"name": "WarpVless",
+			"slug": "warp-vless",
 			"version": "0.0.1",
 			"target": "go",
 		},
 		"feature": map[string]any{
+			"ratelimit": map[string]any{
+				"options": map[string]any{
+					"active": false,
+					"burst": 5,
+					"rate": 5,
+				},
+				"optspec": map[string]any{
+					"now": "`$FUNCTION`",
+					"sleep": "`$FUNCTION`",
+				},
+				"strict": false,
+				"transport": "wrap",
+			},
+			"retry": map[string]any{
+				"options": map[string]any{
+					"active": false,
+					"factor": 2,
+					"maxDelay": 2000,
+					"minDelay": 50,
+					"retries": 2,
+					"statuses": []any{
+						408,
+						425,
+						429,
+						500,
+						502,
+						503,
+						504,
+					},
+				},
+				"optspec": map[string]any{
+					"jitter": "`$BOOLEAN`",
+					"sleep": "`$FUNCTION`",
+				},
+				"strict": false,
+				"transport": "wrap",
+			},
 			"test": map[string]any{
 				"options": map[string]any{
 					"active": false,
 				},
+				"optspec": map[string]any{
+					"entity": "`$MAP`",
+					"net": "`$MAP`",
+				},
+				"strict": false,
 				"transport": "base",
+			},
+			"timeout": map[string]any{
+				"options": map[string]any{
+					"active": false,
+					"ms": 30000,
+				},
+				"optspec": map[string]any{
+					"clearTimer": "`$FUNCTION`",
+					"setTimer": "`$FUNCTION`",
+				},
+				"strict": false,
+				"transport": "wrap",
 			},
 		},
 		"options": map[string]any{
@@ -37,48 +91,57 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "amneziaMode",
-						"short": "Amnezia VPN mode configuration",
+						"title": "Amnezia Mode",
 						"type": "`$STRING`",
+						"short": "Amnezia VPN mode configuration",
 					},
 					map[string]any{
 						"name": "configs",
-						"short": "Array of configuration objects when multiple configs are returned",
+						"title": "Configs",
 						"type": "`$ARRAY`",
+						"short": "Array of configuration objects when multiple configs are returned",
 					},
 					map[string]any{
 						"name": "content",
-						"short": "Base64 encoded WARP configuration content",
+						"title": "Content",
 						"type": "`$STRING`",
+						"short": "Base64 encoded WARP configuration content",
 					},
 					map[string]any{
 						"name": "deviceType",
-						"short": "The type of device requesting the configuration",
+						"title": "Device Type",
 						"type": "`$STRING`",
+						"short": "The type of device requesting the configuration",
 					},
 					map[string]any{
 						"name": "errorCode",
-						"short": "Error code if an error occurred",
+						"title": "Error Code",
 						"type": "`$STRING`",
+						"short": "Error code if an error occurred",
 					},
 					map[string]any{
 						"name": "message",
-						"short": "Human-readable message or error description",
+						"title": "Message",
 						"type": "`$STRING`",
+						"short": "Human-readable message or error description",
 					},
 					map[string]any{
 						"name": "selectedDns",
-						"short": "DNS provider selection",
+						"title": "Selected Dns",
 						"type": "`$STRING`",
+						"short": "DNS provider selection",
 					},
 					map[string]any{
 						"name": "selectedServices",
-						"short": "List of selected services to include in the configuration",
+						"title": "Selected Services",
 						"type": "`$ARRAY`",
+						"short": "List of selected services to include in the configuration",
 					},
 					map[string]any{
 						"name": "siteMode",
-						"short": "The site mode for the WARP configuration",
+						"title": "Site Mode",
 						"type": "`$STRING`",
+						"short": "The site mode for the WARP configuration",
 					},
 				},
 				"name": "warp",
@@ -88,19 +151,28 @@ func MakeConfig() map[string]any {
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/api/warp",
+								"segments": []any{
+									map[string]any{
+										"lit": "api",
+									},
+									map[string]any{
+										"lit": "warp",
+									},
+								},
 								"parts": []any{
 									"api",
 									"warp",
 								},
-								"select": map[string]any{},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -111,6 +183,17 @@ func MakeConfig() map[string]any {
 			},
 		},
 	}
+}
+
+// The plugin definitions the model selected per feature, as []any so a
+// feature package can consume them without core naming its types. Empty
+// when no active feature declares active plugin groups for this target.
+var featurePlugins = map[string][]any{
+}
+
+// FeaturePlugins is the definitions list for one feature's chain.
+func FeaturePlugins(name string) []any {
+	return featurePlugins[name]
 }
 
 var (
@@ -133,9 +216,21 @@ func SharedConfig() map[string]any {
 
 func makeFeature(name string) Feature {
 	switch name {
+	case "ratelimit":
+		if NewRatelimitFeatureFunc != nil {
+			return NewRatelimitFeatureFunc()
+		}
+	case "retry":
+		if NewRetryFeatureFunc != nil {
+			return NewRetryFeatureFunc()
+		}
 	case "test":
 		if NewTestFeatureFunc != nil {
 			return NewTestFeatureFunc()
+		}
+	case "timeout":
+		if NewTimeoutFeatureFunc != nil {
+			return NewTimeoutFeatureFunc()
 		}
 	default:
 		if NewBaseFeatureFunc != nil {

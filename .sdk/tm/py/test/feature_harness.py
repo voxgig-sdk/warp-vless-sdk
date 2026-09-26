@@ -1,4 +1,4 @@
-# GithubError SDK feature test harness
+# WarpVless SDK feature test harness
 #
 # Offline feature-test harness for the generated SDK.
 #
@@ -16,10 +16,10 @@ from urllib.parse import quote
 
 from projectname_sdk.config import shared_config
 from projectname_sdk.features import _make_feature
-from projectname_sdk.core.control import GithubErrorControl
-from projectname_sdk.core.error import GithubErrorError
-from projectname_sdk.core.result import GithubErrorResult
-from projectname_sdk.core.spec import GithubErrorSpec
+from projectname_sdk.core.control import WarpVlessControl
+from projectname_sdk.core.error import WarpVlessError
+from projectname_sdk.core.result import WarpVlessResult
+from projectname_sdk.core.spec import WarpVlessSpec
 
 
 # True when this SDK was generated with the named feature.
@@ -161,7 +161,7 @@ class _Ctx:
         self.client = client
         self.utility = utility
         self.out = {}
-        self.ctrl = ctrl if ctrl is not None else GithubErrorControl()
+        self.ctrl = ctrl if ctrl is not None else WarpVlessControl()
         self.meta = {}
         self.op = op
         self.entity = entity
@@ -177,7 +177,7 @@ class _Ctx:
         self.shared = {}
 
     def make_error(self, code, msg):
-        return GithubErrorError(code, msg, self)
+        return WarpVlessError(code, msg, self)
 
 
 # Construct a fake client wired with the given features (in init order) and
@@ -227,7 +227,7 @@ class Harness:
                 method(ctx)
 
     def _populate_result(self, ctx, response, fetch_err):
-        result = GithubErrorResult({})
+        result = WarpVlessResult({})
         ctx.result = result
 
         if fetch_err is not None:
@@ -272,7 +272,7 @@ class Harness:
         ctx = _Ctx(self.client, self.utility,
                    op=_Op(opname, entity),
                    entity=_Entity(entity),
-                   ctrl=GithubErrorControl(ctrl or {}))
+                   ctrl=WarpVlessControl(ctrl or {}))
 
         self.feature_hook(ctx, "PostConstructEntity")
 
@@ -288,7 +288,7 @@ class Harness:
                 merged = dict(self.headers)
                 for key, val in (headers or {}).items():
                     merged[key] = val
-                spec = GithubErrorSpec({
+                spec = WarpVlessSpec({
                     "method": method,
                     "base": self.base,
                     "path": path if path is not None else "/" + entity,

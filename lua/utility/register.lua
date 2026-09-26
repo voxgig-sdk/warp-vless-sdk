@@ -1,4 +1,4 @@
--- GithubError SDK utility registration
+-- WarpVless SDK utility registration
 
 local Utility = require("core.utility_type")
 

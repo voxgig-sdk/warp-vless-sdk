@@ -1,4 +1,4 @@
--- GithubError SDK base feature
+-- WarpVless SDK base feature
 
 local BaseFeature = {}
 BaseFeature.__index = BaseFeature

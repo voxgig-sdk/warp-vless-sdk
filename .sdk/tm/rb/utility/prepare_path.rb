@@ -1,6 +1,6 @@
-# GithubError SDK utility: prepare_path
+# WarpVless SDK utility: prepare_path
 require_relative 'struct/voxgig_struct'
-module GithubErrorUtilities
+module WarpVlessUtilities
   PreparePath = ->(ctx) {
     point = ctx.point
     parts = []

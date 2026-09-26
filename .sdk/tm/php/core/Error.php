@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK error
+// WarpVless SDK error
 
-class GithubErrorError extends \Exception
+class WarpVlessError extends \Exception
 {
     public bool $is_sdk_error;
     public string $sdk;
@@ -28,7 +28,7 @@ class GithubErrorError extends \Exception
     {
         parent::__construct($msg);
         $this->is_sdk_error = true;
-        $this->sdk = 'GithubError';
+        $this->sdk = 'WarpVless';
         $this->sdk_code = $code;
         $this->msg = $msg;
         $this->ctx = $ctx;

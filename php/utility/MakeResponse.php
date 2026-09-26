@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK utility: make_response
+// WarpVless SDK utility: make_response
 
-class GithubErrorMakeResponse
+class WarpVlessMakeResponse
 {
-    public static function call(GithubErrorContext $ctx): array
+    public static function call(WarpVlessContext $ctx): array
     {
         if (isset($ctx->out['response'])) {
             return [$ctx->out['response'], null];

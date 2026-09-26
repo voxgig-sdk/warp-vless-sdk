@@ -1,6 +1,6 @@
-# GithubError SDK utility registration
+# WarpVless SDK utility registration
 
-from projectname_sdk.core.utility_type import GithubErrorUtility
+from projectname_sdk.core.utility_type import WarpVlessUtility
 
 from projectname_sdk.utility.clean import clean_util
 from projectname_sdk.utility.done import done_util
@@ -68,4 +68,4 @@ def register_all(u):
     u.transform_response = transform_response_util
 
 
-GithubErrorUtility._registrar = register_all
+WarpVlessUtility._registrar = register_all

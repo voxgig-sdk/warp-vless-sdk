@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK utility: prepare_params
+// WarpVless SDK utility: prepare_params
 
-class GithubErrorPrepareParams
+class WarpVlessPrepareParams
 {
-    public static function call(GithubErrorContext $ctx): array
+    public static function call(WarpVlessContext $ctx): array
     {
         $utility = $ctx->utility;
         $point = $ctx->point;

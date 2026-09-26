@@ -1,4 +1,4 @@
-# GithubError SDK
+# WarpVless SDK
 
 GitHub Error API client, generated from the OpenAPI spec.
 
@@ -14,7 +14,7 @@ Metadata kindly supplied by [www.freepublicapis.com](https://www.freepublicapis.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI with an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
 
-> **Features:** `test` — opt-in,
+> **Features:** `undefined`, `undefined`, `undefined`, `undefined` — opt-in,
 > inactive until switched on, and configured per client. See the Features
 > section of any SDK README below for what each one does.
 
@@ -26,7 +26,7 @@ call directly, instead of assembling URL paths and query strings. Entities are
 support (`create`):
 
 ```ts
-const client = new GithubErrorSDK()
+const client = new WarpVlessSDK()
 const warp = await client.Warp().create({
   amneziaMode: 'example',
   configs: [],
@@ -48,7 +48,7 @@ network, and no credentials:
 ```ts
 // The offline mock starts EMPTY — seed it with the records the test needs.
 // Shape: { entity: { <entity-name>: { <id>: <record> } } }
-const client = GithubErrorSDK.test({
+const client = WarpVlessSDK.test({
   entity: {
     warp: {
       test01: { id: 'test01' },
@@ -64,7 +64,7 @@ console.log(warp)
 ### Python
 
 ```python
-client = GithubErrorSDK.test()
+client = WarpVlessSDK.test()
 warp = client.Warp().create({"amneziaMode": "example", "configs": [], "content": "example"})
 print(warp)
 ```
@@ -73,7 +73,7 @@ print(warp)
 
 ```php
 // Seed fixture data so offline calls resolve without a live server.
-$client = GithubErrorSDK::test([
+$client = WarpVlessSDK::test([
     "entity" => ["warp" => ["test01" => []]],
 ]);
 $warp = $client->Warp()->create(["amneziaMode" => "example", "configs" => [], "content" => "example"]);
@@ -92,7 +92,7 @@ result, err := client.Warp(nil).Create(
 
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
-client = GithubErrorSDK.test({
+client = WarpVlessSDK.test({
   "entity" => { "warp" => { "test01" => {} } },
 })
 warp = client.Warp.create({ "amneziaMode" => "example", "configs" => [], "content" => "example" })
@@ -109,23 +109,23 @@ local result, err = client:Warp():create({ amneziaMode = "example", configs = {}
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/github-error` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-error-sdk/releases) |
-| Python | `voxgig-sdk-github-error` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-error-sdk/releases) |
-| PHP | `voxgig-sdk/github-error` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-error-sdk/releases) |
-| Golang | `github.com/voxgig-sdk/github-error-sdk/go` | `go get github.com/voxgig-sdk/github-error-sdk/go@latest` |
-| Ruby | `voxgig-sdk-github-error` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-error-sdk/releases) |
-| Lua | `voxgig-sdk-github-error` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-error-sdk/releases) |
-| Go CLI | `github.com/voxgig-sdk/github-error-sdk/go-cli` | `go install github.com/voxgig-sdk/github-error-sdk/go-cli/cmd/github-error@latest` |
-| Go MCP server | `github.com/voxgig-sdk/github-error-sdk/go-mcp` | `go get github.com/voxgig-sdk/github-error-sdk/go-mcp@latest` |
+| TypeScript | `@voxgig-sdk/warp-vless-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/warp-vless-sdk/tags) |
+| Python | `voxgig-sdk-warp-vless-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/warp-vless-sdk/tags) |
+| PHP | `voxgig-sdk/warp-vless-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/warp-vless-sdk/tags) |
+| Golang | `github.com/voxgig-sdk/warp-vless-sdk/go` | `go get github.com/voxgig-sdk/warp-vless-sdk/go@latest` |
+| Ruby | `voxgig-sdk-warp-vless-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/warp-vless-sdk/tags) |
+| Lua | `voxgig-sdk-warp-vless-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/warp-vless-sdk/tags) |
+| Go CLI | `github.com/voxgig-sdk/warp-vless-sdk/go-cli` | `go install github.com/voxgig-sdk/warp-vless-sdk/go-cli/cmd/warp-vless@latest` |
+| Go MCP server | `github.com/voxgig-sdk/warp-vless-sdk/go-mcp` | `go get github.com/voxgig-sdk/warp-vless-sdk/go-mcp@latest` |
 
 ## Quickstart
 
 ### TypeScript
 
 ```ts
-import { GithubErrorSDK } from '@voxgig-sdk/github-error'
+import { WarpVlessSDK } from '@voxgig-sdk/warp-vless-sdk'
 
-const client = new GithubErrorSDK()
+const client = new WarpVlessSDK()
 
 ```
 
@@ -146,7 +146,7 @@ The generated MCP server exposes every operation in this SDK as an
 can call directly. Build and register it:
 
 ```bash
-cd go-mcp && go build -o github-error-mcp .
+cd go-mcp && go build -o warp-vless-mcp .
 ```
 
 Then add it to your agent's MCP config (Claude Desktop, Cursor, etc.):
@@ -154,8 +154,8 @@ Then add it to your agent's MCP config (Claude Desktop, Cursor, etc.):
 ```json
 {
   "mcpServers": {
-    "github-error": {
-      "command": "/abs/path/to/github-error-mcp"
+    "warp-vless": {
+      "command": "/abs/path/to/warp-vless-mcp"
     }
   }
 }
@@ -177,9 +177,9 @@ own list above for exactly which it supports.
 ### Python
 
 ```python
-from githuberror_sdk import GithubErrorSDK
+from warpvless_sdk import WarpVlessSDK
 
-client = GithubErrorSDK()
+client = WarpVlessSDK()
 
 ```
 
@@ -187,16 +187,16 @@ client = GithubErrorSDK()
 
 ```php
 <?php
-require_once 'githuberror_sdk.php';
+require_once 'warpvless_sdk.php';
 
-$client = new GithubErrorSDK();
+$client = new WarpVlessSDK();
 
 ```
 
 ### Golang
 
 ```go
-import sdk "github.com/voxgig-sdk/github-error-sdk/go"
+import sdk "github.com/voxgig-sdk/warp-vless-sdk/go"
 
 client := sdk.New()
 
@@ -205,16 +205,16 @@ client := sdk.New()
 ### Ruby
 
 ```ruby
-require_relative "GithubError_sdk"
+require_relative "WarpVless_sdk"
 
-client = GithubErrorSDK.new
+client = WarpVlessSDK.new
 
 ```
 
 ### Lua
 
 ```lua
-local sdk = require("github-error_sdk")
+local sdk = require("warp-vless_sdk")
 
 local client = sdk.new()
 
@@ -319,7 +319,10 @@ forking the SDK.
 
 | Feature | Purpose |
 | --- | --- |
-| **TestFeature** | In-memory mock transport for testing without a live server |
+| **RatelimitFeature** | Rate limiting |
+| **RetryFeature** | Retry |
+| **TestFeature** | Test transport |
+| **TimeoutFeature** | Timeout |
 
 Pass custom features via the `extend` option at construction time.
 
@@ -330,7 +333,7 @@ customizable without forking any upstream tool:
 
 - **The model** (`.sdk/model/`) declares everything this project owns:
   package names, versions, active features, per-target settings. It is
-  written in [aontu](https://github.com/aontu-lang/aontu), a JSON-based
+  written in [aontu](https://aontu.dev), a JSON-based
   specification language designed for building ontologies: easy to edit
   by hand, and files unify rather than override, so small declarations
   compose into one model. Regeneration re-reads it every time.

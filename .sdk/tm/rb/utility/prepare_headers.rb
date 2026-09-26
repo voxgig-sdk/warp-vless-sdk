@@ -1,6 +1,6 @@
-# GithubError SDK utility: prepare_headers
+# WarpVless SDK utility: prepare_headers
 require_relative 'struct/voxgig_struct'
-module GithubErrorUtilities
+module WarpVlessUtilities
   PrepareHeaders = ->(ctx) {
     options = ctx.client.options_map
     headers = VoxgigStruct.getprop(options, "headers")

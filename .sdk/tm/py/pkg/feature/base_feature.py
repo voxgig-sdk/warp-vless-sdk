@@ -1,9 +1,9 @@
-# GithubError SDK base feature
+# WarpVless SDK base feature
 
 from __future__ import annotations
 
 
-class GithubErrorBaseFeature:
+class WarpVlessBaseFeature:
     def __init__(self):
         self.version = "0.0.1"
         self.name = "base"

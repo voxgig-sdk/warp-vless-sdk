@@ -1,6 +1,6 @@
-# GithubError SDK utility: prepare_query
+# WarpVless SDK utility: prepare_query
 require_relative 'struct/voxgig_struct'
-module GithubErrorUtilities
+module WarpVlessUtilities
   PrepareQuery = ->(ctx) {
     point = ctx.point
     reqmatch = ctx.reqmatch || {}
@@ -14,7 +14,7 @@ module GithubErrorUtilities
     if items
       items.each do |item|
         key, val = item[0], item[1]
-        out[key] = val if val && key.is_a?(String) && !params.include?(key)
+        out[key] = val if val && key.is_a?(String) && key != "$action" && !params.include?(key)
       end
     end
     out

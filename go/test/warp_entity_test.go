@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/github-error-sdk/go"
-	"github.com/voxgig-sdk/github-error-sdk/go/core"
+	sdk "github.com/voxgig-sdk/warp-vless-sdk/go"
+	"github.com/voxgig-sdk/warp-vless-sdk/go/core"
 
-	vs "github.com/voxgig-sdk/github-error-sdk/go/utility/struct"
+	vs "github.com/voxgig-sdk/warp-vless-sdk/go/utility/struct"
 )
 
 func TestWarpEntity(t *testing.T) {
@@ -44,7 +44,7 @@ func TestWarpEntity(t *testing.T) {
 		// The basic flow consumes synthetic IDs from the fixture. In live mode
 		// without an *_ENTID env override, those IDs hit the live API and 4xx.
 		if setup.syntheticOnly {
-			t.Skip("live entity test uses synthetic IDs from fixture — set GITHUB_ERROR_TEST_WARP_ENTID JSON to run live")
+			t.Skip("live entity test uses synthetic IDs from fixture — set WARP_VLESS_TEST_WARP_ENTID JSON to run live")
 			return
 		}
 		client := setup.client
@@ -52,7 +52,7 @@ func TestWarpEntity(t *testing.T) {
 		// CREATE
 		warpRef01Ent := client.Warp(nil)
 		warpRef01Data := core.ToMapAny(vs.GetProp(
-			vs.GetPath([]any{"new", "warp"}, setup.data), "warp_ref01"))
+			vs.GetPath(setup.data, []any{"new", "warp"}), "warp_ref01"))
 
 		warpRef01DataResult, err := warpRef01Ent.Create(warpRef01Data, nil)
 		if err != nil {
@@ -90,7 +90,7 @@ func warpBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"warp01", "warp02", "warp03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -103,36 +103,48 @@ func warpBasicSetup(extra map[string]any) *entityTestSetup {
 	// Detect ENTID env override before envOverride consumes it. When live
 	// mode is on without a real override, the basic test runs against synthetic
 	// IDs from the fixture and 4xx's. Surface this so the test can skip.
-	entidEnvRaw := os.Getenv("GITHUB_ERROR_TEST_WARP_ENTID")
+	entidEnvRaw := os.Getenv("WARP_VLESS_TEST_WARP_ENTID")
 	idmapOverridden := entidEnvRaw != "" && strings.HasPrefix(strings.TrimSpace(entidEnvRaw), "{")
 
 	env := envOverride(map[string]any{
-		"GITHUB_ERROR_TEST_WARP_ENTID": idmap,
-		"GITHUB_ERROR_TEST_LIVE":      "FALSE",
-		"GITHUB_ERROR_TEST_EXPLAIN":   "FALSE",
+		"WARP_VLESS_TEST_WARP_ENTID": idmap,
+		"WARP_VLESS_TEST_LIVE":      "FALSE",
+		"WARP_VLESS_TEST_EXPLAIN":   "FALSE",
 	})
 
-	idmapResolved := core.ToMapAny(env["GITHUB_ERROR_TEST_WARP_ENTID"])
+	idmapResolved := core.ToMapAny(env["WARP_VLESS_TEST_WARP_ENTID"])
 	if idmapResolved == nil {
 		idmapResolved = core.ToMapAny(idmap)
 	}
 
-	if env["GITHUB_ERROR_TEST_LIVE"] == "TRUE" {
+	if env["WARP_VLESS_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 			},
-			extra,
+			extraOpts,
 		})
-		client = sdk.NewGithubErrorSDK(core.ToMapAny(mergedOpts))
+		client = sdk.NewWarpVlessSDK(core.ToMapAny(mergedOpts))
 	}
 
-	live := env["GITHUB_ERROR_TEST_LIVE"] == "TRUE"
+	live := env["WARP_VLESS_TEST_LIVE"] == "TRUE"
 	return &entityTestSetup{
 		client:        client,
 		data:          entityData,
 		idmap:         idmapResolved,
 		env:           env,
-		explain:       env["GITHUB_ERROR_TEST_EXPLAIN"] == "TRUE",
+		explain:       env["WARP_VLESS_TEST_EXPLAIN"] == "TRUE",
 		live:          live,
 		syntheticOnly: live && !idmapOverridden,
 		now:           time.Now().UnixMilli(),

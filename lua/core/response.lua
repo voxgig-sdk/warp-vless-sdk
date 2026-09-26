@@ -1,4 +1,4 @@
--- GithubError SDK response
+-- WarpVless SDK response
 
 local vs = require("utility.struct.struct")
 

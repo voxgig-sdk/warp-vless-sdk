@@ -1,4 +1,4 @@
-# GithubError SDK context
+# WarpVless SDK context
 
 require_relative '../utility/struct/voxgig_struct'
 require_relative 'control'
@@ -9,7 +9,7 @@ require_relative 'response'
 require_relative 'error'
 require_relative 'helpers'
 
-class GithubErrorContext
+class WarpVlessContext
   attr_accessor :id, :out, :client, :utility, :ctrl, :meta, :config,
                 :entopts, :options, :entity, :shared, :opmap,
                 :data, :reqdata, :match, :reqmatch, :point,
@@ -20,59 +20,59 @@ class GithubErrorContext
     @id = "C#{rand(10000000..99999999)}"
     @out = {}
 
-    @client = GithubErrorHelpers.get_ctx_prop(ctxmap, "client") || basectx&.client
-    @utility = GithubErrorHelpers.get_ctx_prop(ctxmap, "utility") || basectx&.utility
+    @client = WarpVlessHelpers.get_ctx_prop(ctxmap, "client") || basectx&.client
+    @utility = WarpVlessHelpers.get_ctx_prop(ctxmap, "utility") || basectx&.utility
 
-    @ctrl = GithubErrorControl.new
-    ctrl_raw = GithubErrorHelpers.get_ctx_prop(ctxmap, "ctrl")
+    @ctrl = WarpVlessControl.new
+    ctrl_raw = WarpVlessHelpers.get_ctx_prop(ctxmap, "ctrl")
     if ctrl_raw.is_a?(Hash)
       @ctrl.throw_err = ctrl_raw["throw"] if ctrl_raw.key?("throw")
       @ctrl.explain = ctrl_raw["explain"] if ctrl_raw["explain"].is_a?(Hash)
       @ctrl.actor = ctrl_raw["actor"] if ctrl_raw.key?("actor")
       @ctrl.paging = ctrl_raw["paging"] if ctrl_raw["paging"].is_a?(Hash)
-    elsif basectx&.ctrl
+    elsif basectx&.ctrl && WarpVlessHelpers.get_ctx_prop(ctxmap, "opname").nil?
       @ctrl = basectx.ctrl
     end
 
-    m = GithubErrorHelpers.get_ctx_prop(ctxmap, "meta")
+    m = WarpVlessHelpers.get_ctx_prop(ctxmap, "meta")
     @meta = m.is_a?(Hash) ? m : (basectx&.meta || {})
 
-    cfg = GithubErrorHelpers.get_ctx_prop(ctxmap, "config")
+    cfg = WarpVlessHelpers.get_ctx_prop(ctxmap, "config")
     @config = cfg.is_a?(Hash) ? cfg : basectx&.config
 
-    eo = GithubErrorHelpers.get_ctx_prop(ctxmap, "entopts")
+    eo = WarpVlessHelpers.get_ctx_prop(ctxmap, "entopts")
     @entopts = eo.is_a?(Hash) ? eo : basectx&.entopts
 
-    o = GithubErrorHelpers.get_ctx_prop(ctxmap, "options")
+    o = WarpVlessHelpers.get_ctx_prop(ctxmap, "options")
     @options = o.is_a?(Hash) ? o : basectx&.options
 
-    e = GithubErrorHelpers.get_ctx_prop(ctxmap, "entity")
+    e = WarpVlessHelpers.get_ctx_prop(ctxmap, "entity")
     @entity = e || basectx&.entity
 
-    s = GithubErrorHelpers.get_ctx_prop(ctxmap, "shared")
+    s = WarpVlessHelpers.get_ctx_prop(ctxmap, "shared")
     @shared = s.is_a?(Hash) ? s : basectx&.shared
 
-    om = GithubErrorHelpers.get_ctx_prop(ctxmap, "opmap")
+    om = WarpVlessHelpers.get_ctx_prop(ctxmap, "opmap")
     @opmap = om.is_a?(Hash) ? om : (basectx&.opmap || {})
 
-    @data = GithubErrorHelpers.to_map(GithubErrorHelpers.get_ctx_prop(ctxmap, "data")) || {}
-    @reqdata = GithubErrorHelpers.to_map(GithubErrorHelpers.get_ctx_prop(ctxmap, "reqdata")) || {}
-    @match = GithubErrorHelpers.to_map(GithubErrorHelpers.get_ctx_prop(ctxmap, "match")) || {}
-    @reqmatch = GithubErrorHelpers.to_map(GithubErrorHelpers.get_ctx_prop(ctxmap, "reqmatch")) || {}
+    @data = WarpVlessHelpers.to_map(WarpVlessHelpers.get_ctx_prop(ctxmap, "data")) || {}
+    @reqdata = WarpVlessHelpers.to_map(WarpVlessHelpers.get_ctx_prop(ctxmap, "reqdata")) || {}
+    @match = WarpVlessHelpers.to_map(WarpVlessHelpers.get_ctx_prop(ctxmap, "match")) || {}
+    @reqmatch = WarpVlessHelpers.to_map(WarpVlessHelpers.get_ctx_prop(ctxmap, "reqmatch")) || {}
 
-    pt = GithubErrorHelpers.get_ctx_prop(ctxmap, "point")
+    pt = WarpVlessHelpers.get_ctx_prop(ctxmap, "point")
     @point = pt.is_a?(Hash) ? pt : basectx&.point
 
-    sp = GithubErrorHelpers.get_ctx_prop(ctxmap, "spec")
-    @spec = sp.is_a?(GithubErrorSpec) ? sp : basectx&.spec
+    sp = WarpVlessHelpers.get_ctx_prop(ctxmap, "spec")
+    @spec = sp.is_a?(WarpVlessSpec) ? sp : basectx&.spec
 
-    r = GithubErrorHelpers.get_ctx_prop(ctxmap, "result")
-    @result = r.is_a?(GithubErrorResult) ? r : basectx&.result
+    r = WarpVlessHelpers.get_ctx_prop(ctxmap, "result")
+    @result = r.is_a?(WarpVlessResult) ? r : basectx&.result
 
-    rp = GithubErrorHelpers.get_ctx_prop(ctxmap, "response")
-    @response = rp.is_a?(GithubErrorResponse) ? rp : basectx&.response
+    rp = WarpVlessHelpers.get_ctx_prop(ctxmap, "response")
+    @response = rp.is_a?(WarpVlessResponse) ? rp : basectx&.response
 
-    opname = GithubErrorHelpers.get_ctx_prop(ctxmap, "opname") || ""
+    opname = WarpVlessHelpers.get_ctx_prop(ctxmap, "opname") || ""
     @op = resolve_op(opname)
   end
 
@@ -84,7 +84,7 @@ class GithubErrorContext
     entname = @entity&.respond_to?(:get_name) ? @entity.get_name : "_"
     cache_key = "#{entname}:#{opname}"
     return @opmap[cache_key] if @opmap[cache_key]
-    return GithubErrorOperation.new({}) if opname.empty?
+    return WarpVlessOperation.new({}) if opname.empty?
 
     opcfg = VoxgigStruct.getpath(@config, "entity.#{entname}.op.#{opname}")
 
@@ -96,7 +96,7 @@ class GithubErrorContext
       points = t if t.is_a?(Array)
     end
 
-    op = GithubErrorOperation.new({
+    op = WarpVlessOperation.new({
       "entity" => entname,
       "name" => opname,
       "input" => input,
@@ -107,6 +107,6 @@ class GithubErrorContext
   end
 
   def make_error(code, msg)
-    GithubErrorError.new(code, msg, self)
+    WarpVlessError.new(code, msg, self)
   end
 end

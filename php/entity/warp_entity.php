@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK Warp entity
+// WarpVless SDK Warp entity
 
 require_once __DIR__ . '/../utility/struct/Struct.php';
 require_once __DIR__ . '/../core/Helpers.php';
@@ -83,7 +83,7 @@ class WarpEntity
     public function data_set($args): void
     {
         if ($args) {
-            $this->_data = GithubErrorHelpers::to_map(Struct::clone($args)) ?? [];
+            $this->_data = WarpVlessHelpers::to_map(Struct::clone($args)) ?? [];
             ($this->_utility->feature_hook)($this->_entctx, "SetData");
         }
     }
@@ -103,7 +103,7 @@ class WarpEntity
     public function match_set($args): void
     {
         if ($args) {
-            $this->_match = GithubErrorHelpers::to_map(Struct::clone($args)) ?? [];
+            $this->_match = WarpVlessHelpers::to_map(Struct::clone($args)) ?? [];
             ($this->_utility->feature_hook)($this->_entctx, "SetMatch");
         }
     }
@@ -253,7 +253,7 @@ class WarpEntity
      *   a typed WarpCreateData names the shape.
      * @param mixed $ctrl Optional per-call control overrides.
      * @return Warp|array The created Warp as an assoc-array at the
-     *   SDK boundary; throws GithubErrorError on failure (item-5 convention).
+     *   SDK boundary; throws WarpVlessError on failure (item-5 convention).
      */
     public function create(?array $reqdata = null, $ctrl = null): mixed
     {
@@ -269,7 +269,7 @@ class WarpEntity
         return $this->_run_op($ctx, function () use ($ctx) {
             if ($ctx->result) {
                 if ($ctx->result->resdata) {
-                    $this->_data = GithubErrorHelpers::to_map(Struct::clone($ctx->result->resdata)) ?? [];
+                    $this->_data = WarpVlessHelpers::to_map(Struct::clone($ctx->result->resdata)) ?? [];
                 }
             }
         });

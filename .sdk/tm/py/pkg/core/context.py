@@ -1,19 +1,19 @@
-# GithubError SDK context
+# WarpVless SDK context
 
 from __future__ import annotations
 import random
 
 from projectname_sdk.utility.voxgig_struct import voxgig_struct as vs
-from projectname_sdk.core.control import GithubErrorControl
-from projectname_sdk.core.operation import GithubErrorOperation
-from projectname_sdk.core.spec import GithubErrorSpec
-from projectname_sdk.core.result import GithubErrorResult
-from projectname_sdk.core.response import GithubErrorResponse
-from projectname_sdk.core.error import GithubErrorError
+from projectname_sdk.core.control import WarpVlessControl
+from projectname_sdk.core.operation import WarpVlessOperation
+from projectname_sdk.core.spec import WarpVlessSpec
+from projectname_sdk.core.result import WarpVlessResult
+from projectname_sdk.core.response import WarpVlessResponse
+from projectname_sdk.core.error import WarpVlessError
 from projectname_sdk.core.helpers import get_ctx_prop, to_map
 
 
-class GithubErrorContext:
+class WarpVlessContext:
     def __init__(self, ctxmap=None, basectx=None):
         self.id = "C" + str(random.randint(10000000, 99999999))
         self.out = {}
@@ -40,7 +40,7 @@ class GithubErrorContext:
             self.utility = None
 
         # Ctrl
-        self.ctrl = GithubErrorControl()
+        self.ctrl = WarpVlessControl()
         ctrl_raw = get_ctx_prop(ctxmap, "ctrl")
         if isinstance(ctrl_raw, dict):
             if ctrl_raw.get("throw_err") is not None:
@@ -53,7 +53,8 @@ class GithubErrorContext:
                 self.ctrl.actor = ctrl_raw["actor"]
             if isinstance(ctrl_raw.get("paging"), dict):
                 self.ctrl.paging = ctrl_raw["paging"]
-        elif basectx is not None and basectx.ctrl is not None:
+        elif (basectx is not None and basectx.ctrl is not None
+              and get_ctx_prop(ctxmap, "opname") is None):
             self.ctrl = basectx.ctrl
 
         # Meta
@@ -137,7 +138,7 @@ class GithubErrorContext:
 
         # Spec
         sp = get_ctx_prop(ctxmap, "spec")
-        if isinstance(sp, GithubErrorSpec):
+        if isinstance(sp, WarpVlessSpec):
             self.spec = sp
         elif basectx is not None:
             self.spec = basectx.spec
@@ -146,7 +147,7 @@ class GithubErrorContext:
 
         # Result
         r = get_ctx_prop(ctxmap, "result")
-        if isinstance(r, GithubErrorResult):
+        if isinstance(r, WarpVlessResult):
             self.result = r
         elif basectx is not None:
             self.result = basectx.result
@@ -155,7 +156,7 @@ class GithubErrorContext:
 
         # Response
         rp = get_ctx_prop(ctxmap, "response")
-        if isinstance(rp, GithubErrorResponse):
+        if isinstance(rp, WarpVlessResponse):
             self.response = rp
         elif basectx is not None:
             self.response = basectx.response
@@ -180,7 +181,7 @@ class GithubErrorContext:
             return self.opmap[cache_key]
 
         if opname == "":
-            return GithubErrorOperation({})
+            return WarpVlessOperation({})
 
         opcfg = vs.getpath(self.config, "entity." + entname + ".op." + opname)
 
@@ -194,7 +195,7 @@ class GithubErrorContext:
             if isinstance(t, list):
                 points = t
 
-        op = GithubErrorOperation({
+        op = WarpVlessOperation({
             "entity": entname,
             "name": opname,
             "input": inpt,
@@ -205,4 +206,4 @@ class GithubErrorContext:
         return op
 
     def make_error(self, code, msg):
-        return GithubErrorError(code, msg, self)
+        return WarpVlessError(code, msg, self)

@@ -1,4 +1,4 @@
--- GithubError SDK spec
+-- WarpVless SDK spec
 
 local Spec = {}
 Spec.__index = Spec

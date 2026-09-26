@@ -1,6 +1,6 @@
-# GithubError SDK base feature
+# WarpVless SDK base feature
 
-class GithubErrorBaseFeature
+class WarpVlessBaseFeature
   attr_accessor :version, :name, :active
 
   # Positions this feature when added via the client `extend` option:

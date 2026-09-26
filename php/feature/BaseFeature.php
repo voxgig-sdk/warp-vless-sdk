@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK base feature
+// WarpVless SDK base feature
 
-class GithubErrorBaseFeature
+class WarpVlessBaseFeature
 {
     public string $version;
     public string $name;
@@ -26,18 +26,18 @@ class GithubErrorBaseFeature
     public function get_name(): string { return $this->name; }
     public function get_active(): bool { return $this->active; }
 
-    public function init(GithubErrorContext $ctx, array $options): void {}
-    public function PostConstruct(GithubErrorContext $ctx): void {}
-    public function PostConstructEntity(GithubErrorContext $ctx): void {}
-    public function SetData(GithubErrorContext $ctx): void {}
-    public function GetData(GithubErrorContext $ctx): void {}
-    public function GetMatch(GithubErrorContext $ctx): void {}
-    public function SetMatch(GithubErrorContext $ctx): void {}
-    public function PrePoint(GithubErrorContext $ctx): void {}
-    public function PreSpec(GithubErrorContext $ctx): void {}
-    public function PreRequest(GithubErrorContext $ctx): void {}
-    public function PreResponse(GithubErrorContext $ctx): void {}
-    public function PreResult(GithubErrorContext $ctx): void {}
-    public function PreDone(GithubErrorContext $ctx): void {}
-    public function PreUnexpected(GithubErrorContext $ctx): void {}
+    public function init(WarpVlessContext $ctx, array $options): void {}
+    public function PostConstruct(WarpVlessContext $ctx): void {}
+    public function PostConstructEntity(WarpVlessContext $ctx): void {}
+    public function SetData(WarpVlessContext $ctx): void {}
+    public function GetData(WarpVlessContext $ctx): void {}
+    public function GetMatch(WarpVlessContext $ctx): void {}
+    public function SetMatch(WarpVlessContext $ctx): void {}
+    public function PrePoint(WarpVlessContext $ctx): void {}
+    public function PreSpec(WarpVlessContext $ctx): void {}
+    public function PreRequest(WarpVlessContext $ctx): void {}
+    public function PreResponse(WarpVlessContext $ctx): void {}
+    public function PreResult(WarpVlessContext $ctx): void {}
+    public function PreDone(WarpVlessContext $ctx): void {}
+    public function PreUnexpected(WarpVlessContext $ctx): void {}
 }

@@ -1,8 +1,8 @@
-# GithubError SDK utility: make_request
+# WarpVless SDK utility: make_request
 
 from __future__ import annotations
-from projectname_sdk.core.response import GithubErrorResponse
-from projectname_sdk.core.result import GithubErrorResult
+from projectname_sdk.core.response import WarpVlessResponse
+from projectname_sdk.core.result import WarpVlessResult
 
 
 def make_request_util(ctx):
@@ -16,8 +16,8 @@ def make_request_util(ctx):
     spec = ctx.spec
     utility = ctx.utility
 
-    response = GithubErrorResponse({})
-    result = GithubErrorResult({})
+    response = WarpVlessResponse({})
+    result = WarpVlessResult({})
     ctx.result = result
 
     if spec is None:
@@ -42,11 +42,11 @@ def make_request_util(ctx):
     if fetch_err is not None:
         response.err = fetch_err
     elif fetched is None:
-        response = GithubErrorResponse({
+        response = WarpVlessResponse({
             "err": ctx.make_error("request_no_response", "response: undefined"),
         })
     elif isinstance(fetched, dict):
-        response = GithubErrorResponse(fetched)
+        response = WarpVlessResponse(fetched)
     else:
         response.err = ctx.make_error("request_invalid_response", "response: invalid type")
 

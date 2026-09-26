@@ -1,8 +1,8 @@
-# GithubError TypeScript SDK
+# WarpVless TypeScript SDK
 
 
 
-The TypeScript SDK for the GithubError API — a type-safe, entity-oriented client with full async/await support.
+The TypeScript SDK for the WarpVless API — a type-safe, entity-oriented client with full async/await support.
 
 The API is exposed as capitalised, semantic **Entities** — e.g.
 `client.Warp()` — each with a small set of operations (`create`)
@@ -17,7 +17,7 @@ predictable and low-friction for both humans and AI agents.
 This package is not yet published to npm. Install it from the GitHub
 release tag (`ts/vX.Y.Z`):
 
-- Releases: [https://github.com/voxgig-sdk/github-error-sdk/releases](https://github.com/voxgig-sdk/github-error-sdk/releases)
+- Releases: [https://github.com/voxgig-sdk/warp-vless-sdk/releases](https://github.com/voxgig-sdk/warp-vless-sdk/releases)
 
 
 ## Tutorial: your first API call
@@ -28,9 +28,9 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { GithubErrorSDK } from '@voxgig-sdk/github-error'
+import { WarpVlessSDK } from '@voxgig-sdk/warp-vless-sdk'
 
-const client = new GithubErrorSDK()
+const client = new WarpVlessSDK()
 ```
 
 ### 4. Create, update, and remove
@@ -116,7 +116,7 @@ console.log(fetchdef.headers)
 Create a mock client for unit testing — no server required:
 
 ```ts
-const client = GithubErrorSDK.test()
+const client = WarpVlessSDK.test()
 
 const warp = await client.Warp().create({ amneziaMode: 'example_amneziaMode', configs: [], content: 'example_content' })
 // warp is the entity, populated with mock response data
@@ -127,7 +127,7 @@ console.log(warp)
 You can also use the instance method:
 
 ```ts
-const client = new GithubErrorSDK()
+const client = new WarpVlessSDK()
 const testClient = client.tester()
 ```
 
@@ -162,7 +162,7 @@ const logger = {
   },
 }
 
-const client = new GithubErrorSDK({
+const client = new WarpVlessSDK({
   extend: [logger],
 })
 ```
@@ -172,7 +172,7 @@ const client = new GithubErrorSDK({
 Create a `.env.local` file at the project root:
 
 ```
-GITHUB_ERROR_TEST_LIVE=TRUE
+WARP_VLESS_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -181,15 +181,20 @@ Then run:
 cd ts && npm test
 ```
 
+Live entity tests continue independent operations after errors and attempt
+supported cleanup. Their final result reports failures and missing prerequisites
+after the remaining work completes. The model and test inputs determine which
+API operations the generated scenarios cover.
+
 
 ## Reference
 
-### GithubErrorSDK
+### WarpVlessSDK
 
 #### Constructor
 
 ```ts
-new GithubErrorSDK(options?: {
+new WarpVlessSDK(options?: {
   base?: string
   prefix?: string
   suffix?: string
@@ -215,13 +220,13 @@ new GithubErrorSDK(options?: {
 | `prepare(fetchargs?)` | `Promise<FetchDef>` | Build an HTTP request definition without sending it. |
 | `direct(fetchargs?)` | `Promise<DirectResult>` | Build and send an HTTP request. |
 | `Warp(data?)` | `WarpEntity` | Create a Warp entity instance. |
-| `tester(testopts?, sdkopts?)` | `GithubErrorSDK` | Create a test-mode client instance. |
+| `tester(testopts?, sdkopts?)` | `WarpVlessSDK` | Create a test-mode client instance. |
 
 #### Static methods
 
 | Method | Returns | Description |
 | --- | --- | --- |
-| `GithubErrorSDK.test(testopts?, sdkopts?)` | `GithubErrorSDK` | Create a test-mode client. |
+| `WarpVlessSDK.test(testopts?, sdkopts?)` | `WarpVlessSDK` | Create a test-mode client. |
 
 ### Entity interface
 
@@ -235,7 +240,7 @@ All entities share the same interface.
 | `data` | `data(data?: Partial<Entity>): Entity` | Get or set entity data. |
 | `match` | `match(match?: Partial<Entity>): Partial<Entity>` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
-| `client` | `client(): GithubErrorSDK` | Return the parent SDK client. |
+| `client` | `client(): WarpVlessSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
 
 #### Return values
@@ -335,7 +340,7 @@ const warp = await client.Warp().create({
 
 ## Features
 
-This SDK ships 1 optional features. Each is **inactive until you
+This SDK ships 4 optional features. Each is **inactive until you
 switch it on**, so an SDK you have not configured behaves exactly as if none of
 them existed — no retries, no cache, no logging, no measurable overhead.
 
@@ -344,17 +349,75 @@ above:
 
 | Feature | What it does |
 |---|---|
-| [`test`](#test) | In-memory mock transport for testing without a live server |
+| [`ratelimit`](#ratelimit) | Rate limiting |
+| [`retry`](#retry) | Retry |
+| [`test`](#test) | Test transport |
+| [`timeout`](#timeout) | Timeout |
+
+> **Order matters for `ratelimit`, `retry`, `timeout`.** These wrap the
+> transport, so each one wraps whatever is already installed: the order you
+> activate them in IS the nesting order. Activating them as an ordered list
+> rather than a map is what fixes that order.
+
+### ratelimit
+
+Rate limiting.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `burst` | `5` |
+| `rate` | `5` |
+
+Set `feature.ratelimit.active` to enable it, then override any of the options above.
+
+`ratelimit` wraps the transport, so its position among the other
+transport features decides what it sees. A feature activated later wraps one
+activated earlier.
+
+### retry
+
+Retry.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `factor` | `2` |
+| `maxDelay` | `2000` |
+| `minDelay` | `50` |
+| `retries` | `2` |
+| `statuses` | `[408, 425, 429, 500, 502, 503, 504]` |
+
+Set `feature.retry.active` to enable it, then override any of the options above.
+
+`retry` wraps the transport, so its position among the other
+transport features decides what it sees. A feature activated later wraps one
+activated earlier.
 
 ### test
 
-In-memory mock transport for testing without a live server.
+Test transport.
 
 | Option | Default |
 |---|---|
 | `active` | `false` |
 
 Set `feature.test.active` to enable it, then override any of the options above.
+
+### timeout
+
+Timeout.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+| `ms` | `30000` |
+
+Set `feature.timeout.active` to enable it, then override any of the options above.
+
+`timeout` wraps the transport, so its position among the other
+transport features decides what it sees. A feature activated later wraps one
+activated earlier.
 
 
 ## Advanced
@@ -395,7 +458,10 @@ a function that receives the context.
 
 The SDK ships with built-in features:
 
-- **TestFeature**: In-memory mock transport for testing without a live server
+- **RatelimitFeature**: Rate limiting
+- **RetryFeature**: Retry
+- **TestFeature**: Test transport
+- **TimeoutFeature**: Timeout
 
 Features are initialized in order. Hooks fire in the order features
 were added, so later features can override earlier ones.
@@ -403,9 +469,9 @@ were added, so later features can override earlier ones.
 ### Module structure
 
 ```
-github-error/
+warp-vless/
 ├── src/
-│   ├── GithubErrorSDK.ts        # Main SDK class
+│   ├── WarpVlessSDK.ts        # Main SDK class
 │   ├── entity/             # Entity implementations
 │   ├── feature/            # Built-in features (Base, Test, Log)
 │   └── utility/            # Utility functions
@@ -416,7 +482,7 @@ github-error/
 Import the SDK from the package root:
 
 ```ts
-import { GithubErrorSDK } from '@voxgig-sdk/github-error'
+import { WarpVlessSDK } from '@voxgig-sdk/warp-vless-sdk'
 ```
 
 ### Entity state

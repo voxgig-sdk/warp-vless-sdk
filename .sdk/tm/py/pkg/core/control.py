@@ -1,9 +1,9 @@
-# GithubError SDK control
+# WarpVless SDK control
 
 from __future__ import annotations
 
 
-class GithubErrorControl:
+class WarpVlessControl:
     def __init__(self, opts=None):
         if opts is None:
             opts = {}

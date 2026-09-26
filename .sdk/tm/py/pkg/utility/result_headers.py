@@ -1,4 +1,4 @@
-# GithubError SDK utility: result_headers
+# WarpVless SDK utility: result_headers
 
 
 def result_headers_util(ctx):

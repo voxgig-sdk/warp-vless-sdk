@@ -1,4 +1,4 @@
--- GithubError SDK Warp entity
+-- WarpVless SDK Warp entity
 
 local vs = require("utility.struct.struct")
 local helpers = require("core.helpers")

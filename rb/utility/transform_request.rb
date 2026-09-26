@@ -1,15 +1,22 @@
-# GithubError SDK utility: transform_request
+# WarpVless SDK utility: transform_request
 require_relative 'struct/voxgig_struct'
 require_relative '../core/helpers'
-module GithubErrorUtilities
+module WarpVlessUtilities
+  # `$action` selects the point (see MakePoint); it is never an API field, so
+  # the body is a copy without it. The caller's hash is left untouched.
+  def self.strip_action(reqdata)
+    return reqdata unless reqdata.is_a?(Hash) && reqdata.key?("$action")
+    reqdata.reject { |k, _| k == "$action" }
+  end
+
   TransformRequest = ->(ctx) {
     spec = ctx.spec
     point = ctx.point
     spec.step = "reqform" if spec
-    transform = GithubErrorHelpers.to_map(VoxgigStruct.getprop(point, "transform"))
-    return ctx.reqdata unless transform
+    transform = WarpVlessHelpers.to_map(VoxgigStruct.getprop(point, "transform"))
+    return WarpVlessUtilities.strip_action(ctx.reqdata) unless transform
     reqform = VoxgigStruct.getprop(transform, "req")
-    return ctx.reqdata unless reqform
-    VoxgigStruct.transform({ "reqdata" => ctx.reqdata }, reqform)
+    return WarpVlessUtilities.strip_action(ctx.reqdata) unless reqform
+    WarpVlessUtilities.strip_action(VoxgigStruct.transform({ "reqdata" => ctx.reqdata }, reqform))
   }
 end

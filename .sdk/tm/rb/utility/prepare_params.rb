@@ -1,6 +1,6 @@
-# GithubError SDK utility: prepare_params
+# WarpVless SDK utility: prepare_params
 require_relative 'struct/voxgig_struct'
-module GithubErrorUtilities
+module WarpVlessUtilities
   PrepareParams = ->(ctx) {
     utility = ctx.utility
     point = ctx.point

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK test runner
+// WarpVless SDK test runner
 
-class GithubErrorTestRunner
+class WarpVlessTestRunner
 {
     private static array $env = [];
 
@@ -43,8 +43,8 @@ class GithubErrorTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('GITHUB_ERROR_TEST_LIVE');
-        $override = self::getenv('GITHUB_ERROR_TEST_OVERRIDE');
+        $live = self::getenv('WARP_VLESS_TEST_LIVE');
+        $override = self::getenv('WARP_VLESS_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class GithubErrorTestRunner
             }
         }
 
-        $explain = self::getenv('GITHUB_ERROR_TEST_EXPLAIN');
+        $explain = self::getenv('WARP_VLESS_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['GITHUB_ERROR_TEST_EXPLAIN'] = $explain;
+            $m['WARP_VLESS_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;
@@ -138,6 +138,42 @@ class GithubErrorTestRunner
         return [false, null];
     }
 
+    /**
+     * Extra SDK options every LIVE client is constructed with, read from
+     * sdk-test-control.json `test.client.options`.
+     *
+     * The generated live client knows two things: the base URL (from the
+     * spec) and the credential (from the environment). Everything else
+     * about how a particular API wants to be talked to - which features to
+     * switch on, and with what settings - is a property of THAT API, known
+     * to the project and to nothing in the toolchain.
+     *
+     * Merged UNDER the generated fields, so the suite's own
+     * base/apikey/server values win: this ADDS to the live client, it does
+     * not redirect it.
+     *
+     * Reserved fields are stripped HERE rather than at each merge site: the
+     * generated array only names a field when the model calls for one, so a
+     * "base" in this block would face no competing value and would silently
+     * redirect the whole suite - credential included - to another host.
+     */
+    public static function live_client_options(): array
+    {
+        $ctrl = self::load_test_control();
+        $opts = $ctrl['test']['client']['options'] ?? null;
+        if (!is_array($opts)) {
+            return [];
+        }
+        $reserved = ['base', 'prefix', 'suffix', 'server', 'apikey', 'secret'];
+        $out = [];
+        foreach ($opts as $k => $v) {
+            if (!in_array($k, $reserved, true)) {
+                $out[$k] = $v;
+            }
+        }
+        return $out;
+    }
+
     /** Per-test live pacing delay (ms); default 500. */
     public static function live_delay_ms(): int
     {
@@ -151,8 +187,8 @@ class GithubErrorTestRunner
 }
 
 // Aliases for test convenience.
-class_alias('GithubErrorTestRunner', 'Runner');
-class_alias('GithubErrorHelpers', 'Helpers');
+class_alias('WarpVlessTestRunner', 'Runner');
+class_alias('WarpVlessHelpers', 'Helpers');
 class_alias('Voxgig\Struct\Struct', 'Vs');
 
 // Filter array of maps by matching key-value criteria.

@@ -1,4 +1,4 @@
--- GithubError SDK shared configuration
+-- WarpVless SDK shared configuration
 
 local make_config = require("config")
 

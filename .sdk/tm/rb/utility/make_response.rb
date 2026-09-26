@@ -1,5 +1,5 @@
-# GithubError SDK utility: make_response
-module GithubErrorUtilities
+# WarpVless SDK utility: make_response
+module WarpVlessUtilities
   MakeResponse = ->(ctx) {
     return ctx.out["response"], nil if ctx.out["response"]
     utility = ctx.utility

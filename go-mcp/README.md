@@ -1,7 +1,7 @@
-# github-error-mcp
+# warp-vless-mcp
 
-[MCP](https://modelcontextprotocol.io) server exposing the GithubError SDK as
-two agent tools — `github-error_list` and `github-error_load` — built on the
+[MCP](https://modelcontextprotocol.io) server exposing the WarpVless SDK as
+two agent tools — `warp-vless_list` and `warp-vless_load` — built on the
 [official Go MCP SDK](https://github.com/modelcontextprotocol/go-sdk) and the
 sibling Go SDK at `../go`. Runs over **stdio** (default, for spawnable installs)
 or **streamable HTTP** (one shared server for several agents).
@@ -9,28 +9,28 @@ or **streamable HTTP** (one shared server for several agents).
 ## Examples
 
 ```sh
-# 1. Build a native binary (-> dist/<os>-<arch>/github-error-mcp)
+# 1. Build a native binary (-> dist/<os>-<arch>/warp-vless-mcp)
 make build
 
 # 2. Provide credentials via the environment
-export GITHUB_ERROR_APIKEY=sk_live_xxx
+export WARP_VLESS_APIKEY=sk_live_xxx
 
 # 3a. Install into Claude Code over stdio (most common)
-claude mcp add --scope user github-error \
-  -- /absolute/path/to/github-error-mcp -transport stdio
+claude mcp add --scope user warp-vless \
+  -- /absolute/path/to/warp-vless-mcp -transport stdio
 
 # 3b. …or run a shared HTTP server instead
-./github-error-mcp -transport http -addr :8080
+./warp-vless-mcp -transport http -addr :8080
 ```
 
 Tool-call arguments (what an agent sends):
 
 ```jsonc
-// github-error_list: first page of records
+// warp-vless_list: first page of records
 { "entity": "warp" }
 { "entity": "warp", "query": { } }
 
-// github-error_load: one record by id
+// warp-vless_load: one record by id
 { "entity": "warp", "query": { "id": 1 } }
 ```
 
@@ -43,25 +43,25 @@ Tool-call arguments (what an agent sends):
 1. **Build** the server from this `go-mcp/` directory:
 
    ```sh
-   make build          # -> dist/<os>-<arch>/github-error-mcp
+   make build          # -> dist/<os>-<arch>/warp-vless-mcp
    ```
 
 2. **Set your API key:**
 
    ```sh
-   export GITHUB_ERROR_APIKEY=sk_live_xxx
+   export WARP_VLESS_APIKEY=sk_live_xxx
    ```
 
 3. **Install it into Claude Code** (stdio transport):
 
    ```sh
-   claude mcp add --scope user github-error \
-     -- "$PWD"/dist/*/github-error-mcp -transport stdio
+   claude mcp add --scope user warp-vless \
+     -- "$PWD"/dist/*/warp-vless-mcp -transport stdio
    ```
 
-4. **Restart Claude Code.** The `github-error_list` and `github-error_load` tools now appear
-   in new sessions. Ask the agent to *"list warp using github-error"*
-   and it calls `github-error_list` with `{"entity":"warp"}`.
+4. **Restart Claude Code.** The `warp-vless_list` and `warp-vless_load` tools now appear
+   in new sessions. Ask the agent to *"list warp using warp-vless"*
+   and it calls `warp-vless_list` with `{"entity":"warp"}`.
 
 ## How-to guides
 
@@ -70,8 +70,8 @@ Tool-call arguments (what an agent sends):
 Configuration is read from the environment — nothing is written to disk:
 
 ```sh
-export GITHUB_ERROR_APIKEY=sk_live_xxx            # API key
-export GITHUB_ERROR_BASE=https://api.example.com  # optional: override the API base URL
+export WARP_VLESS_APIKEY=sk_live_xxx            # API key
+export WARP_VLESS_BASE=https://api.example.com  # optional: override the API base URL
 ```
 
 Set these in the shell that launches the server (or in the `claude mcp add`
@@ -80,13 +80,13 @@ environment) so every tool call is authenticated.
 ### Run as a shared HTTP server
 
 ```sh
-./github-error-mcp -transport http -addr :8080
+./warp-vless-mcp -transport http -addr :8080
 ```
 
 Streamable HTTP lets several agents share one running process; stdio (the
 default) spawns a fresh process per client.
 
-### Call the `github-error_list` tool
+### Call the `warp-vless_list` tool
 
 Args: `entity` (required), `query` (optional filter map). Returns the first
 page of records as JSON:
@@ -95,7 +95,7 @@ page of records as JSON:
 { "entity": "warp" }
 ```
 
-### Call the `github-error_load` tool
+### Call the `warp-vless_load` tool
 
 Args: `entity` (required), `query` = `{"id":N}` (required). Returns the single
 record as JSON:
@@ -117,8 +117,8 @@ make build-all   # linux/darwin/windows x amd64/arm64, under dist/<os>-<arch>/
 
 | Tool | Args | Returns |
 |------|------|---------|
-| `github-error_list` | `entity` (required), `query` (optional map) | First page of records as JSON |
-| `github-error_load` | `entity` (required), `query` = `{id:N}` | Single record as JSON |
+| `warp-vless_list` | `entity` (required), `query` (optional map) | First page of records as JSON |
+| `warp-vless_load` | `entity` (required), `query` = `{id:N}` | Single record as JSON |
 
 On error, a tool returns an MCP error result (`isError: true`) whose text is the
 failure message (e.g. unknown entity, or an API error).
@@ -146,8 +146,8 @@ JSON schemas are emitted by the SDK from the `Args` struct's `json` /
 
 | Variable | Purpose |
 |----------|---------|
-| `GITHUB_ERROR_APIKEY` | API key sent with every request. |
-| `GITHUB_ERROR_BASE` | Optional override of the API base URL. |
+| `WARP_VLESS_APIKEY` | API key sent with every request. |
+| `WARP_VLESS_BASE` | Optional override of the API base URL. |
 
 ### Entities
 
@@ -158,7 +158,7 @@ warp
 ### Smoke test via HTTP (raw JSON-RPC)
 
 ```sh
-./github-error-mcp -transport http -addr :18080 &
+./warp-vless-mcp -transport http -addr :18080 &
 
 # initialize, grab the session id
 curl -sN -X POST http://localhost:18080 \
@@ -173,7 +173,7 @@ curl -sN -X POST http://localhost:18080 \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json, text/event-stream' \
   -H "Mcp-Session-Id: $SESSION" \
-  -d '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"github-error_load","arguments":{"entity":"warp","query":{"id":1}}}}'
+  -d '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"warp-vless_load","arguments":{"entity":"warp","query":{"id":1}}}}'
 ```
 
 ## Explanation

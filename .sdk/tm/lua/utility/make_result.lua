@@ -1,4 +1,4 @@
--- GithubError SDK utility: make_result
+-- WarpVless SDK utility: make_result
 
 local function make_result_util(ctx)
   if ctx.out["result"] ~= nil then

@@ -1,27 +1,27 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK utility: make_error
+// WarpVless SDK utility: make_error
 
 require_once __DIR__ . '/../core/Operation.php';
 require_once __DIR__ . '/../core/Result.php';
 require_once __DIR__ . '/../core/Error.php';
 
-class GithubErrorMakeError
+class WarpVlessMakeError
 {
-    public static function call(?GithubErrorContext $ctx, mixed $err): mixed
+    public static function call(?WarpVlessContext $ctx, mixed $err): mixed
     {
         if ($ctx === null) {
             require_once __DIR__ . '/../core/Context.php';
-            $ctx = new GithubErrorContext([], null);
+            $ctx = new WarpVlessContext([], null);
         }
-        $op = $ctx->op ?? new GithubErrorOperation([]);
+        $op = $ctx->op ?? new WarpVlessOperation([]);
         $opname = $op->name;
         if ($opname === '' || $opname === '_') {
             $opname = 'unknown operation';
         }
 
-        $result = $ctx->result ?? new GithubErrorResult([]);
+        $result = $ctx->result ?? new WarpVlessResult([]);
         $result->ok = false;
 
         if ($err === null) {
@@ -31,8 +31,8 @@ class GithubErrorMakeError
             $err = $ctx->make_error('unknown', 'unknown error');
         }
 
-        $errmsg = ($err instanceof GithubErrorError) ? $err->msg : (string)$err;
-        $msg = "GithubErrorSDK: {$opname}: {$errmsg}";
+        $errmsg = ($err instanceof WarpVlessError) ? $err->msg : (string)$err;
+        $msg = "WarpVlessSDK: {$opname}: {$errmsg}";
         $msg = ($ctx->utility->clean)($ctx, $msg);
 
         $result->err = null;
@@ -42,7 +42,7 @@ class GithubErrorMakeError
             $ctx->ctrl->explain['err'] = ['message' => $msg];
         }
 
-        $sdk_err = new GithubErrorError('', $msg, $ctx);
+        $sdk_err = new WarpVlessError('', $msg, $ctx);
         $sdk_err->result = ($ctx->utility->clean)($ctx, $result);
         $sdk_err->spec = ($ctx->utility->clean)($ctx, $spec);
 
@@ -50,7 +50,7 @@ class GithubErrorMakeError
         // on `err->status` / `err->notFound()` rather than reaching into
         // `err->result`.
         $sdk_err->status = null === $result->status ? -1 : (int)$result->status;
-        if ($err instanceof GithubErrorError) {
+        if ($err instanceof WarpVlessError) {
             $sdk_err->sdk_code = $err->sdk_code;
         }
 

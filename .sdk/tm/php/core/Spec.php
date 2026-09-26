@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-// GithubError SDK spec
+// WarpVless SDK spec
 
-class GithubErrorSpec
+class WarpVlessSpec
 {
     public array $parts;
     public array $headers;

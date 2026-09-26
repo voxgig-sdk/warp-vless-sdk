@@ -1,4 +1,4 @@
-# GithubError SDK utility: graphql
+# WarpVless SDK utility: graphql
 #
 # GraphQL transport. API-INDEPENDENT: every GraphQL SDK this generator
 # produces uses this file unchanged. The API-specific part — which
@@ -17,7 +17,7 @@
 
 require_relative 'struct/voxgig_struct'
 
-module GithubErrorUtilities
+module WarpVlessUtilities
   # Content type every GraphQL-over-HTTP request uses.
   GRAPHQL_CONTENT_TYPE = 'application/json'
 

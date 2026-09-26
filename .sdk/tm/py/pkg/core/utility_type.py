@@ -1,9 +1,9 @@
-# GithubError SDK utility type
+# WarpVless SDK utility type
 
 from __future__ import annotations
 
 
-class GithubErrorUtility:
+class WarpVlessUtility:
     _registrar = None
 
     def __init__(self):
@@ -43,8 +43,8 @@ class GithubErrorUtility:
         self.transform_response = None
 
         # Let the registrar fill in all functions
-        if GithubErrorUtility._registrar is not None:
-            GithubErrorUtility._registrar(self)
+        if WarpVlessUtility._registrar is not None:
+            WarpVlessUtility._registrar(self)
 
     @classmethod
     def copy(cls, src):

@@ -1,6 +1,6 @@
-# GithubError SDK spec
+# WarpVless SDK spec
 
-class GithubErrorSpec
+class WarpVlessSpec
   attr_accessor :parts, :headers, :alias_map, :base, :prefix, :suffix,
                 :params, :query, :step, :method, :body, :url, :path
 

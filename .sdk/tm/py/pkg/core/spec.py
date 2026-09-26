@@ -1,9 +1,9 @@
-# GithubError SDK spec
+# WarpVless SDK spec
 
 from __future__ import annotations
 
 
-class GithubErrorSpec:
+class WarpVlessSpec:
     def __init__(self, specmap=None):
         if specmap is None:
             specmap = {}

@@ -5,7 +5,7 @@ const config = {
   root: __dirname+'/../dist/Root.js',
   folder: __dirname+'/../..',
   meta: {
-    name: 'github-error'
+    name: 'warp-vless'
   },
   model: {
     folder: __dirname+'/../model',

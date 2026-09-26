@@ -1,4 +1,4 @@
-# GithubError SDK utility: feature_init
+# WarpVless SDK utility: feature_init
 
 from projectname_sdk.utility.voxgig_struct import voxgig_struct as vs
 

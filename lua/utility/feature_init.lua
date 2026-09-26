@@ -1,4 +1,4 @@
--- GithubError SDK utility: feature_init
+-- WarpVless SDK utility: feature_init
 
 local vs = require("utility.struct.struct")
 

@@ -1,4 +1,4 @@
--- GithubError SDK utility: make_request
+-- WarpVless SDK utility: make_request
 
 local Response = require("core.response")
 local Result = require("core.result")
