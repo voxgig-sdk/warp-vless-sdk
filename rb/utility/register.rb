@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 WarpVlessUtility.registrar = ->(u) {
   u.clean = WarpVlessUtilities::Clean
+  u.clean_add = WarpVlessUtilities::CleanAdd
+  u.clean_explain = WarpVlessUtilities::CleanExplain
   u.done = WarpVlessUtilities::Done
   u.make_error = WarpVlessUtilities::MakeError
   u.feature_add = WarpVlessUtilities::FeatureAdd

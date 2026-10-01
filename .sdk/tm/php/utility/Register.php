@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 WarpVlessUtility::setRegistrar(function (WarpVlessUtility $u): void {
     $u->clean = [WarpVlessClean::class, 'call'];
+    $u->clean_add = [WarpVlessClean::class, 'add'];
+    $u->clean_explain = [WarpVlessDone::class, 'clean_explain'];
     $u->done = [WarpVlessDone::class, 'call'];
     $u->make_error = [WarpVlessMakeError::class, 'call'];
     $u->feature_add = [WarpVlessFeatureAdd::class, 'call'];
