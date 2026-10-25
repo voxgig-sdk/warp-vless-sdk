@@ -54,19 +54,7 @@ Warp = Struct.new(
 # @!attribute [rw] amneziaMode
 #   @return [String, nil]
 #
-# @!attribute [rw] configs
-#   @return [Array, nil]
-#
-# @!attribute [rw] content
-#   @return [String, nil]
-#
 # @!attribute [rw] deviceType
-#   @return [String, nil]
-#
-# @!attribute [rw] errorCode
-#   @return [String, nil]
-#
-# @!attribute [rw] message
 #   @return [String, nil]
 #
 # @!attribute [rw] selectedDns
@@ -79,11 +67,7 @@ Warp = Struct.new(
 #   @return [String, nil]
 WarpCreateData = Struct.new(
   :amneziaMode,
-  :configs,
-  :content,
   :deviceType,
-  :errorCode,
-  :message,
   :selectedDns,
   :selectedServices,
   :siteMode,

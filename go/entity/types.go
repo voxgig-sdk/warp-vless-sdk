@@ -19,11 +19,7 @@ type Warp struct {
 // WarpCreateData is the typed request payload for Warp.CreateTyped.
 type WarpCreateData struct {
 	AmneziaMode *string `json:"amneziaMode,omitempty"`
-	Configs *[]any `json:"configs,omitempty"`
-	Content *string `json:"content,omitempty"`
 	DeviceType *string `json:"deviceType,omitempty"`
-	ErrorCode *string `json:"errorCode,omitempty"`
-	Message *string `json:"message,omitempty"`
 	SelectedDns *string `json:"selectedDns,omitempty"`
 	SelectedServices *[]any `json:"selectedServices,omitempty"`
 	SiteMode *string `json:"siteMode,omitempty"`

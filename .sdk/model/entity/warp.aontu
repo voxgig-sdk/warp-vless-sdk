@@ -76,6 +76,13 @@ main: kit: entity: warp: {
       name: "create"
       points: [
         {
+          bf: [
+            "amneziaMode"
+            "deviceType"
+            "selectedDns"
+            "selectedServices"
+            "siteMode"
+          ]
           co: {
             id: "POST /api/warp"
             source: "openapi3"
@@ -83,6 +90,37 @@ main: kit: entity: warp: {
           }
           m: "POST"
           o: "/api/warp"
+          rb: {
+            alternatives: [
+              {
+                fields: [
+                  {
+                    name: "amneziaMode"
+                  }
+                  {
+                    name: "deviceType"
+                  }
+                  {
+                    name: "selectedDns"
+                  }
+                  {
+                    name: "selectedServices"
+                  }
+                  {
+                    name: "siteMode"
+                  }
+                ]
+                kind: "form"
+                media: "application/x-www-form-urlencoded"
+              }
+            ]
+            kind: "json"
+            media: "application/json"
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "api"

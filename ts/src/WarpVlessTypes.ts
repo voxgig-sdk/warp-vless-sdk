@@ -19,11 +19,7 @@ export interface Warp {
 
 export interface WarpCreateData {
   amneziaMode?: string
-  configs?: any[]
-  content?: string
   deviceType?: string
-  errorCode?: string
-  message?: string
   selectedDns?: string
   selectedServices?: any[]
   siteMode?: string

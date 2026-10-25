@@ -19,11 +19,7 @@
 
 ---@class WarpCreateData
 ---@field amneziaMode? string
----@field configs? table
----@field content? string
 ---@field deviceType? string
----@field errorCode? string
----@field message? string
 ---@field selectedDns? string
 ---@field selectedServices? table
 ---@field siteMode? string

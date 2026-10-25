@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `$
 
 ## Install
 This package is not yet published to Packagist. Install it from the
-GitHub release tag (`php/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/warp-vless-sdk/releases)), or
+GitHub release tag (`php/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/warp-vless-sdk/tags)), or
 from a clone as a Composer path repository:
 
 ```bash
@@ -40,7 +40,7 @@ $client = new WarpVlessSDK();
 
 ```php
 // create() returns the ENTITY — call data_get() for the created Warp record.
-$created = $client->Warp()->create(["amneziaMode" => "example_amneziaMode", "configs" => []]);
+$created = $client->Warp()->create(["amneziaMode" => "example_amneziaMode", "deviceType" => "example_deviceType"]);
 
 ```
 
@@ -52,7 +52,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $warp = $client->Warp()->create(["amneziaMode" => "example", "configs" => [], "content" => "example"]);
+    $warp = $client->Warp()->create(["amneziaMode" => "example", "deviceType" => "example", "selectedDns" => "example"]);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -126,7 +126,7 @@ $client = WarpVlessSDK::test();
 
 // Entity ops return the ENTITY (throws on error);
 // call data_get() for the mock record.
-$warp = $client->Warp()->create(["amneziaMode" => "example", "configs" => [], "content" => "example"]);
+$warp = $client->Warp()->create(["amneziaMode" => "example", "deviceType" => "example", "selectedDns" => "example"]);
 print_r($warp->data_get());
 ```
 
@@ -214,7 +214,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `create` | `($reqdata, $ctrl): array` | Create a new entity. |
+| `create` | `($reqdata, $ctrl): mixed` | Create a new entity, and return it. |
 | `data_get` | `(): array` | Get entity data. |
 | `data_set` | `($data): void` | Set entity data. |
 | `match_get` | `(): array` | Get entity match criteria. |
@@ -224,9 +224,9 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
-ops, a `list` for `list`) and throw on error. Wrap calls in
-`try`/`catch` to handle failures.
+Entity operations return the entity, and `list` an `array` of entities, one
+per record; an entity's `data_get()` reads its record (an `array`). They
+throw on error, so wrap calls in `try`/`catch` to handle failures.
 
 The `direct()` escape hatch never throws — it returns a result `array`
 you branch on via `$result["ok"]`:
@@ -459,7 +459,7 @@ stores the returned data and match criteria internally.
 
 ```php
 $warp = $client->Warp();
-$warp->create(["amneziaMode" => "example", "configs" => [], "content" => "example"]);
+$warp->create(["amneziaMode" => "example", "deviceType" => "example", "selectedDns" => "example"]);
 
 // $warp->data_get() now returns the warp data from the last create
 // $warp->match_get() returns the last match criteria

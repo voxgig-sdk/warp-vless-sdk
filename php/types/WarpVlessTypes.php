@@ -30,11 +30,7 @@ class Warp
 class WarpCreateData
 {
     public ?string $amneziaMode = null;
-    public ?array $configs = null;
-    public ?string $content = null;
     public ?string $deviceType = null;
-    public ?string $errorCode = null;
-    public ?string $message = null;
     public ?string $selectedDns = null;
     public ?array $selectedServices = null;
     public ?string $siteMode = null;

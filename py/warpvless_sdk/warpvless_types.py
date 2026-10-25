@@ -30,11 +30,7 @@ class Warp(TypedDict, total=False):
 
 class WarpCreateData(TypedDict, total=False):
     amneziaMode: str
-    configs: list
-    content: str
     deviceType: str
-    errorCode: str
-    message: str
     selectedDns: str
     selectedServices: list
     siteMode: str

@@ -71,6 +71,7 @@ func MakeConfig() map[string]any {
 				},
 				"optspec": map[string]any{
 					"clearTimer": "`$FUNCTION`",
+					"now": "`$FUNCTION`",
 					"setTimer": "`$FUNCTION`",
 				},
 				"strict": false,
@@ -173,6 +174,37 @@ func MakeConfig() map[string]any {
 								},
 								"args": map[string]any{},
 								"select": map[string]any{},
+								"body": map[string]any{
+									"alternatives": []any{
+										map[string]any{
+											"fields": []any{
+												map[string]any{
+													"name": "amneziaMode",
+												},
+												map[string]any{
+													"name": "deviceType",
+												},
+												map[string]any{
+													"name": "selectedDns",
+												},
+												map[string]any{
+													"name": "selectedServices",
+												},
+												map[string]any{
+													"name": "siteMode",
+												},
+											},
+											"kind": "form",
+											"media": "application/x-www-form-urlencoded",
+										},
+									},
+									"kind": "json",
+									"media": "application/json",
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 						},
 					},

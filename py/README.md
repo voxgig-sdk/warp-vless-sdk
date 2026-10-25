@@ -15,7 +15,7 @@ keeps the cognitive load low.
 
 ## Install
 This package is not yet published to PyPI. Install it from the GitHub
-release tag (`py/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/warp-vless-sdk/releases)) or
+release tag (`py/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/warp-vless-sdk/tags)) or
 from a source checkout:
 
 ```bash
@@ -40,7 +40,7 @@ client = WarpVlessSDK()
 
 ```python
 # Create — returns the ENTITY (call data_get() for the record)
-created = client.Warp().create({"amneziaMode": "example_amneziaMode", "configs": []})
+created = client.Warp().create({"amneziaMode": "example_amneziaMode", "deviceType": "example_deviceType"})
 
 ```
 
@@ -51,8 +51,8 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    warp = client.Warp().create({ "amneziaMode": "example", "configs": [], "content": "example" })
-    print(warp)
+    warp = client.Warp().create({ "amneziaMode": "example", "deviceType": "example", "selectedDns": "example" })
+    print(warp.data_get())
 except Exception as err:
     print(f"create failed: {err}")
 ```
@@ -118,10 +118,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = WarpVlessSDK.test()
 
-# Entity ops return the ENTITY and raises on error;
-# call data_get() for the record.
-warp = client.Warp().create({"amneziaMode": "example", "configs": [], "content": "example"})
-# warp contains the mock response record
+# Entity ops return the entity, and list one per record; they raise on error.
+warp = client.Warp().create({"amneziaMode": "example", "deviceType": "example", "selectedDns": "example"})
+# data_get() on an entity reads its mock response record
 ```
 
 ### Use a custom fetch function
@@ -205,7 +204,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
+| `create` | `(reqdata, ctrl) -> any` | Create a new entity, and return it. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> dict` | Get entity match criteria. |
@@ -215,9 +214,9 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
-ops, a `list` for `list`) and raise on error. Wrap calls in
-`try`/`except` to handle failures.
+Entity operations return the entity, and `list` a `list` of entities, one
+per record; an entity's `data_get()` reads its record (a `dict`). They raise
+on error, so wrap calls in `try`/`except` to handle failures.
 
 The `direct()` escape hatch never raises — it returns a result `dict`
 you branch on via `result["ok"]`:
@@ -449,7 +448,7 @@ stores the returned data and match criteria internally.
 
 ```python
 warp = client.Warp()
-warp.create({ "amneziaMode": "example", "configs": [], "content": "example" })
+warp.create({ "amneziaMode": "example", "deviceType": "example", "selectedDns": "example" })
 
 # warp.data_get() now returns the warp data from the last create
 # warp.match_get() returns the last match criteria

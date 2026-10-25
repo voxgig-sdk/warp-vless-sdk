@@ -87,6 +87,7 @@ class Config {
             },
             "optspec": {
                 "clearTimer": "`$FUNCTION`",
+                "now": "`$FUNCTION`",
                 "setTimer": "`$FUNCTION`"
             },
             "strict": false,
@@ -188,7 +189,38 @@ class Config {
                                 "res": "`body`"
                             },
                             "args": {},
-                            "select": {}
+                            "select": {},
+                            "body": {
+                                "alternatives": [
+                                    {
+                                        "fields": [
+                                            {
+                                                "name": "amneziaMode"
+                                            },
+                                            {
+                                                "name": "deviceType"
+                                            },
+                                            {
+                                                "name": "selectedDns"
+                                            },
+                                            {
+                                                "name": "selectedServices"
+                                            },
+                                            {
+                                                "name": "siteMode"
+                                            }
+                                        ],
+                                        "kind": "form",
+                                        "media": "application/x-www-form-urlencoded"
+                                    }
+                                ],
+                                "kind": "json",
+                                "media": "application/json"
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
+                            }
                         }
                     ]
                 }

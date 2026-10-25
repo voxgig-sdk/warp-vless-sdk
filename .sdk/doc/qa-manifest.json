@@ -3,5 +3,17 @@
     "SUMMARY.md"
   ],
   "config": ".sdk/doc/qa/vale.ini",
-  "routes": {}
+  "routes": {},
+  "quoted": {
+    "SUMMARY.md": [
+      "Amnezia VPN mode configuration",
+      "Array of configuration objects when multiple configs are returned",
+      "Base64 encoded WARP configuration content",
+      "Error code if an error occurred",
+      "Production server",
+      "Successfully generated WARP configuration",
+      "The type of device requesting the configuration",
+      "This API provides details about errors encountered while accessing GitHub pages, including suggestions for resolving the issue. It also gives access to localized strings and error codes for better user understanding and navigation."
+    ]
+  }
 }
